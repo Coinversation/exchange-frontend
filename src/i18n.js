@@ -8,6 +8,7 @@ const messages = {
         menu: {
             dashboard: 'Dashboard',
             explorePools: 'Explore pools',
+            test1: 'test1',
         },
     },
     es: {
