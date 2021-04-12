@@ -3,24 +3,9 @@
     "version": "3.2.2",
     "description": "CoreUI Pro Vue Bootstrap Admin Template",
     "author": {
-        "name": "CoreUI",
-        "url": "https://coreui.io",
-        "github": "https://github.com/coreui",
-        "twitter": "https://twitter.com/core_ui"
+        "name": "xiaoBai8512"
     },
-    "contributors": [
-        {
-            "name": "CoreUI Team",
-            "url": "https://github.com/orgs/coreui/people"
-        }
-    ],
-    "homepage": "http://coreui.io",
-    "copyright": "Copyright 2020 creativeLabs Łukasz Holeczek",
-    "repository": {
-        "type": "git",
-        "url": "git@github.com:coreui/coreui-pro-vue-admin-template.git"
-    },
-    "license": "https://coreui.io/pro/license/",
+    "copyright": "",
     "private": true,
     "scripts": {
         "serve": "vue-cli-service serve",
