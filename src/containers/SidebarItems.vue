@@ -10,20 +10,16 @@ export default {
             name: this.$t('menu.dashboard'),
             to: '/dashboard',
             icon: 'cil-speedometer',
-            badge: {
-              color: 'primary',
-              text: 'NEW'
-            }
+            // badge: {
+            //   color: 'primary',
+            //   text: 'NEW'
+            // }
           },
           {
             _name: 'CSidebarNavItem',
             name: this.$t('menu.explorePools'),
             to: '/explore-pools',
-            icon: 'cil-speedometer',
-            badge: {
-              color: 'primary',
-              text: 'NEW'
-            }
+            icon: 'cil-spreadsheet',
           },
           {
             _name: 'CSidebarNavTitle',
