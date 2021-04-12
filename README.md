@@ -2,18 +2,18 @@
 
 ``` bash
 # serve with hot reload at localhost:8080
-npm run serve
+yarn serve
 
 # build for production with minification
-npm run build
+yarn build
 
 # run linter
-npm run lint
+yarn lint
 
 # run unit tests
-npm run test:unit
+yarn test:unit
 
 # run e2e tests
-npm run test:e2e
+yarn test:e2e
 
 ```
