@@ -31,10 +31,69 @@
 						:pagination="{ doubleArrows: false, align: 'center' }"
 						@page-change="pageChange"
 					>
+						<td
+							class="text-center d-flex justify-content-start"
+							slot="assets"
+							slot-scope="{ item }"
+						>
+							<div class="pie">
+								<Pie
+									:tokens="item.assets"
+									class="mr-3"
+									size="34"
+								/>
+							</div>
+							<span
+								class="d-flex justify-content-center align-items-center mr-2"
+								v-for="(data, index) in item.assets"
+								:key="index"
+							>
+								<i
+									class="m-1 bg-primary d-flex justify-content-center"
+									style="
+										width: 10px;
+										height: 10px;
+										border-radius: 10px;
+									"
+								></i>
+								{{ data.num }}
+								{{ data.name }}
+							</span>
+						</td>
+
+						<!-- <template>
+							<div class="pie">
+								<svg
+									xmlns="http://www.w3.org/2000/svg"
+									viewBox="0 0 32 32"
+								>
+									<circle
+										cx="16"
+										cy="16"
+										r="16"
+										stroke-dasharray="20 100"
+										fill="lightskyblue"
+										stroke="lightseagreen"
+									></circle>
+									<circle
+										cx="16"
+										cy="16"
+										r="16"
+										stroke-dasharray="40 100"
+										stroke-dashoffset="-20"
+										fill="transparent"
+										stroke="lightgoldenrodyellow"
+									></circle>
+								</svg>
+							</div>
+						</template> -->
+
 						<!-- <template #status="data">
 							<td>
-								<CBadge :color="getBadge(data.item.status)">
-									{{ data.item.status }}
+								<CBadge
+									:color="getBadge(data.item.assets.key1)"
+								>
+									{{ data.item.assets.key1 }}
 								</CBadge>
 							</td>
 						</template> -->
@@ -47,6 +106,7 @@
 
 <script>
 import usersData from "./UsersData";
+import Pie from "../../components/Pie";
 export default {
 	name: "Users",
 	data() {
@@ -66,6 +126,9 @@ export default {
 			],
 			activePage: 1,
 		};
+	},
+	components: {
+		Pie,
 	},
 	watch: {
 		$route: {
