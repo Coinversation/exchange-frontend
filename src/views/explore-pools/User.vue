@@ -23,7 +23,7 @@
 </template>
 
 <script>
-import usersData from './UsersData'
+import usersData from './poolListData'
 export default {
   name: 'User',
   beforeRouteEnter(to, from, next) {

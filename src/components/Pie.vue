@@ -1,6 +1,6 @@
 <template>
   <span
-    class="pie border circle border-black-fade d-inline-block"
+    class="pie circle border-black-fade d-inline-block"
     :style="`height: ${size}px; width: ${size}px;`"
   >
     <svg height="20" width="20" viewBox="0 0 20 20">

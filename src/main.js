@@ -13,6 +13,7 @@ import i18n from './i18n.js'
 Vue.use(CoreuiVuePro)
 Vue.prototype.$log = console.log.bind(console)
 
+// console.log(17,freeSet)
 new Vue({
     el: '#app',
     router,
