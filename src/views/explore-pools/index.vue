@@ -55,11 +55,11 @@
 		>
 			<CCol xs="12" md="12">
 				<CCard>
-					<BackendTable :configListData="configListData"></BackendTable>
+					<DemoTable :vettedTokenListData="vettedTokenListData"></DemoTable>
 				</CCard>
 			</CCol>
 			<template #header>
-				<h6 class="modal-title">Connect wallet</h6>
+				<h6 class="modal-title">Select token</h6>
 				<CButtonClose @click="darkModal = false" class="text-white" />
 			</template>
 			<template #footer>
@@ -77,16 +77,16 @@
 
 <script>
 // import poolListData from "../../mock/poolListDataShared";
-import config from "@/config";
+import vettedTokenList from "../../config/vetted_tokenlist";
 import poolListData from "../../mock/poolListDataPrivate";
 import Pool from "../../components/List/Pool";
-import BackendTable from "../../components/Tables/BackendTable";
+import DemoTable from "../../components/Tables/DemoTable";
 export default {
 	name: "Users",
 	data() {
 		return {
 			items: poolListData,
-			configListData: config.tokens,
+			vettedTokenListData: vettedTokenList.tokens,
 			darkModal: false,
 			fields: [
 				{
@@ -105,7 +105,7 @@ export default {
 	},
 	components: {
 		Pool,
-		BackendTable,
+		DemoTable,
 	},
 	watch: {
 		$route: {
@@ -116,9 +116,6 @@ export default {
 				}
 			},
 		},
-	},
-	mounted() {
-		console.log(config.tokens);
 	},
 	methods: {
 		getBadge(status) {
