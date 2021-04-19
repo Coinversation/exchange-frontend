@@ -50,7 +50,7 @@ export default {
 	},
 	computed: {
 		defaultDatasets() {
-			const brandSuccess = getStyle("success") || "#4dbd74";
+			// const brandSuccess = getStyle("success") || "#4dbd74";
 			const brandInfo = getStyle("info") || "#20a8d8";
 			const brandDanger = getStyle("danger") || "#f86c6b";
 
@@ -73,14 +73,14 @@ export default {
 					borderWidth: 2,
 					data: data1,
 				},
-				{
-					label: "My Second dataset",
-					backgroundColor: "transparent",
-					borderColor: brandSuccess,
-					pointHoverBackgroundColor: brandSuccess,
-					borderWidth: 2,
-					data: data2,
-				},
+				// {
+				// 	label: "My Second dataset",
+				// 	backgroundColor: "transparent",
+				// 	borderColor: brandSuccess,
+				// 	pointHoverBackgroundColor: brandSuccess,
+				// 	borderWidth: 2,
+				// 	data: data2,
+				// },
 				{
 					label: "My Third dataset",
 					backgroundColor: "transparent",

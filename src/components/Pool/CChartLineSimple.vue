@@ -73,9 +73,9 @@ export default {
 					],
 					yAxes: [
 						{
-							display: false,
+							display: true,
 							ticks: {
-								display: false,
+								display: true,
 								min: Math.min.apply(Math, this.dataPoints) - 5,
 								max: Math.max.apply(Math, this.dataPoints) + 5,
 							},
@@ -99,12 +99,12 @@ export default {
 				scales: {
 					xAxes: [
 						{
-							display: false,
+							display: true,
 						},
 					],
 					yAxes: [
 						{
-							display: false,
+							display: true,
 						},
 					],
 				},
@@ -125,9 +125,9 @@ export default {
 				? this.pointedOptions
 				: this.straightOptions;
 			return Object.assign({}, options, {
-				maintainAspectRatio: false,
+				maintainAspectRatio: true,
 				legend: {
-					display: false,
+					display: true,
 				},
 			});
 		},

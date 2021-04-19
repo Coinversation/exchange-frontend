@@ -129,8 +129,9 @@ export default {
 					"primary";
 			}
 		},
-		rowClicked(item, index) {
-			this.$router.push({ path: `users/${index + 1}` });
+		rowClicked(item) {
+			console.log(item);
+			this.$router.push({ path: `/explore-pools/${item.poolAddress}` });
 		},
 		pageChange(val) {
 			this.$router.push({ query: { page: val } });

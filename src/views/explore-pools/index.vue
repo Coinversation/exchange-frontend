@@ -31,6 +31,20 @@
 						</CNav>
 					</div>
 					<div class="col-6 d-flex justify-content-end">
+						<span v-if="filterTokenData !== []">
+							<CButton
+								class="mr-2"
+								color="primary"
+								shape="pill"
+								v-for="(item, index) in filterTokenData"
+								:key="index"
+							>
+								<span @click="removeFilter(item)">
+									<CIcon name="cil-x"></CIcon>
+								</span>
+								{{ item.symbol }}
+							</CButton>
+						</span>
 						<CButton
 							color="primary"
 							variant="outline"
@@ -44,7 +58,7 @@
 			</CCardBody>
 			<!-- </CCard> -->
 		</CCol>
-		<Pool :items="items" />
+		<PoolList :items="items" />
 		<CModal
 			:show.sync="darkModal"
 			:no-close-on-backdrop="true"
@@ -55,7 +69,10 @@
 		>
 			<CCol xs="12" md="12">
 				<CCard>
-					<DemoTable :vettedTokenListData="vettedTokenListData"></DemoTable>
+					<DemoTable
+						:vettedTokenListData="vettedTokenListData"
+						@filterData="filterData"
+					></DemoTable>
 				</CCard>
 			</CCol>
 			<template #header>
@@ -79,7 +96,7 @@
 // import poolListData from "../../mock/poolListDataShared";
 import vettedTokenList from "../../config/vetted_tokenlist";
 import poolListData from "../../mock/poolListDataPrivate";
-import Pool from "../../components/List/Pool";
+import PoolList from "../../components/List/PoolList";
 import DemoTable from "../../components/Tables/DemoTable";
 export default {
 	name: "Users",
@@ -101,10 +118,11 @@ export default {
 				{ key: "volume", label: "Volume (24h)" },
 			],
 			activePage: 1,
+			filterTokenData: [],
 		};
 	},
 	components: {
-		Pool,
+		PoolList,
 		DemoTable,
 	},
 	watch: {
@@ -137,6 +155,26 @@ export default {
 		},
 		pageChange(val) {
 			this.$router.push({ query: { page: val } });
+		},
+		filterData(s) {
+			this.filterTokenData.push(s);
+			this.darkModal = false;
+		},
+		removeFilter(s) {
+			Array.prototype.indexOf = function (val) {
+				for (var i = 0; i < this.length; i++) {
+					if (this[i] == val) return i;
+				}
+				return -1;
+			};
+			Array.prototype.remove = function (val) {
+				var index = this.indexOf(val);
+				if (index > -1) {
+					this.splice(index, 1);
+				}
+			};
+			this.filterTokenData.remove(s);
+			console.log(this.filterTokenData);
 		},
 	},
 };

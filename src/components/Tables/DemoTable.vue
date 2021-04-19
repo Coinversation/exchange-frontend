@@ -9,8 +9,8 @@
 			pagination
 			table-filter
 			cleaner
-            clickableRows
-            placeholder="Search name, symbol or address"
+			clickableRows
+			@row-clicked="rowClicked"
 		>
 			<template slot="name" slot-scope="{ item }">
 				<td>
@@ -46,16 +46,11 @@ export default {
 			collapseDuration: 0,
 		};
 	},
-	// methods: {
-	// 	onTableChange() {
-	// 		this.loading = true;
-	// 		setTimeout(() => {
-	// 			this.loading = false;
-	// 			const agent = this.$refs.externalAgent;
-	// 			this.loadedItems = agent.currentItems;
-	// 			this.pages = Math.ceil(agent.sortedItems.length / 10);
-	// 		}, 1000);
-	// 	},
-	// },
+	methods: {
+		rowClicked(s) {
+			// console.log(s);
+			this.$emit("filterData", s);
+		},
+	},
 };
 </script>

@@ -7,6 +7,7 @@ const TheContainer = () => import('@/containers/TheContainer')
 // Views
 const Dashboard = () => import('@/views/Dashboard')
 const ExplorePools = () => import('@/views/explore-pools')
+const Pool = () => import('@/views/explore-pools/Pool')
 
 const Colors = () => import('@/views/theme/Colors')
 const Typography = () => import('@/views/theme/Typography')
@@ -106,10 +107,42 @@ export default new Router({
                     component: Dashboard,
                 },
                 {
+                    // path: 'explore-pools',
+                    // name: 'ExplorePools',
+                    // // component: ExplorePools,
+                    // component: {
+                    //     render(c) {
+                    //         return c('router-view')
+                    //     },
+                    // },
                     path: 'explore-pools',
-                    name: 'ExplorePools',
-                    component: ExplorePools,
+                    meta: { label: 'ExplorePools' },
+                    component: {
+                        render(c) {
+                            return c('router-view')
+                        },
+                    },
+                    children: [
+                        {
+                            path: '',
+                            name: 'ExplorePools',
+                            component: ExplorePools,
+                        },
+                        {
+                            path: ':id',
+                            meta: {
+                                label: 'User Details',
+                            },
+                            name: 'Pool',
+                            component: Pool,
+                        },
+                    ],
                 },
+                // {
+                //     path: 'pool',
+                //     name: 'Pool',
+                //     component: Pool,
+                // },
                 {
                     path: 'theme',
                     redirect: '/theme/colors',
