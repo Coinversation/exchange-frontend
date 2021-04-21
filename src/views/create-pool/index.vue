@@ -1,22 +1,45 @@
 <template>
 	<CRow>
 		<CCol col="12">
+			<CCardBody>
+				<div class="row">
+					<div class="col-6">
+						<CNav variant="pills">
+							<CNavItem
+								active
+								:to="{
+									path: '/explore-pools',
+									query: { type: 'shared' },
+								}"
+							>
+								Shared
+							</CNavItem>
+
+							<!-- <CNavItem
+								:to="{
+									path: '/explore-pools',
+									query: { type: 'private' },
+								}"
+								>Private
+							</CNavItem> -->
+						</CNav>
+					</div>
+					<div class="col-6 d-flex justify-content-end">
+						<CButton color="warning" @click="darkModal = true">
+							Add token</CButton
+						>
+					</div>
+				</div>
+			</CCardBody>
+		</CCol>
+		<CCol col="12">
 			<CCard>
 				<CCardHeader @click="item++">
-					<div class="row d-flex justify-content-between">
-						<div>
-							<h3>My wallet</h3>
-							<div>xxxxxxxxxxxxxxxxxxxxx</div>
-						</div>
-						<div>
-							<h3>$6,937.14</h3>
-							<div class="float-right">Total value</div>
-						</div>
-					</div>
+					<h4>Assets</h4>
 				</CCardHeader>
+				<CPoolList :items="items" />
 			</CCard>
 		</CCol>
-		<WalletList :items="items" :fields="fields" />
 		<CModal
 			:show.sync="darkModal"
 			:no-close-on-backdrop="true"
@@ -54,7 +77,7 @@
 // import poolListData from "../../mock/poolListDataShared";
 import vettedTokenList from "../../config/vetted_tokenlist";
 import poolListData from "../../mock/poolListDataPrivate";
-import WalletList from "../../components/List/WalletList";
+import CPoolList from "../../components/List/CPoolList";
 import DemoTable from "../../components/Tables/DemoTable";
 export default {
 	name: "Users",
@@ -65,18 +88,22 @@ export default {
 			darkModal: false,
 			fields: [
 				{
-					key: "asset",
-					label: "Asset",
+					key: "poolAddress",
+					label: "Pool address",
 					_classes: "font-weight-bold",
 				},
-				{ key: "tokens", label: "Holdings" },
+				{ key: "tokens", label: "Assets" },
+				{ key: "swapFee", label: "Swap fee" },
+				{ key: "marketCap", label: "Market cap" },
+				{ key: "liquidity", label: "My liquidity" },
+				{ key: "volume", label: "Volume (24h)" },
 			],
 			activePage: 1,
 			filterTokenData: [],
 		};
 	},
 	components: {
-		WalletList,
+		CPoolList,
 		DemoTable,
 	},
 	watch: {

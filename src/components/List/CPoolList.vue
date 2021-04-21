@@ -9,38 +9,10 @@
 					:items-per-page="15"
 					clickable-rows
 					:active-page="activePage"
+					@row-clicked="rowClicked"
 					:pagination="{ doubleArrows: false, align: 'center' }"
 					@page-change="pageChange"
 				>
-					<template slot="asset" slot-scope="{ item }">
-						<td>
-							<div class="d-flex">
-								<img
-									class="mr-3"
-									style="
-										width: 35px;
-										height: 35px;
-										border-radius: 35px;
-										background-color: #d7d7d7;
-									"
-									:src="item.logoURI"
-								/>
-								<span class="mr-3">
-									<h5 class="m-0">Wrapped Ether</h5>
-									<span>{{ item.name }}WETH</span>
-								</span>
-								<span>
-									<CButton
-										block
-										color="info"
-										@click="darkModal = true"
-									>
-										Unwrap to ETH
-									</CButton>
-								</span>
-							</div>
-						</td>
-					</template>
 					<template slot="tokens" slot-scope="{ item }">
 						<td>
 							<div
@@ -104,62 +76,6 @@
 				</CDataTable>
 			</CCardBody>
 		</CCard>
-		<CModal
-			:show.sync="darkModal"
-			:no-close-on-backdrop="true"
-			:centered="true"
-			title="Connect wallet"
-			size="lg"
-			color="dark"
-		>
-			<CCol xs="12" md="12">
-				<CCard>
-					<CCardBody>
-						<CForm>
-							<CInput
-								label="Send"
-								valid-feedback="Input is valid."
-								invalid-feedback="Please provide at least 4 characters."
-								value=""
-								:is-valid="validator"
-								:append="text1"
-							>
-								<template #append>
-									<CButton type="submit" color="primary"
-										>Submit</CButton
-									>
-									<h5 class="mt-1 ml-3">{{ text1 }}</h5>
-								</template></CInput
-							>
-							<CInput
-								label="Receive"
-								valid-feedback="Thank you :)"
-								invalid-feedback="Please provide at least 4 characters."
-								:is-valid="validator"
-								:append="text2"
-							>
-								<template #append>
-									<h5 class="mt-1 ml-3">{{ text2 }}</h5>
-								</template></CInput
-							>
-						</CForm>
-					</CCardBody>
-				</CCard>
-			</CCol>
-			<template #header>
-				<h6 class="modal-title">Wrap ETH to wETH</h6>
-				<CButtonClose @click="darkModal = false" class="text-white" />
-			</template>
-			<template #footer>
-				<div></div>
-				<CButton @click="darkModal = false" color="danger"
-					>Discard</CButton
-				>
-				<CButton @click="darkModal = false" color="success"
-					>Confirm</CButton
-				>
-			</template>
-		</CModal>
 	</CCol>
 </template>
 
@@ -167,13 +83,22 @@
 import UiPie from "../../components/UiPie";
 export default {
 	name: "ListPool",
-	props: ["items", "fields"],
+	props: ["items"],
 	data() {
 		return {
+			fields: [
+				{
+					key: "poolAddress",
+					label: "Pool address",
+					_classes: "font-weight-bold",
+				},
+				{ key: "tokens", label: "Assets" },
+				{ key: "swapFee", label: "Swap fee" },
+				{ key: "marketCap", label: "Market cap" },
+				{ key: "liquidity", label: "My liquidity" },
+				{ key: "volume", label: "Volume (24h)" },
+			],
 			activePage: 1,
-			darkModal: false,
-			text1: "WETH",
-			text2: "ETH",
 		};
 	},
 	components: {
@@ -204,11 +129,12 @@ export default {
 					"primary";
 			}
 		},
+		rowClicked(item) {
+			console.log(item);
+			this.$router.push({ path: `/explore-pools/${item.poolAddress}` });
+		},
 		pageChange(val) {
 			this.$router.push({ query: { page: val } });
-		},
-		validator(val) {
-			return val ? val.length >= 4 : false;
 		},
 	},
 };

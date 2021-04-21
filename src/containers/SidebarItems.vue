@@ -22,6 +22,12 @@ export default {
             icon: 'cil-spreadsheet',
           },
           {
+            _name: 'CSidebarNavItem',
+            name: this.$t('menu.createPool'),
+            to: '/create-pool',
+            icon: 'cil-plus',
+          },
+          {
             _name: 'CSidebarNavTitle',
             _children: ['Theme']
           },
