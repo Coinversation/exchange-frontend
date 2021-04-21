@@ -42,7 +42,28 @@
 				<CButton block color="primary" @click="darkModal = true"
 					>Connect wallet</CButton
 				>
+				<!-- <CButton block color="primary" @click="darkModal = true"
+					>Connect wallet</CButton
+				> -->
 			</CCol>
+            <CHeaderNavItem class="px-3">
+                <CButton block color="primary" @click="darkModal = true"
+					>Connect wallet</CButton
+				>
+				<router-link :to="{ path: '/wallet' }">
+					<button class="c-header-nav-btn">
+						<CIcon size="lg" name="cil-wallet" class="mr-2" />
+					</button>
+				</router-link>
+			</CHeaderNavItem>
+			<CHeaderNavItem class="px-3">
+
+				<router-link :to="{ path: '/wallet' }">
+					<button class="c-header-nav-btn">
+						<CIcon size="lg" name="cil-wallet" class="mr-2" />
+					</button>
+				</router-link>
+			</CHeaderNavItem>
 			<!-- <CHeaderNavItem class="px-3">
 				<button
 					class="c-header-nav-btn"
@@ -128,7 +149,7 @@
 				<CButtonClose @click="darkModal = false" class="text-white" />
 			</template>
 			<template #footer>
-                <div></div>
+				<div></div>
 				<!-- <CButton @click="darkModal = false" color="danger"
 					>Discard</CButton
 				>

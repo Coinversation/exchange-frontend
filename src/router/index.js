@@ -8,6 +8,7 @@ const TheContainer = () => import('@/containers/TheContainer')
 const Dashboard = () => import('@/views/Dashboard')
 const ExplorePools = () => import('@/views/explore-pools')
 const Pool = () => import('@/views/explore-pools/Pool')
+const Wallet = () => import('@/views/wallet')
 
 const Colors = () => import('@/views/theme/Colors')
 const Typography = () => import('@/views/theme/Typography')
@@ -137,6 +138,11 @@ export default new Router({
                             component: Pool,
                         },
                     ],
+                },
+                {
+                    path: 'wallet',
+                    name: 'Wallet',
+                    component: Wallet,
                 },
                 // {
                 //     path: 'pool',
