@@ -28,6 +28,12 @@ export default {
             icon: 'cil-plus',
           },
           {
+            _name: 'CSidebarNavItem',
+            name: this.$t('menu.exchange'),
+            to: '/exchange',
+            icon: 'cil-balance-scale',
+          },
+          {
             _name: 'CSidebarNavTitle',
             _children: ['Theme']
           },

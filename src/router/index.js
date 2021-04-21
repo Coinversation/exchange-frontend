@@ -7,8 +7,10 @@ const TheContainer = () => import('@/containers/TheContainer')
 // Views
 const Dashboard = () => import('@/views/Dashboard')
 const ExplorePools = () => import('@/views/explore-pools')
-const CreatePool = () => import('@/views/create-pool')
 const Pool = () => import('@/views/explore-pools/Pool')
+const CreatePool = () => import('@/views/create-pool')
+const Exchange = () => import('@/views/exchange')
+
 const Wallet = () => import('@/views/wallet')
 
 const Colors = () => import('@/views/theme/Colors')
@@ -144,6 +146,11 @@ export default new Router({
                     path: 'create-pool',
                     name: 'CreatePool',
                     component: CreatePool,
+                },
+                {
+                    path: 'exchange',
+                    name: 'Exchange',
+                    component: Exchange,
                 },
                 {
                     path: 'wallet',

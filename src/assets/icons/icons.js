@@ -117,6 +117,7 @@ import {
     cilWallet,
     cilSmile,
     cilPlus,
+    cilBalanceScale,
 } from '@coreui/icons'
 import { logo } from './logo'
 
@@ -215,6 +216,7 @@ export const iconsSet = Object.assign(
         cilWallet,
         cilSmile,
         cilPlus,
+        cilBalanceScale,
     },
     {
         cifUs,

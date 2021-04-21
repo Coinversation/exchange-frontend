@@ -9,6 +9,7 @@ const messages = {
             dashboard: 'Dashboard',
             explorePools: 'Explore pools',
             createPool: 'Create a pool',
+            exchange: 'Exchange',
         },
     },
     es: {
