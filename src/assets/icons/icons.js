@@ -118,6 +118,8 @@ import {
     cilSmile,
     cilPlus,
     cilBalanceScale,
+    cilCog,
+    cilCaretBottom,
 } from '@coreui/icons'
 import { logo } from './logo'
 
@@ -217,6 +219,8 @@ export const iconsSet = Object.assign(
         cilSmile,
         cilPlus,
         cilBalanceScale,
+        cilCog,
+        cilCaretBottom,
     },
     {
         cifUs,

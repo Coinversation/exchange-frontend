@@ -7,10 +7,10 @@
             <CIcon name="cil-justify-center"/>
             <strong> Bootstrap Dropdown</strong>
             <div class="card-header-actions">
-              <a 
-                href="https://coreui.io/vue/docs/components/dropdown" 
-                class="card-header-action" 
-                rel="noreferrer noopener" 
+              <a
+                href="https://coreui.io/vue/docs/components/dropdown"
+                class="card-header-action"
+                rel="noreferrer noopener"
                 target="_blank"
               >
                 <small class="text-muted">docs</small>
@@ -19,8 +19,8 @@
           </CCardHeader>
           <CCardBody>
             <div>
-              <CDropdown 
-                toggler-text="Dropdown Button" 
+              <CDropdown
+                toggler-text="Dropdown Button"
                 class="m-2"
                 color="secondary"
               >
@@ -41,8 +41,8 @@
               </CDropdown>
             </div> -->
             <div>
-              <CDropdown 
-                toggler-text="Dropdown with divider" 
+              <CDropdown
+                toggler-text="Dropdown with divider"
                 class="m-2"
                 color="secondary"
               >
@@ -53,8 +53,8 @@
               </CDropdown>
             </div>
             <div>
-              <CDropdown 
-                toggler-text="Dropdown with header" 
+              <CDropdown
+                toggler-text="Dropdown with header"
                 class="m-2"
                 color="secondary"
               >

@@ -1,20 +1,115 @@
 <template>
-	<CRow>
-		<CCol col="12">
+	<CRow
+		class="d-flex justify-content-center align-items-center"
+		style="margin-top: 10%"
+	>
+		<CCol col="4">
 			<CCard>
-				<!-- <CCardHeader @click="item++">
-					<CIcon name="cil-justify-center" />
-					<strong> Bootstrap Navs </strong>
-					<small>pill style</small>
-				</CCardHeader> -->
-				<CCardBody> </CCardBody>
+				<CCardHeader class="d-flex justify-content-between">
+					<h4>Swap</h4>
+					<CButton
+						color="light"
+						shape="pill"
+						@click="settingsModal = true"
+					>
+						<CIcon name="cil-cog"></CIcon>
+					</CButton>
+				</CCardHeader>
+				<CCardBody>
+					<CForm>
+						<CInput
+							placeholder="Username"
+							valid-feedback="Input is valid."
+							invalid-feedback="Please provide at least 4 characters."
+							value="Valid value"
+							:is-valid="validator"
+							:style="{ width: '200px', height: '200px' }"
+						>
+							<template #prepend>
+								<CButton color="primary">
+									<img
+										style="
+											width: 35px;
+											height: 35px;
+											border-radius: 35px;
+											background-color: #d7d7d7;
+										"
+										alt=""
+									/>
+									BAI
+									<CIcon size="sm" name="cil-caret-bottom" />
+								</CButton>
+							</template>
+						</CInput>
+						<CInput
+							label="Input is invalid"
+							valid-feedback="Thank you :)"
+							invalid-feedback="Please provide at least 4 characters."
+							:is-valid="validator"
+						/>
+					</CForm>
+				</CCardBody>
 			</CCard>
 		</CCol>
 		<CModal
-			:show.sync="darkModal"
+			:show.sync="settingsModal"
 			:no-close-on-backdrop="true"
 			:centered="true"
-			title="Connect wallet"
+			title="Settings"
+			size="lg"
+			color="dark"
+		>
+			<CCol xs="12" md="12" lg="12">
+				<CCard class="p-3">
+					<CForm>
+						<h5>Max slippage tolerance</h5>
+						<CRow>
+							<template v-for="item in options">
+								<CButton
+									:key="item"
+									class="m-2"
+									autocomplete="number"
+									color="secondary"
+									@click="checkTolerance(item)"
+									>{{ item }}</CButton
+								>
+							</template>
+							<CInput
+								class="m-2"
+								placeholder="10.0"
+								:horizontal="{ input: 'col-6' }"
+								type="number"
+							/>
+						</CRow>
+						<h5 class="mt-4">Transaction history</h5>
+						<CButton color="dark">clear</CButton>
+						<h5 class="mt-4">Imported tokens</h5>
+						<CButton color="dark">clear</CButton>
+					</CForm>
+				</CCard>
+			</CCol>
+			<template #header>
+				<h6 class="modal-title">Settings</h6>
+				<CButtonClose
+					@click="settingsModal = false"
+					class="text-white"
+				/>
+			</template>
+			<template #footer>
+				<div></div>
+				<!-- <CButton @click="settingsModal = false" color="danger"
+					>Discard</CButton
+				>
+				<CButton @click="settingsModal = false" color="success"
+					>Accept</CButton
+				> -->
+			</template>
+		</CModal>
+		<CModal
+			:show.sync="selectAssetModal"
+			:no-close-on-backdrop="true"
+			:centered="true"
+			title="Settings"
 			size="lg"
 			color="dark"
 		>
@@ -27,15 +122,18 @@
 				</CCard>
 			</CCol>
 			<template #header>
-				<h6 class="modal-title">Select token</h6>
-				<CButtonClose @click="darkModal = false" class="text-white" />
+				<h6 class="modal-title">Settings</h6>
+				<CButtonClose
+					@click="selectAssetModal = false"
+					class="text-white"
+				/>
 			</template>
 			<template #footer>
 				<div></div>
-				<!-- <CButton @click="darkModal = false" color="danger"
+				<!-- <CButton @click="selectAssetModal = false" color="danger"
 					>Discard</CButton
 				>
-				<CButton @click="darkModal = false" color="success"
+				<CButton @click="selectAssetModal = false" color="success"
 					>Accept</CButton
 				> -->
 			</template>
@@ -47,15 +145,16 @@
 // import poolListData from "../../mock/poolListDataShared";
 import vettedTokenList from "../../config/vetted_tokenlist";
 import poolListData from "../../mock/poolListDataPrivate";
-import PoolList from "../../components/List/PoolList";
 import DemoTable from "../../components/Tables/DemoTable";
 export default {
 	name: "Users",
 	data() {
 		return {
+			checked: false,
 			items: poolListData,
 			vettedTokenListData: vettedTokenList.tokens,
-			darkModal: false,
+			settingsModal: false,
+			selectAssetModal: false,
 			fields: [
 				{
 					key: "poolAddress",
@@ -70,10 +169,21 @@ export default {
 			],
 			activePage: 1,
 			filterTokenData: [],
+			selectOptions: [
+				"1.0%",
+				"Option 2",
+				"Option 3",
+				{
+					value: "some value",
+					label: "Selected option",
+				},
+			],
+			selectedOption: "some value",
+			options: ["0.5%", "1.0%", "2.0%", "5.0%"],
+			radioNames: ["Inline Radios - custom"],
 		};
 	},
 	components: {
-		PoolList,
 		DemoTable,
 	},
 	watch: {
@@ -87,6 +197,9 @@ export default {
 		},
 	},
 	methods: {
+		checkTolerance(s) {
+			console.log(s);
+		},
 		getBadge(status) {
 			switch (status) {
 				case "Active":
@@ -109,7 +222,7 @@ export default {
 		},
 		filterData(s) {
 			this.filterTokenData.push(s);
-			this.darkModal = false;
+			this.settingsModal = false;
 		},
 		removeFilter(s) {
 			Array.prototype.indexOf = function (val) {
@@ -126,6 +239,9 @@ export default {
 			};
 			this.filterTokenData.remove(s);
 			console.log(this.filterTokenData);
+		},
+		validator(val) {
+			return val ? val.length >= 4 : false;
 		},
 	},
 };
