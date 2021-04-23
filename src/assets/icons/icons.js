@@ -120,6 +120,7 @@ import {
     cilBalanceScale,
     cilCog,
     cilCaretBottom,
+    cilArrowThickToBottom,
 } from '@coreui/icons'
 import { logo } from './logo'
 
@@ -221,6 +222,7 @@ export const iconsSet = Object.assign(
         cilBalanceScale,
         cilCog,
         cilCaretBottom,
+        cilArrowThickToBottom,
     },
     {
         cifUs,

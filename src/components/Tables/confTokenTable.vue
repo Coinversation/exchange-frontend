@@ -35,7 +35,7 @@
 // import vettedTokenListData from "./UsersData";
 
 export default {
-	props: ["vettedTokenListData"],
+	props: ["vettedTokenListData", "inputType"],
 	name: "BackendTable",
 	data() {
 		return {
@@ -48,8 +48,10 @@ export default {
 	},
 	methods: {
 		rowClicked(s) {
-			// console.log(s);
-			this.$emit("filterData", s);
+			console.log(s);
+			console.log(52, this.inputType);
+
+			this.$emit("filterData", s, this.inputType);
 		},
 	},
 };

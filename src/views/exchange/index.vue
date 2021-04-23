@@ -3,7 +3,7 @@
 		class="d-flex justify-content-center align-items-center"
 		style="margin-top: 10%"
 	>
-		<CCol col="4">
+		<CCol col="3">
 			<CCard>
 				<CCardHeader class="d-flex justify-content-between">
 					<h4>Swap</h4>
@@ -17,36 +17,104 @@
 				</CCardHeader>
 				<CCardBody>
 					<CForm>
+						<!-- valid-feedback="Input is valid." -->
+
 						<CInput
-							placeholder="Username"
-							valid-feedback="Input is valid."
-							invalid-feedback="Please provide at least 4 characters."
-							value="Valid value"
+							placeholder="0"
+							valid-feedback=""
+							invalid-feedback="enter"
+							value=""
 							:is-valid="validator"
-							:style="{ width: '200px', height: '200px' }"
+							size="lg"
+							type="number"
+							class="mb-3"
 						>
 							<template #prepend>
-								<CButton color="primary">
-									<img
+								<CButton color="light" @click="selectAsset(1)">
+									<img v-if="filterTokenDataA !== ''"
+										class="mr-2"
+										:src="
+											filterTokenDataA !== ''
+												? filterTokenDataA.logoURI
+												: ''
+										"
 										style="
-											width: 35px;
-											height: 35px;
+											width: 28px;
+											height: 28px;
 											border-radius: 35px;
 											background-color: #d7d7d7;
 										"
 										alt=""
 									/>
-									BAI
+									{{
+										filterTokenDataA !== ""
+											? filterTokenDataA.symbol
+											: "Select"
+									}}
 									<CIcon size="sm" name="cil-caret-bottom" />
 								</CButton>
 							</template>
 						</CInput>
+						<CCol
+							class="d-flex justify-content-center align-items-center mb-3"
+						>
+							<CIcon
+								class="mr-2"
+								size="lg"
+								name="cil-arrow-thick-to-bottom"
+							/>
+							<span>1 USDC = 0.290086 ETH</span>
+						</CCol>
+
 						<CInput
-							label="Input is invalid"
-							valid-feedback="Thank you :)"
-							invalid-feedback="Please provide at least 4 characters."
+							placeholder="0"
+							:valid-feedback="
+								'Price impact: ' + priceImpact + '%'
+							"
+							invalid-feedback=""
+							value=""
 							:is-valid="validator"
-						/>
+							size="lg"
+							type="number"
+							class="mb-5"
+							readonly
+						>
+							<template #prepend>
+								<CButton color="light" @click="selectAsset(2)">
+									<img v-if="filterTokenDataB !== ''"
+										class="mr-2"
+										:src="
+											filterTokenDataB !== ''
+												? filterTokenDataB.logoURI
+												: ''
+										"
+										style="
+											width: 28px;
+											height: 28px;
+											border-radius: 35px;
+											background-color: #d7d7d7;
+										"
+										alt=""
+									/>
+									{{
+										filterTokenDataB !== ""
+											? filterTokenDataB.symbol
+											: "Select"
+									}}
+									<CIcon size="sm" name="cil-caret-bottom" />
+								</CButton>
+							</template>
+						</CInput>
+						<CButton
+							@click="enterAmount"
+							color="primary"
+							shape="pill"
+							block
+							size="lg"
+							:disabled="disabled"
+						>
+							Enter amount
+						</CButton>
 					</CForm>
 				</CCardBody>
 			</CCard>
@@ -115,10 +183,11 @@
 		>
 			<CCol xs="12" md="12">
 				<CCard>
-					<DemoTable
+					<confTokenTable
 						:vettedTokenListData="vettedTokenListData"
+						:inputType="inputType"
 						@filterData="filterData"
-					></DemoTable>
+					></confTokenTable>
 				</CCard>
 			</CCol>
 			<template #header>
@@ -145,14 +214,16 @@
 // import poolListData from "../../mock/poolListDataShared";
 import vettedTokenList from "../../config/vetted_tokenlist";
 import poolListData from "../../mock/poolListDataPrivate";
-import DemoTable from "../../components/Tables/DemoTable";
+import confTokenTable from "../../components/Tables/confTokenTable";
 export default {
 	name: "Users",
 	data() {
 		return {
+			priceImpact: "0.01",
 			checked: false,
 			items: poolListData,
 			vettedTokenListData: vettedTokenList.tokens,
+			inputType: "",
 			settingsModal: false,
 			selectAssetModal: false,
 			fields: [
@@ -168,7 +239,8 @@ export default {
 				{ key: "volume", label: "Volume (24h)" },
 			],
 			activePage: 1,
-			filterTokenData: [],
+			filterTokenDataA: "",
+			filterTokenDataB: "",
 			selectOptions: [
 				"1.0%",
 				"Option 2",
@@ -183,8 +255,17 @@ export default {
 			radioNames: ["Inline Radios - custom"],
 		};
 	},
+	computed: {
+		disabled() {
+			console.log(this.filterTokenDataA.symbol);
+			console.log(this.filterTokenDataB.symbol);
+			return this.filterTokenDataA.symbol === this.filterTokenDataB.symbol
+				? true
+				: false;
+		},
+	},
 	components: {
-		DemoTable,
+		confTokenTable,
 	},
 	watch: {
 		$route: {
@@ -197,6 +278,19 @@ export default {
 		},
 	},
 	methods: {
+		selectAsset(s) {
+			switch (s) {
+				case 1:
+					this.inputType = s;
+					this.selectAssetModal = true;
+
+					break;
+				case 2:
+					this.inputType = s;
+					this.selectAssetModal = true;
+					break;
+			}
+		},
 		checkTolerance(s) {
 			console.log(s);
 		},
@@ -220,28 +314,45 @@ export default {
 		pageChange(val) {
 			this.$router.push({ query: { page: val } });
 		},
-		filterData(s) {
-			this.filterTokenData.push(s);
-			this.settingsModal = false;
+		filterData(s, getType) {
+			console.log(getType);
+			switch (getType) {
+				case 1:
+					this.filterTokenDataA = s;
+					break;
+				case 2:
+					this.filterTokenDataB = s;
+
+					break;
+			}
+			this.selectAssetModal = false;
 		},
-		removeFilter(s) {
-			Array.prototype.indexOf = function (val) {
-				for (var i = 0; i < this.length; i++) {
-					if (this[i] == val) return i;
-				}
-				return -1;
-			};
-			Array.prototype.remove = function (val) {
-				var index = this.indexOf(val);
-				if (index > -1) {
-					this.splice(index, 1);
-				}
-			};
-			this.filterTokenData.remove(s);
-			console.log(this.filterTokenData);
+		// removeFilter(s) {
+		// 	Array.prototype.indexOf = function (val) {
+		// 		for (var i = 0; i < this.length; i++) {
+		// 			if (this[i] == val) return i;
+		// 		}
+		// 		return -1;
+		// 	};
+		// 	Array.prototype.remove = function (val) {
+		// 		var index = this.indexOf(val);
+		// 		if (index > -1) {
+		// 			this.splice(index, 1);
+		// 		}
+		// 	};
+		// 	this.filterTokenData.remove(s);
+		// 	console.log(this.filterTokenData);
+		// },
+		enterAmount() {
+			if (this.filterTokenDataA.symbol === this.filterTokenDataB.symbol) {
+				return;
+			} else {
+				// this.disabled = true;
+				return;
+			}
 		},
 		validator(val) {
-			return val ? val.length >= 4 : false;
+			return val ? val.length >= 1 : false;
 		},
 	},
 };

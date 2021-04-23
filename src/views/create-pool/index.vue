@@ -50,10 +50,10 @@
 		>
 			<CCol xs="12" md="12">
 				<CCard>
-					<DemoTable
+					<confTokenTable
 						:vettedTokenListData="vettedTokenListData"
 						@filterData="filterData"
-					></DemoTable>
+					></confTokenTable>
 				</CCard>
 			</CCol>
 			<template #header>
@@ -78,7 +78,7 @@
 import vettedTokenList from "../../config/vetted_tokenlist";
 import poolListData from "../../mock/poolListDataPrivate";
 import CPoolList from "../../components/List/CPoolList";
-import DemoTable from "../../components/Tables/DemoTable";
+import confTokenTable from "../../components/Tables/confTokenTable";
 export default {
 	name: "Users",
 	data() {
@@ -104,7 +104,7 @@ export default {
 	},
 	components: {
 		CPoolList,
-		DemoTable,
+		confTokenTable,
 	},
 	watch: {
 		$route: {
