@@ -25,7 +25,7 @@
 						</CNav>
 					</div>
 					<div class="col-6 d-flex justify-content-end">
-						<CButton color="warning" @click="darkModal = true">
+						<CButton color="warning" style="color:#ffffff;"  @click="darkModal = true">
 							Add token</CButton
 						>
 					</div>
