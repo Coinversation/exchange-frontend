@@ -37,7 +37,7 @@
 				<CCardHeader @click="item++">
 					<h4>Assets</h4>
 				</CCardHeader>
-				<CPoolList :items="items" />
+				<CPoolList :items="items" :fields="fields" />
 			</CCard>
 		</CCol>
 		<CModal
@@ -76,27 +76,30 @@
 <script>
 // import poolListData from "../../mock/poolListDataShared";
 import vettedTokenList from "../../config/vetted_tokenlist";
-import poolListData from "../../mock/poolListDataPrivate";
+// import poolListData from "../../mock/poolListDataPrivate";
+import cPoolListData from "../../mock/cPoolListDataPrivate";
 import CPoolList from "../../components/List/CPoolList";
 import confTokenTable from "../../components/Tables/confTokenTable";
 export default {
 	name: "Users",
 	data() {
 		return {
-			items: poolListData,
+			items: cPoolListData,
 			vettedTokenListData: vettedTokenList.tokens,
 			darkModal: false,
 			fields: [
 				{
-					key: "poolAddress",
-					label: "Pool address",
+					key: "assets",
+					label: "Assets",
 					_classes: "font-weight-bold",
 				},
-				{ key: "tokens", label: "Assets" },
-				{ key: "swapFee", label: "Swap fee" },
-				{ key: "marketCap", label: "Market cap" },
-				{ key: "liquidity", label: "My liquidity" },
-				{ key: "volume", label: "Volume (24h)" },
+				{ key: "myBalance", label: "My balance" },
+				{ key: "weights", label: "Weights" },
+				{ key: "percent", label: "Percent" },
+				{ key: "amount", label: "Amount" },
+				{ key: "price", label: "Price" },
+				{ key: "totalValue", label: "Total value" },
+				{ key: "remove", label: "" },
 			],
 			activePage: 1,
 			filterTokenData: [],
