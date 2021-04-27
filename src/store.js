@@ -235,17 +235,12 @@ const actions={
           const gasLimit = 3000n * 1000000n;
           tokensToFetch.forEach(value=>{
             let contract=new ContractPromise(api,abi,value.address)
-            let { gasConsumed, result} = contract.read('iErc20,balanceOf', { value: 0, gasLimit: -1 },address).send(address);
-            if (result.isOk) {
-                // should output 123 as per our initial set (output here is an i32)
-                console.log('Success');
-                console.log(result.asOk.data.toHuman())
-                balances[value.symbol]=result.asOk.data.toHuman()
-              } else {
-                console.error('Error', result.asErr);
-              }
+            contract.read('iErc20,balanceOf', { value: 0, gasLimit: -1 },address)
+                .send(address).then(result=>{
+                    balances[value.symbol]=result.output instanceof Raw? result.output.toString():(result.output instanceof Option) && result.output.isNone
+                  ? '0': result.output.toHuman().toString();
+                });
           });
-          
           commit('GET_BALANCES_SUCCESS', balances);
           return balances;
         } catch (e) {
