@@ -39,7 +39,7 @@
 			<TheHeaderDropdownMssgs />
 			<TheHeaderDropdownAccnt /> -->
 			<CCol col="6" sm="4" md="2" xl class="mb-3 mb-xl-0">
-				<CButton block color="primary" @click="darkModal = true"
+				<CButton block color="primary" @click="connectWallet"
 					>Connect wallet</CButton
 				>
 			</CCol>
@@ -86,83 +86,6 @@
 		<CSubheader class="px-3">
 			<CBreadcrumbRouter class="border-0 mb-0" />
 		</CSubheader>
-		<CModal
-			:show.sync="darkModal"
-			:no-close-on-backdrop="true"
-			:centered="true"
-			title="Connect wallet"
-			size="lg"
-			color="dark"
-		>
-			<CCol xs="12" md="12">
-				<CCard>
-					<!-- <CCardHeader>
-						<strong>Block Level CButtons </strong
-						><small>Add this <code>block</code></small>
-					</CCardHeader> -->
-					<CCardBody>
-						<!-- <CButton
-							size="lg"
-							variant="outline"
-							color="secondary"
-							block
-							>Block level button</CButton
-						> -->
-						<CButton
-							size="lg"
-							variant="outline"
-							color="primary"
-							block
-						>
-							MetaMask
-						</CButton>
-						<CButton
-							size="lg"
-							variant="outline"
-							color="success"
-							block
-						>
-							WalletConnect
-						</CButton>
-						<CButton size="lg" variant="outline" color="info" block>
-							Portis
-						</CButton>
-						<CButton
-							size="lg"
-							variant="outline"
-							color="warning"
-							block
-						>
-							Coinbase
-						</CButton>
-						<CButton
-							size="lg"
-							variant="outline"
-							color="danger"
-							block
-						>
-							Fortmatic
-						</CButton>
-						<!-- <CButton size="lg" variant="ghost" color="info" block
-							>Block level button</CButton
-						> -->
-					</CCardBody>
-				</CCard>
-			</CCol>
-			<template #header>
-				<h6 class="modal-title">Connect wallet</h6>
-				<CButtonClose @click="darkModal = false" class="text-white" />
-			</template>
-			<template #footer>
-				<div></div>
-				<!-- <CButton @click="darkModal = false" color="danger"
-					>Discard</CButton
-				>
-				<CButton @click="darkModal = false" color="success"
-					>Accept</CButton
-				> -->
-			</template>
-		</CModal>
 		<CModal
 			:show.sync="accountModal"
 			:no-close-on-backdrop="true"
@@ -251,7 +174,6 @@ export default {
 	name: "TheHeader",
 	data() {
 		return {
-			darkModal: false,
 			accountModal: false,
 		};
 	},
@@ -260,6 +182,9 @@ export default {
 		// TheHeaderDropdownNotif,
 		// TheHeaderDropdownTasks,
 		// TheHeaderDropdownMssgs,
+	},
+	methods: {
+		connectWallet() {},
 	},
 };
 </script>
