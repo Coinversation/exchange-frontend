@@ -25,6 +25,7 @@
         "@coreui/utils": "^1.3.1",
         "@coreui/vue-chartjs": "^1.0.6",
         "@coreui/vue-pro": "~3.2.3",
+        "axios": "^0.21.1",
         "lightweight-charts": "^3.3.0",
         "quill": "~1.3.7",
         "spinkit": "~2.0.1",
