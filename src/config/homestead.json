@@ -2,6 +2,7 @@
   "network": "homestead",
   "chainId": 1,
   "defaultPrecision": 2,
+  "polkadotUrl":"ws://8.210.86.149:9944",
   "rpcUrl": "https://mainnet.infura.io/v3/03f1a9a53dee4bd5a7d3dde58ce26442",
   "wsUrl": "wss://mainnet.infura.io/ws/v3/03f1a9a53dee4bd5a7d3dde58ce26442",
   "subgraphUrl": "https://api.thegraph.com/subgraphs/name/balancer-labs/balancer-beta",
