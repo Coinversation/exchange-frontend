@@ -5,7 +5,8 @@ import Router from 'vue-router'
 const TheContainer = () => import('@/containers/TheContainer')
 
 // Views
-const Dashboard = () => import('@/views/Dashboard')
+// const Dashboard = () => import('@/views/Dashboard')
+const Dashboard = () => import('@/views/dashboard')
 const ExplorePools = () => import('@/views/explore-pools')
 const Pool = () => import('@/views/explore-pools/Pool')
 const CreatePool = () => import('@/views/create-pool')
