@@ -14,7 +14,11 @@
 						class="col-6 d-flex justify-content-end"
 						style="height: 40px"
 					>
-						<CButton class="mr-2" color="primary">
+						<CButton
+							class="mr-2"
+							color="primary"
+							@click="addLiquidityMod"
+						>
 							Add liquidity
 						</CButton>
 						<CButton
@@ -107,6 +111,10 @@
 				</CCardFooter>
 			</CCard>
 		</CCol>
+		<AddLiquidityModal
+			:addModal="addModal"
+			@closeAddModal="closeAddModal"
+		/>
 	</CRow>
 </template>
 
@@ -115,7 +123,7 @@ import poolDetails from "../../mock/poolDetails";
 import UiPie from "../../components/UiPie";
 import CChartBarExample from "../../components/Pool/CChartBarExample";
 import MainChartExample from "../../components/Pool/MainChartExample";
-
+import AddLiquidityModal from "../../components/Modal/AddLiquidityModal";
 // import Chart from "../../components/Pool/Chart";
 
 export default {
@@ -129,14 +137,14 @@ export default {
 		UiPie,
 		CChartBarExample,
 		MainChartExample,
-		// Chart,
+		AddLiquidityModal,
 	},
 	data() {
 		return {
 			selected: "Month",
-
 			usersOpened: null,
 			item: poolDetails,
+			addModal: false,
 		};
 	},
 	computed: {
@@ -169,6 +177,13 @@ export default {
 			this.usersOpened
 				? this.$router.go(-1)
 				: this.$router.push({ path: "/explore-pools" });
+		},
+		addLiquidityMod() {
+			this.addModal = this.addModal === true ? false : true;
+		},
+		closeAddModal() {
+			console.log(123);
+			this.addModal = false;
 		},
 	},
 };
