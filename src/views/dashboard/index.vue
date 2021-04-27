@@ -1,94 +1,19 @@
 <template>
 	<CRow>
 		<CCol col="12">
-			<!-- <CCard> -->
-			<!-- <CCardHeader @click="item++">
-					<CIcon name="cil-justify-center" />
-					<strong> Bootstrap Navs </strong>
-					<small>pill style</small>
-				</CCardHeader> -->
 			<CCardBody>
 				<div class="row">
-					<div class="col-6">
-						<CNav variant="pills">
-							<CNavItem
-								active
-								:to="{
-									path: '/explore-pools',
-									query: { type: 'shared' },
-								}"
-							>
-								Shared
-							</CNavItem>
-
-							<CNavItem
-								:to="{
-									path: '/explore-pools',
-									query: { type: 'private' },
-								}"
-								>Private
-							</CNavItem>
-						</CNav>
-					</div>
-					<div class="col-6 d-flex justify-content-end">
-						<span v-if="filterTokenData !== []">
-							<CButton
-								class="mr-2"
-								color="primary"
-								shape="pill"
-								v-for="(item, index) in filterTokenData"
-								:key="index"
-							>
-								<span @click="removeFilter(item)">
-									<CIcon name="cil-x"></CIcon>
-								</span>
-								{{ item.symbol }}
-							</CButton>
-						</span>
-						<CButton
-							color="primary"
-							variant="outline"
-							@click="darkModal = true"
-						>
-							<CIcon name="cil-list-filter" class="mr-2" />Filter
-							by asset</CButton
-						>
-					</div>
+					<h4 class="col-6">My liquidity</h4>
 				</div>
 			</CCardBody>
-			<!-- </CCard> -->
+			<PoolList :items="items" />
+            <CCardBody>
+				<div class="row">
+					<h4 class="col-6">My pools</h4>
+				</div>
+			</CCardBody>
+			<PoolList :items="items" />
 		</CCol>
-		<PoolList :items="items" />
-		<CModal
-			:show.sync="darkModal"
-			:no-close-on-backdrop="true"
-			:centered="true"
-			title="Connect wallet"
-			size="lg"
-			color="dark"
-		>
-			<CCol xs="12" md="12">
-				<CCard>
-					<confTokenTable
-						:vettedTokenListData="vettedTokenListData"
-						@filterData="filterData"
-					></confTokenTable>
-				</CCard>
-			</CCol>
-			<template #header>
-				<h6 class="modal-title">Select token</h6>
-				<CButtonClose @click="darkModal = false" class="text-white" />
-			</template>
-			<template #footer>
-				<div></div>
-				<!-- <CButton @click="darkModal = false" color="danger"
-					>Discard</CButton
-				>
-				<CButton @click="darkModal = false" color="success"
-					>Accept</CButton
-				> -->
-			</template>
-		</CModal>
 	</CRow>
 </template>
 
