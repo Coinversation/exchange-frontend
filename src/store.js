@@ -206,7 +206,6 @@ const actions={
     getBalances: async ({ commit }, tokens) => {
         commit('GET_BALANCES_REQUEST');
         const address = state.account;
-        const promises = [];
         // Construct
         const wsProvider = new WsProvider(config.polkadotUrl);
         // Create the instance
@@ -218,21 +217,14 @@ const actions={
         //const abiFile = await fs.readFileSync('../contract/pool.json');
         const abiFile = await fs.readFileSync('../src/abi/erc20_issue.json');
         const abi = JSON.parse(abiFile);
-        
-
-        
         const tokensToFetch = tokens
           ? tokens
           : Object.keys(state.balances).filter(token => token !== 'dot');
         
         const balances = {};
         try {
-          // @ts-ignore
           const { data: { free } } = await api.query.system.account(address);
-          // @ts-ignore
           balances.dot = free.toString();
-          const value = 0; 
-          const gasLimit = 3000n * 1000000n;
           tokensToFetch.forEach(value=>{
             let contract=new ContractPromise(api,abi,value.address)
             contract.read('iErc20,balanceOf', { value: 0, gasLimit: -1 },address)
