@@ -29,7 +29,7 @@
 									<h5 class="m-0">Wrapped Ether</h5>
 									<span>{{ item.name }}WETH</span>
 								</span>
-								<span>
+								<!-- <span>
 									<CButton
 										block
 										color="info"
@@ -37,7 +37,7 @@
 									>
 										Unwrap to ETH
 									</CButton>
-								</span>
+								</span> -->
 							</div>
 						</td>
 					</template>
