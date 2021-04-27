@@ -25,7 +25,11 @@
 						</CNav>
 					</div>
 					<div class="col-6 d-flex justify-content-end">
-						<CButton color="warning" style="color:#ffffff;"  @click="darkModal = true">
+						<CButton
+							color="warning"
+							style="color: #ffffff"
+							@click="darkModal = true"
+						>
 							Add token</CButton
 						>
 					</div>
@@ -34,12 +38,29 @@
 		</CCol>
 		<CCol col="12">
 			<CCard>
-				<CCardHeader @click="item++">
+				<CCardHeader>
 					<h4>Assets</h4>
 				</CCardHeader>
 				<CPoolList :items="items" :fields="fields" />
+				<CCardHeader>
+					<h4>Swap fee (%)</h4>
+					<CCol col="2">
+						<CInput width="20px"></CInput>
+					</CCol>
+				</CCardHeader>
 			</CCard>
+			<CCol col="1">
+				<CButton
+					color="primary"
+					style="color: #ffffff"
+					@click="createPool"
+                    size="lg"
+				>
+					Create</CButton
+				>
+			</CCol>
 		</CCol>
+
 		<CModal
 			:show.sync="darkModal"
 			:no-close-on-backdrop="true"
@@ -134,6 +155,7 @@ export default {
 					"primary";
 			}
 		},
+		createPool() {},
 		rowClicked(item, index) {
 			this.$router.push({ path: `users/${index + 1}` });
 		},
