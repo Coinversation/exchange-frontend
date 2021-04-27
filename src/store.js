@@ -1,5 +1,13 @@
 import Vue from 'vue'
 import Vuex from 'vuex'
+import config from '../src/config'
+import { ContractPromise } from '@polkadot/api-contract';
+import * as fs from 'fs';
+import { ApiPromise, WsProvider } from '@polkadot/api'
+import {isWeb3Injected,
+	web3Accounts,
+	web3Enable,
+	web3FromAddress} from '@polkadot/extension-dapp'
 
 Vue.use(Vuex)
 
@@ -10,7 +18,6 @@ const state = {
     // darkMode: false,
     darkMode: true,
     injectedLoaded: false,
-    injectedChainId: null,
     blockNumber: 0,
     account: null,
     name: null,
@@ -38,7 +45,6 @@ const mutations = {
     },
     LOGOUT(_state) {
         Vue.set(_state, 'injectedLoaded', false);
-        Vue.set(_state, 'injectedChainId', null);
         Vue.set(_state, 'account', null);
         Vue.set(_state, 'name', null);
         Vue.set(_state, 'active', false);
@@ -68,11 +74,14 @@ const mutations = {
         console.debug('LOAD_PROVIDER_REQUEST');
     },
     LOAD_PROVIDER_SUCCESS(_state, payload) {
+        Vue.set(_state, 'injectedLoaded', payload.injectedLoaded);
+        Vue.set(_state, 'account', payload.account);
+        Vue.set(_state, 'name', payload.name);
+        Vue.set(_state, 'active', true);
         console.debug('LOAD_PROVIDER_SUCCESS');
     },
     LOAD_PROVIDER_FAILURE(_state, payload) {
         Vue.set(_state, 'injectedLoaded', false);
-        Vue.set(_state, 'injectedChainId', null);
         Vue.set(_state, 'account', null);
         Vue.set(_state, 'active', false);
         console.debug('LOAD_PROVIDER_FAILURE', payload);
@@ -126,10 +135,13 @@ const mutations = {
     };
 
 const actions={
-    login: async ({ dispatch, commit }, connector = 'injected') => {
+    login: async ({ dispatch, commit }) => {
       commit('SET', { authLoading: true });
-      /*
-      */
+      web3Enable('polkadot-js/apps');
+      if (!isWeb3Injected) {
+          throw new Error("Please install/unlock the polkadot{.js} extension first");
+      }
+      await dispatch('loadWeb3');
       commit('SET', { authLoading: false });
     },
     logout: async ({ commit }) => {
@@ -149,18 +161,97 @@ const actions={
     },
     loadWeb3: async ({ commit, dispatch }) => {
       commit('LOAD_WEB3_REQUEST');
+      try {
+        await dispatch('loadProvider');
+        await dispatch('loadAccount');
+        await dispatch('checkPendingTransactions');
+        commit('LOAD_WEB3_SUCCESS');
+      } catch (e) {
+        commit('LOAD_WEB3_FAILURE', e);
+        return Promise.reject();
+      }
     },
     loadProvider: async ({ commit, dispatch }) => {
-      commit('LOAD_PROVIDER_REQUEST');
+        commit('LOAD_PROVIDER_REQUEST');
+        try {
+          await dispatch('clearUser');
+          await dispatch('loadAccount');
+          let allAccounts = await web3Accounts();
+          let account = allAccounts.length > 0 ? allAccounts[0] : null;
+
+          allAccounts = allAccounts.map(({ address, meta }) =>
+          ({ address, meta: { ...meta, name: `${meta.name} (${meta.source=== 'polkadot-js' ? 'extension' : meta.source})` } }));
+          commit('LOAD_PROVIDER_SUCCESS', {
+            injectedLoaded: true,
+            account:account.address,
+            name:account.meta.name
+          });
+        } catch (e) {
+          commit('LOAD_PROVIDER_FAILURE', e);
+          return Promise.reject();
+        }
     },
     loadAccount: async ({ dispatch }) => {
       if (!state.account) return;
+      const tokens = Object.entries(config.tokens).map(token => token[1].address);
+      await Promise.all([
+      dispatch('getBalances', tokens),
+      dispatch('getAllowances', tokens),
+      dispatch('getUserPoolShares')
+    ]);
     },
     getPoolBalances: async (_state, { poolAddress, tokens }) => {
       
     },
     getBalances: async ({ commit }, tokens) => {
-      commit('GET_BALANCES_REQUEST');
+        commit('GET_BALANCES_REQUEST');
+        const address = state.account;
+        const promises = [];
+        // Construct
+        const wsProvider = new WsProvider(config.polkadotUrl);
+        // Create the instance
+        const api = new ApiPromise({ provider: wsProvider });
+
+        // Wait until we are ready and connected
+        await api.isReady;
+
+        //const abiFile = await fs.readFileSync('../contract/pool.json');
+        const abiFile = await fs.readFileSync('../src/abi/erc20_issue.json');
+        const abi = JSON.parse(abiFile);
+        
+
+        
+        const tokensToFetch = tokens
+          ? tokens
+          : Object.keys(state.balances).filter(token => token !== 'dot');
+        
+        const balances = {};
+        try {
+          // @ts-ignore
+          const { data: { free } } = await api.query.system.account(address);
+          // @ts-ignore
+          balances.dot = free.toString();
+          const value = 0; 
+          const gasLimit = 3000n * 1000000n;
+          tokensToFetch.forEach(value=>{
+            let contract=new ContractPromise(api,abi,value.address)
+            let { gasConsumed, result} = contract.read('iErc20,balanceOf', { value: 0, gasLimit: -1 },address).send(address);
+            if (result.isOk) {
+                // should output 123 as per our initial set (output here is an i32)
+                console.log('Success');
+                console.log(result.asOk.data.toHuman())
+                balances[value.symbol]=result.asOk.data.toHuman()
+              } else {
+                console.error('Error', result.asErr);
+              }
+          });
+          
+          commit('GET_BALANCES_SUCCESS', balances);
+          return balances;
+        } catch (e) {
+          commit('GET_BALANCES_FAILURE', e);
+          return Promise.reject();
+        }
     },
     getAllowances: async ({ commit }, tokens) => {
       commit('GET_ALLOWANCES_REQUEST');
