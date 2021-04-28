@@ -69,7 +69,7 @@
 								variant="outline"
 								square
 								size="sm"
-								@click="toggleDetails(item, index)"
+								@click="removeItem(item, index)"
 							>
 								Remove
 							</CButton>
@@ -124,18 +124,6 @@ export default {
 	props: ["items", "fields"],
 	data() {
 		return {
-			// fields: [
-			// 	{
-			// 		key: "poolAddress",
-			// 		label: "Pool address",
-			// 		_classes: "font-weight-bold",
-			// 	},
-			// 	{ key: "tokens", label: "Assets" },
-			// 	{ key: "swapFee", label: "Swap fee" },
-			// 	{ key: "marketCap", label: "Market cap" },
-			// 	{ key: "liquidity", label: "My liquidity" },
-			// 	{ key: "volume", label: "Volume (24h)" },
-			// ],
 			activePage: 1,
 			vettedTokenListData: vettedTokenList.tokens,
 
@@ -189,7 +177,7 @@ export default {
 			this.filterTokenDataA = s;
 			this.selectAssetModal = false;
 		},
-		toggleDetails(item) {
+		removeItem(item) {
 			this.$set(this.usersData[item.id], "_toggled", !item._toggled);
 			this.collapseDuration = 300;
 			this.$nextTick(() => {
