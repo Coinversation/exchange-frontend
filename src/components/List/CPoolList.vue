@@ -7,7 +7,6 @@
 					:items="items"
 					:fields="fields"
 					:items-per-page="15"
-					clickable-rows
 					:active-page="activePage"
 					:pagination="{ doubleArrows: false, align: 'center' }"
 					@page-change="pageChange"
