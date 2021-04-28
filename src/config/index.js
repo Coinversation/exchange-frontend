@@ -8,7 +8,7 @@ import rinkeby from '@/config/rinkeby.json'
 const registry = {
     tokens: {
         "16KPHXYgRV8iixHAxj3ToJqymxu3wKvicvcM4giqB61hPXKB": {
-            "address": "0xd0A1E359811322d97991E03f863a0C30C2cF029C",
+            "address": "16KPHXYgRV8iixHAxj3ToJqymxu3wKvicvcM4giqB61hPXKB",
             "id": "usdc",
             "name": "USD Coin",
             "symbol": "usdc",

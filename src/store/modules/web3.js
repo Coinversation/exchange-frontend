@@ -1,7 +1,8 @@
 import Vue from 'vue'
 import config from '@/config'
 import { ContractPromise } from '@polkadot/api-contract'
-import * as fs from 'fs'
+import { Option, Raw } from '@polkadot/types';
+import abi from '../../abi/erc20_issue.json';
 import { ApiPromise, WsProvider } from '@polkadot/api'
 import {
     isWeb3Injected,
@@ -21,22 +22,7 @@ const state = {
     allowances: {},
     tokenMetadata: {},
 }
-
 const mutations = {
-    toggleSidebarDesktop(state) {
-        const sidebarOpened = [true, 'responsive'].includes(state.sidebarShow)
-        state.sidebarShow = sidebarOpened ? false : 'responsive'
-    },
-    toggleSidebarMobile(state) {
-        const sidebarClosed = [false, 'responsive'].includes(state.sidebarShow)
-        state.sidebarShow = sidebarClosed ? true : 'responsive'
-    },
-    set(state, [variable, value]) {
-        state[variable] = value
-    },
-    toggle(state, variable) {
-        state[variable] = !state[variable]
-    },
     LOGOUT(_state) {
         Vue.set(_state, 'injectedLoaded', false)
         Vue.set(_state, 'account', null)
@@ -132,11 +118,11 @@ const actions = {
     login: async ({ dispatch, commit }) => {
         commit('SET', { authLoading: true })
         web3Enable('polkadot-js/apps')
-        if (!isWeb3Injected) {
-            throw new Error(
-                'Please install/unlock the polkadot{.js} extension first'
-            )
-        }
+        // if (!isWeb3Injected) {
+        //     throw new Error(
+        //         'Please install/unlock the polkadot{.js} extension first'
+        //     )
+        // }
         await dispatch('loadWeb3')
         commit('SET', { authLoading: false })
     },
@@ -174,7 +160,7 @@ const actions = {
             await dispatch('loadAccount')
             let allAccounts = await web3Accounts()
             let account = allAccounts.length > 0 ? allAccounts[0] : null
-
+            console.log(account)
             allAccounts = allAccounts.map(({ address, meta }) => ({
                 address,
                 meta: {
@@ -201,10 +187,11 @@ const actions = {
         const tokens = Object.entries(config.tokens).map(
             (token) => token[1].address
         )
+        console.log(tokens)
         await Promise.all([
             dispatch('getBalances', tokens),
             dispatch('getAllowances', tokens),
-            dispatch('getUserPoolShares'),
+            // dispatch('getUserPoolShares'),
         ])
     },
     getPoolBalances: async (_state, { poolAddress, tokens }) => {},
@@ -219,21 +206,20 @@ const actions = {
         // Wait until we are ready and connected
         await api.isReady
 
-        //const abiFile = await fs.readFileSync('../contract/pool.json');
-        const abiFile = await fs.readFileSync('../src/abi/erc20_issue.json')
-        const abi = JSON.parse(abiFile)
         const tokensToFetch = tokens
             ? tokens
             : Object.keys(state.balances).filter((token) => token !== 'dot')
+        console.log(tokensToFetch)
+
+        const {
+            data: { free },
+        } = await api.query.system.account(address)
 
         const balances = {}
+        balances.dot = free.toHuman()
         try {
-            const {
-                data: { free },
-            } = await api.query.system.account(address)
-            balances.dot = free.toString()
             tokensToFetch.forEach((value) => {
-                let contract = new ContractPromise(api, abi, value.address)
+                let contract = new ContractPromise(api, abi, value)
                 contract
                     .read(
                         'iErc20,balanceOf',
@@ -242,16 +228,17 @@ const actions = {
                     )
                     .send(address)
                     .then((result) => {
-                        balances[value.symbol] =
+                        balances[value] =
                             result.output instanceof Raw
                                 ? result.output.toString()
                                 : result.output instanceof Option &&
                                   result.output.isNone
                                 ? '0'
-                                : result.output.toHuman().toString()
+                                : result.output.toHuman()
                     })
             })
             commit('GET_BALANCES_SUCCESS', balances)
+            console.log(balances)
             return balances
         } catch (e) {
             commit('GET_BALANCES_FAILURE', e)

@@ -165,6 +165,7 @@
 </template>
 
 <script>
+import { mapActions } from 'vuex';
 // import TheHeaderDropdownAccnt from "./TheHeaderDropdownAccnt";
 // import TheHeaderDropdownNotif from "./TheHeaderDropdownNotif";
 // import TheHeaderDropdownTasks from "./TheHeaderDropdownTasks";
@@ -184,7 +185,10 @@ export default {
 		// TheHeaderDropdownMssgs,
 	},
 	methods: {
-		connectWallet() {},
+		...mapActions([ 'login']),
+		async connectWallet() {
+			await this.login();
+		}
 	},
 };
 </script>
