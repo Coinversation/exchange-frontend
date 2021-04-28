@@ -1,16 +1,16 @@
 import config from '@/config';
 import i18n from '@/i18n';
-import {
-  bnum,
-  denormalizeBalance,
-  MAX_UINT,
-  toWei,
-  isTxReverted,
-  shortenAddress
-} from '@/helpers/utils';
-import BigNumber from '@/helpers/bignumber';
-import { makeProxyTransaction } from '@/helpers/web3';
-import { setGoal } from '@/helpers/fathom';
+// import {
+//   bnum,
+//   denormalizeBalance,
+//   MAX_UINT,
+//   toWei,
+//   isTxReverted,
+//   shortenAddress
+// } from '@/helpers/utils';
+import BigNumber from '@/plugin/bignumber';
+// import { makeProxyTransaction } from '@/helpers/web3';
+// import { setGoal } from '@/helpers/fathom';
 
 const mutations = {
   CREATE_PROXY_REQUEST() {

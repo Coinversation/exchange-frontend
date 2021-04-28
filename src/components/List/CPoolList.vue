@@ -144,6 +144,9 @@ export default {
 			},
 		},
 	},
+    mounted() {
+        console.log(this.$store)
+    },
 	methods: {
 		getBadge(status) {
 			switch (status) {

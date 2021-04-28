@@ -34,6 +34,7 @@
         "@polkadot/util": "^6.1.1",
         "@polkadot/util-crypto": "^6.2.1",
         "axios": "^0.21.1",
+        "bignumber.js": "^9.0.1",
         "lightweight-charts": "^3.3.0",
         "quill": "~1.3.7",
         "spinkit": "~2.0.1",
