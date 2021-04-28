@@ -145,7 +145,7 @@ export default {
 		},
 	},
     mounted() {
-        console.log(this.$store)
+        console.log(this.$store.state)
     },
 	methods: {
 		getBadge(status) {

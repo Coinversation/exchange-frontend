@@ -1,6 +1,6 @@
 import Vue from 'vue'
 import Vuex from 'vuex'
-import modules from '@/store/modules'
+import modules from './modules'
 import config from '@/config'
 import { ContractPromise } from '@polkadot/api-contract'
 import * as fs from 'fs'
@@ -275,7 +275,7 @@ const store = new Vuex.Store({
     state,
     actions,
     modules,
-    strict: process.env.NODE_ENV !== 'production',
+    // strict: process.env.NODE_ENV !== 'production',
     mutations,
 })
 
