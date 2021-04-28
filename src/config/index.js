@@ -10,7 +10,7 @@ const registry = {
         "16KPHXYgRV8iixHAxj3ToJqymxu3wKvicvcM4giqB61hPXKB": {
             "address": "0xd0A1E359811322d97991E03f863a0C30C2cF029C",
             "id": "usdc",
-            "name": "usdc",
+            "name": "USD Coin",
             "symbol": "usdc",
             "decimals": 10,
             "precision": 4,
@@ -21,7 +21,7 @@ const registry = {
           "1ZB5xh2HWDDjQKKC99BL7ntkeLUADzWCmwc3GBqVXYQfh9X": {
             "address": "1ZB5xh2HWDDjQKKC99BL7ntkeLUADzWCmwc3GBqVXYQfh9X",
             "id": "dai",
-            "name": "dai",
+            "name": "Dai Stablecoin",
             "symbol": "dai",
             "decimals": 18,
             "precision": 3,
@@ -32,7 +32,7 @@ const registry = {
           "1ZqzwjuqDyzuSyV1X3RNXko4CuomRX5TgXcVP8F4oiCYFk5": {
             "address": "1ZqzwjuqDyzuSyV1X3RNXko4CuomRX5TgXcVP8F4oiCYFk5",
             "id": "snx",
-            "name": "snx",
+            "name": "Synthetix Network Token",
             "symbol": "snx",
             "decimals": 18,
             "precision": 4,
