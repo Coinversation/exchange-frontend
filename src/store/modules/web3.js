@@ -12,6 +12,7 @@ import {
     web3Enable,
     web3FromAddress,
 } from '@polkadot/extension-dapp'
+import { jsonParse } from '../../lib/utils'
 
 const state = {
     injectedLoaded: false,
@@ -21,7 +22,7 @@ const state = {
     active: false,
     balances: lsGet('balances') || {},
     allowances: {},
-    tokenMetadata: {},
+    tokenMetadata: lsGet('tokenMetadata') || {},
     userInfo: lsGet('userInfo') || {},
 }
 const mutations = {
@@ -36,11 +37,17 @@ const mutations = {
         Vue.set(_state, 'userInfo', {})
         lsSet('userInfo', {})
         console.debug('LOGOUT')
+        // lsRemove()
     },
     LOAD_TOKEN_METADATA_REQUEST() {
         console.debug('LOAD_TOKEN_METADATA_REQUEST')
     },
     LOAD_TOKEN_METADATA_SUCCESS(_state, payload) {
+        for (const address in payload) {
+            console.log(payload)
+            Vue.set(_state.tokenMetadata, address, payload[address])
+            lsSet('tokenMetadata', JSON.stringify(payload))
+        }
         console.debug('LOAD_TOKEN_METADATA_SUCCESS')
     },
     LOAD_TOKEN_METADATA_FAILURE(_state, payload) {
@@ -102,8 +109,10 @@ const mutations = {
     },
     GET_BALANCES_SUCCESS(_state, payload) {
         for (const address in payload) {
+            console.log(address)
+            console.log(payload)
             Vue.set(_state.balances, address, payload[address])
-            lsSet('balances', address, payload[address])
+            lsSet('balances', JSON.stringify(payload))
         }
         console.debug('GET_BALANCES_SUCCESS')
     },
@@ -141,6 +150,7 @@ const actions = {
         /*
 
       */
+        // lsRemove()
         commit('LOGOUT')
     },
     initTokenMetadata: async ({ commit }) => {
@@ -158,12 +168,36 @@ const actions = {
                 ]
             })
         )
+        console.log(169, metadata)
         commit('LOAD_TOKEN_METADATA_SUCCESS', metadata)
     },
     loadTokenMetadata: async ({ commit }, tokens) => {
         commit('LOAD_TOKEN_METADATA_REQUEST')
         /*
          */
+        // try {
+        //        const keys = ['decimals', 'symbol', 'name']
+        //        const calls = tokens
+        //            .map((token) => keys.map((key) => [token, key, []]))
+        //            .reduce((a, b) => [...a, ...b])
+        //        const res = await multicall(provider, abi['TestToken'], calls)
+        //        const tokenMetadata = Object.fromEntries(
+        //            tokens.map((token, i) => [
+        //                token,
+        //                Object.fromEntries(
+        //                    keys.map((key, keyIndex) => [
+        //                        key,
+        //                        ...res[keyIndex + i * keys.length],
+        //                    ])
+        //                ),
+        //            ])
+        //        )
+        //        commit('LOAD_TOKEN_METADATA_SUCCESS', tokenMetadata)
+        //        return tokenMetadata
+        //    } catch (e) {
+        //        commit('LOAD_TOKEN_METADATA_FAILURE', e)
+        //        return Promise.reject()
+        //    }
         const tokenMetadata = {}
         commit('LOAD_TOKEN_METADATA_SUCCESS', tokenMetadata)
         return tokenMetadata
@@ -225,6 +259,8 @@ const actions = {
     getBalances: async ({ commit }, tokens) => {
         commit('GET_BALANCES_REQUEST')
         const address = state.account
+        console.log(259, address)
+
         // Construct
         const wsProvider = new WsProvider(config.polkadotUrl)
         // Create the instance
@@ -257,13 +293,14 @@ const actions = {
                     .then((result) => {
                         balances[value] =
                             result.output instanceof Raw
-                                ? result.output.toString().replace('DOT','')
+                                ? result.output.toString().replace('DOT', '')
                                 : result.output instanceof Option &&
                                   result.output.isNone
                                 ? '0'
-                                : result.output.toHuman().replace('DOT','')
+                                : result.output.toHuman().replace('DOT', '')
                     })
             })
+            console.log(balances)
             commit('GET_BALANCES_SUCCESS', balances)
             return balances
         } catch (e) {

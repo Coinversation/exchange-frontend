@@ -32,7 +32,7 @@ const mutations = {
 const store = new Vuex.Store({
     state,
     modules,
-    // strict: process.env.NODE_ENV !== 'production',
+    strict: process.env.NODE_ENV !== 'production',
     mutations,
 })
 

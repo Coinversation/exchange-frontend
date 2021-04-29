@@ -51,7 +51,7 @@
 </template>
 
 <script>
-// import poolListData from "../../mock/poolListDataShared";
+import config from "@/config";
 import vettedTokenList from "../../config/vetted_tokenlist";
 import poolListData from "../../mock/poolListDataPrivate";
 import WalletList from "../../components/List/WalletList";
@@ -97,15 +97,53 @@ export default {
 				: "";
 		},
 		balances() {
-			return this.$store.state.web3.balances !== {} &&
-				this.$store.state.web3.balances
-				? this.$store.state.web3.balances
-				: "";
+			const balances = Object.entries(this.$store.state.web3.balances)
+				.filter(
+					([address]) =>
+						address !== "dot" &&
+						this.$store.state.web3.tokenMetadata[address]
+				)
+				.map(([address, denormBalance]) => {
+					const price = this.$store.state.price.values[address];
+					const balance =
+						denormBalance /
+						this.$store.state.web3.tokenMetadata[address].decimals;
+
+					return {
+						address,
+						name: this.$store.state.web3.tokenMetadata[address]
+							.name,
+						symbol: this.$store.state.web3.tokenMetadata[address]
+							.symbol,
+						price,
+						balance,
+						value: balance * price,
+					};
+				})
+				.filter(({ value }) => value > 0.001);
+			const ethPrice = this.$store.state.price.values[
+				config.addresses.weth
+			];
+			const ethBalance = this.$store.state.web3.balances["dot"];
+			return [
+				{
+					address: "dot",
+					name: "DOT",
+					symbol: "DOT",
+					price: ethPrice,
+					balance: ethBalance,
+					value: ethPrice * ethBalance,
+				},
+				...balances,
+			];
+		},
+		balancesTotalValue() {
+			return this.balances.reduce((a, b) => a + b.value, 0);
 		},
 	},
-    mounted () {
-        console.log(this.balances)
-    },
+	mounted() {
+		console.log(this.balances);
+	},
 	methods: {
 		getBadge(status) {
 			switch (status) {
