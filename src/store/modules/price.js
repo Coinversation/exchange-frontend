@@ -1,6 +1,6 @@
 import Vue from 'vue'
 // import { getAddress } from '@ethersproject/address'
-import { address as addressEq } from '@polkadot/util-crypto'
+import { addressEq } from '@polkadot/util-crypto'
 
 import config from '@/config'
 
