@@ -19,7 +19,7 @@ const state = {
     account: null,
     name: null,
     active: false,
-    balances: {},
+    balances: lsGet('balances') || {},
     allowances: {},
     tokenMetadata: {},
     userInfo: lsGet('userInfo') || {},
@@ -31,6 +31,7 @@ const mutations = {
         Vue.set(_state, 'name', null)
         Vue.set(_state, 'active', false)
         Vue.set(_state, 'balances', {})
+        lsSet('balances', {})
         Vue.set(_state, 'allowances', {})
         Vue.set(_state, 'userInfo', {})
         lsSet('userInfo', {})
@@ -101,7 +102,8 @@ const mutations = {
     },
     GET_BALANCES_SUCCESS(_state, payload) {
         for (const address in payload) {
-            Vue.set(_state.balances, address, payload[address]);
+            Vue.set(_state.balances, address, payload[address])
+            lsSet('balances', address, payload[address])
         }
         console.debug('GET_BALANCES_SUCCESS')
     },
