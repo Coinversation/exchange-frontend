@@ -223,31 +223,6 @@ const mutations = {
 };
 
 const actions = {
-  createProxy: async ({ commit, dispatch }) => {
-    commit('CREATE_PROXY_REQUEST');
-    try {
-      const params = [
-        'DSProxyRegistry',
-        config.addresses.dsProxyRegistry,
-        'build',
-        [],
-        {}
-      ];
-      const tx = await dispatch('processTransaction', {
-        params,
-        title: 'Create proxy'
-      });
-      setGoal('EV1XI0VM');
-      dispatch('notify', ['green', "You've successfully created a proxy"]);
-      dispatch('getProxy');
-      commit('CREATE_PROXY_SUCCESS');
-      return tx;
-    } catch (e) {
-      if (!e || isTxReverted(e)) return e;
-      dispatch('notify', ['red', i18n.tc('failureOops')]);
-      commit('CREATE_PROXY_FAILURE', e);
-    }
-  },
   createPool: async (
     { commit, dispatch, rootState },
     { tokens, balances, weights, swapFee }
@@ -817,7 +792,7 @@ const actions = {
   },
   approve: async ({ commit, dispatch, rootState }, token) => {
     commit('APPROVE_REQUEST');
-    const spender = rootState.web3.dsProxyAddress;
+    const spender = rootState.web3.account;
     const tokenMetadata = rootState.web3.tokenMetadata[token];
     const symbol = tokenMetadata ? tokenMetadata.symbol : shortenAddress(token);
     try {

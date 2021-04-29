@@ -146,7 +146,7 @@ const actions = {
         try {
             await dispatch('loadProvider')
             await dispatch('loadAccount')
-            await dispatch('checkPendingTransactions')
+            //await dispatch('checkPendingTransactions')
             commit('LOAD_WEB3_SUCCESS')
         } catch (e) {
             commit('LOAD_WEB3_FAILURE', e)
