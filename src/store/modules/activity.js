@@ -1,16 +1,16 @@
 import Vue from 'vue'
 // import { getInstance } from '@snapshot-labs/lock/plugins/vue';
-// import { lsGet, lsRemove, lsSet } from '@/helpers/localStorage';
+import { lsGet, lsRemove, lsSet } from '@/lib/localStorage'
 // import { sendTransaction } from '@/helpers/web3';
 // import provider from '@/helpers/provider';
 
 const state = {
-    //   transactions: lsGet('transactions') || {}
-    transactions: {},
+    transactions: lsGet('transactions') || {},
 }
 
 const mutations = {
     watchTransaction(_state, tx) {
+        console.log(123)
         Vue.set(_state.transactions, tx.hash, {
             addedAt: Math.round(new Date().getTime() / 1000),
             title: tx.title,

@@ -1,8 +1,10 @@
 import Vue from 'vue'
 import config from '@/config'
+import { lsGet, lsRemove, lsSet } from '@/lib/localStorage'
+
 import { ContractPromise } from '@polkadot/api-contract'
-import { Option, Raw } from '@polkadot/types';
-import abi from '../../abi/erc20_issue.json';
+import { Option, Raw } from '@polkadot/types'
+import abi from '../../abi/erc20_issue.json'
 import { ApiPromise, WsProvider } from '@polkadot/api'
 import {
     isWeb3Injected,
@@ -10,7 +12,6 @@ import {
     web3Enable,
     web3FromAddress,
 } from '@polkadot/extension-dapp'
-
 
 const state = {
     injectedLoaded: false,
@@ -21,6 +22,7 @@ const state = {
     balances: {},
     allowances: {},
     tokenMetadata: {},
+    userInfo: lsGet('userInfo') || {},
 }
 const mutations = {
     LOGOUT(_state) {
@@ -30,6 +32,7 @@ const mutations = {
         Vue.set(_state, 'active', false)
         Vue.set(_state, 'balances', {})
         Vue.set(_state, 'allowances', {})
+        lsSet('userInfo', {})
         console.debug('LOGOUT')
     },
     LOAD_TOKEN_METADATA_REQUEST() {
@@ -58,6 +61,8 @@ const mutations = {
         Vue.set(_state, 'account', payload.account)
         Vue.set(_state, 'name', payload.name)
         Vue.set(_state, 'active', true)
+        lsSet('userInfo', payload)
+
         console.debug('LOAD_PROVIDER_SUCCESS')
     },
     LOAD_PROVIDER_FAILURE(_state, payload) {
@@ -253,5 +258,5 @@ const actions = {
 export default {
     state,
     mutations,
-    actions
-  };
+    actions,
+}

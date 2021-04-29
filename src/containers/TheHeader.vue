@@ -39,7 +39,7 @@
 			<TheHeaderDropdownMssgs />
 			<TheHeaderDropdownAccnt /> -->
 			<CCol
-				v-if="injectedLoaded"
+				v-if="!injectedLoaded"
 				col="6"
 				sm="4"
 				md="2"
@@ -50,7 +50,7 @@
 					>Connect wallet</CButton
 				>
 			</CCol>
-			<CHeaderNavItem v-if="!injectedLoaded" class="px-3">
+			<CHeaderNavItem v-if="injectedLoaded" class="px-3">
 				<CButton
 					block
 					color="info"
@@ -59,14 +59,14 @@
 					size="sm"
 					><CIcon class="mr-2" size="lg" name="cil-smile" />
 					<span style="width: 10px">{{
-						account !== null ? account.slice(0, 10) + "..." : ""
+						account ? account.slice(0, 10) + "..." : ""
 					}}</span></CButton
 				>
 				<!-- <button class="c-header-nav-btn">
 						<CIcon size="lg" name="cil-wallet" class="mr-2" />
 					</button> -->
 			</CHeaderNavItem>
-			<CHeaderNavItem v-if="!injectedLoaded" class="px-3">
+			<CHeaderNavItem v-if="injectedLoaded" class="px-3">
 				<router-link :to="{ path: '/wallet' }">
 					<button class="c-header-nav-btn">
 						<CIcon size="lg" name="cil-wallet" class="mr-2" />
@@ -120,12 +120,10 @@
 						>
 							<CIcon class="mr-2" size="lg" name="cil-smile" />
 							<span style="width: 10px">{{
-								account !== null
-									? account.slice(0, 10) + "..."
-									: ""
+								account ? account.slice(0, 10) + "..." : ""
 							}}</span>
 						</CButton>
-						<CButton
+						<!-- <CButton
 							size="lg"
 							variant="outline"
 							color="info"
@@ -135,12 +133,13 @@
 							"
 						>
 							Connect wallet
-						</CButton>
+						</CButton> -->
 						<CButton
 							size="lg"
 							variant="outline"
 							color="danger"
 							block
+							@click="logOut"
 						>
 							Log out
 						</CButton>
@@ -189,18 +188,26 @@ export default {
 	},
 	computed: {
 		account() {
-			return this.$store.state.web3.account !== null
-				? this.$store.state.web3.account
+			return this.$store.state.web3.userInfo.account &&
+				this.$store.state.web3.userInfo.account !== {}
+				? this.$store.state.web3.userInfo.account
 				: "";
 		},
 		injectedLoaded() {
-			return !this.$store.state.web3.injectedLoaded;
+			return this.$store.state.web3.userInfo !== {} &&
+				this.$store.state.web3.userInfo.injectedLoaded
+				? this.$store.state.web3.userInfo.injectedLoaded
+				: false;
 		},
 	},
 	methods: {
-		...mapActions(["login"]),
+		...mapActions(["login", "logout"]),
 		async connectWallet() {
 			await this.login();
+		},
+		async logOut() {
+			await this.logout();
+			this.accountModal = false;
 		},
 	},
 };
