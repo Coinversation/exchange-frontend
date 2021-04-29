@@ -38,12 +38,19 @@
 			<TheHeaderDropdownTasks />
 			<TheHeaderDropdownMssgs />
 			<TheHeaderDropdownAccnt /> -->
-			<CCol col="6" sm="4" md="2" xl class="mb-3 mb-xl-0">
+			<CCol
+				v-if="injectedLoaded"
+				col="6"
+				sm="4"
+				md="2"
+				xl
+				class="mb-3 mb-xl-0"
+			>
 				<CButton block color="primary" @click="connectWallet"
 					>Connect wallet</CButton
 				>
 			</CCol>
-			<CHeaderNavItem class="px-3">
+			<CHeaderNavItem v-if="!injectedLoaded" class="px-3">
 				<CButton
 					block
 					color="info"
@@ -52,17 +59,14 @@
 					size="sm"
 					><CIcon class="mr-2" size="lg" name="cil-smile" />
 					<span style="width: 10px">{{
-						"0x3f600a5FF59b7468577f3E6129AB9a519B7100B6".slice(
-							0,
-							10
-						) + "..."
+						account !== null ? account.slice(0, 10) + "..." : ""
 					}}</span></CButton
 				>
 				<!-- <button class="c-header-nav-btn">
 						<CIcon size="lg" name="cil-wallet" class="mr-2" />
 					</button> -->
 			</CHeaderNavItem>
-			<CHeaderNavItem class="px-3">
+			<CHeaderNavItem v-if="!injectedLoaded" class="px-3">
 				<router-link :to="{ path: '/wallet' }">
 					<button class="c-header-nav-btn">
 						<CIcon size="lg" name="cil-wallet" class="mr-2" />
@@ -116,10 +120,9 @@
 						>
 							<CIcon class="mr-2" size="lg" name="cil-smile" />
 							<span style="width: 10px">{{
-								"0x3f600a5FF59b7468577f3E6129AB9a519B7100B6".slice(
-									0,
-									10
-								) + "..."
+								account !== null
+									? account.slice(0, 10) + "..."
+									: ""
 							}}</span>
 						</CButton>
 						<CButton
@@ -165,7 +168,7 @@
 </template>
 
 <script>
-import { mapActions } from 'vuex';
+import { mapActions } from "vuex";
 // import TheHeaderDropdownAccnt from "./TheHeaderDropdownAccnt";
 // import TheHeaderDropdownNotif from "./TheHeaderDropdownNotif";
 // import TheHeaderDropdownTasks from "./TheHeaderDropdownTasks";
@@ -184,11 +187,21 @@ export default {
 		// TheHeaderDropdownTasks,
 		// TheHeaderDropdownMssgs,
 	},
+	computed: {
+		account() {
+			return this.$store.state.web3.account !== null
+				? this.$store.state.web3.account
+				: "";
+		},
+		injectedLoaded() {
+			return !this.$store.state.web3.injectedLoaded;
+		},
+	},
 	methods: {
-		...mapActions([ 'login']),
+		...mapActions(["login"]),
 		async connectWallet() {
 			await this.login();
-		}
+		},
 	},
 };
 </script>
