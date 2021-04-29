@@ -24,15 +24,46 @@ const mutations = {
 const actions = {
     loadPricesById: async ({ commit }, payload) => {
         commit('GET_PRICE_REQUEST')
-        const idString = payload.join('%2C')
-        let data
-        try {
-            const url = `${ENDPOINT}/simple/price?ids=${idString}&vs_currencies=usd`
-            const response = await fetch(url)
-            data = await response.json()
-        } catch (e) {
-            return
+        // const idString = payload.join('%2C')
+        let data = {
+            '0x': {
+                usd: 1.7,
+            },
+            havven: {
+                usd: 16.99,
+            },
+            'usd-coin': {
+                usd: 1,
+            },
+            'basic-attention-token': {
+                usd: 1.2,
+            },
+            dai: {
+                usd: 1,
+            },
+            'wrapped-bitcoin': {
+                usd: 54494,
+            },
+            weth: {
+                usd: 2723.35,
+            },
+            maker: {
+                usd: 4340.71,
+            },
+            aragon: {
+                usd: 9.16,
+            },
+            augur: {
+                usd: 36.67,
+            },
         }
+        // try {
+        //     const url = `${ENDPOINT}/simple/price?ids=${idString}&vs_currencies=usd`
+        //     const response = await fetch(url)
+        //     data = await response.json()
+        // } catch (e) {
+        //     return
+        // }
         const idToAddressMap = {}
         for (const address in config.tokens) {
             const id = config.tokens[address].id
@@ -41,7 +72,18 @@ const actions = {
             }
             idToAddressMap[id] = address
         }
-        const prices = {}
+        const prices = {
+            '0xccb0F4Cf5D3F97f4a55bb5f5cA321C3ED033f244': 1.7,
+            '0x86436BcE20258a6DcfE48C9512d4d49A30C4d8c4': 16.99,
+            '0x2F375e94FC336Cdec2Dc0cCB5277FE59CBf1cAe5': 1,
+            '0x1f1f156E0317167c11Aa412E3d1435ea29Dc3cCE': 1.2,
+            '0x1528F3FCc26d13F7079325Fb78D9442607781c8C': 1,
+            '0xe0C9275E44Ea80eF17579d33c55136b7DA269aEb': 54494,
+            '0xd0A1E359811322d97991E03f863a0C30C2cF029C': 2723.35,
+            '0xef13C0c8abcaf5767160018d268f9697aE4f5375': 4340.71,
+            '0x37f03a12241E9FD3658ad6777d289c3fb8512Bc9': 9.16,
+            '0x8c9e6c40d3402480ACE624730524fACC5482798c': 36.67,
+        }
         for (const id in data) {
             const price = data[id].usd
             const address = idToAddressMap[id]

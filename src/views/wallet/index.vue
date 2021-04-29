@@ -6,7 +6,7 @@
 					<div class="row d-flex justify-content-between">
 						<div>
 							<h3>My wallet</h3>
-							<div>xxxxxxxxxxxxxxxxxxxxx</div>
+							<div>{{ account }}</div>
 						</div>
 						<div>
 							<h3>$6,937.14</h3>
@@ -89,6 +89,23 @@ export default {
 			},
 		},
 	},
+	computed: {
+		account() {
+			return this.$store.state.web3.userInfo !== {} &&
+				this.$store.state.web3.userInfo.account
+				? this.$store.state.web3.userInfo.account
+				: "";
+		},
+		balances() {
+			return this.$store.state.web3.balances !== {} &&
+				this.$store.state.web3.balances
+				? this.$store.state.web3.balances
+				: "";
+		},
+	},
+    mounted () {
+        console.log(this.balances)
+    },
 	methods: {
 		getBadge(status) {
 			switch (status) {
