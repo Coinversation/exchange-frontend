@@ -32,6 +32,7 @@ const mutations = {
         Vue.set(_state, 'active', false)
         Vue.set(_state, 'balances', {})
         Vue.set(_state, 'allowances', {})
+        Vue.set(_state, 'userInfo', {})
         lsSet('userInfo', {})
         console.debug('LOGOUT')
     },
@@ -61,8 +62,8 @@ const mutations = {
         Vue.set(_state, 'account', payload.account)
         Vue.set(_state, 'name', payload.name)
         Vue.set(_state, 'active', true)
+        Vue.set(_state, 'userInfo', payload)
         lsSet('userInfo', payload)
-
         console.debug('LOAD_PROVIDER_SUCCESS')
     },
     LOAD_PROVIDER_FAILURE(_state, payload) {
@@ -139,21 +140,21 @@ const actions = {
     },
     initTokenMetadata: async ({ commit }) => {
         const metadata = Object.fromEntries(
-          Object.entries(config.tokens).map(tokenEntry => {
-            const { decimals, symbol, name } = tokenEntry[1];
-            return [
-              tokenEntry[0],
-              {
-                decimals,
-                symbol,
-                name,
-                whitelisted: true
-              }
-            ];
-          })
-        );
-        commit('LOAD_TOKEN_METADATA_SUCCESS', metadata);
-      },
+            Object.entries(config.tokens).map((tokenEntry) => {
+                const { decimals, symbol, name } = tokenEntry[1]
+                return [
+                    tokenEntry[0],
+                    {
+                        decimals,
+                        symbol,
+                        name,
+                        whitelisted: true,
+                    },
+                ]
+            })
+        )
+        commit('LOAD_TOKEN_METADATA_SUCCESS', metadata)
+    },
     loadTokenMetadata: async ({ commit }, tokens) => {
         commit('LOAD_TOKEN_METADATA_REQUEST')
         /*

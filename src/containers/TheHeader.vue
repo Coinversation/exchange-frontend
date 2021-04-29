@@ -188,12 +188,13 @@ export default {
 	},
 	computed: {
 		account() {
-			return this.$store.state.web3.userInfo.account &&
-				this.$store.state.web3.userInfo.account !== {}
+			return this.$store.state.web3.userInfo !== {} &&
+				this.$store.state.web3.userInfo.account
 				? this.$store.state.web3.userInfo.account
 				: "";
 		},
 		injectedLoaded() {
+			console.log(197, this.$store.state.web3.userInfo);
 			return this.$store.state.web3.userInfo !== {} &&
 				this.$store.state.web3.userInfo.injectedLoaded
 				? this.$store.state.web3.userInfo.injectedLoaded
