@@ -132,7 +132,23 @@ const actions = {
       */
         commit('LOGOUT')
     },
-
+    initTokenMetadata: async ({ commit }) => {
+        const metadata = Object.fromEntries(
+          Object.entries(config.tokens).map(tokenEntry => {
+            const { decimals, symbol, name } = tokenEntry[1];
+            return [
+              tokenEntry[0],
+              {
+                decimals,
+                symbol,
+                name,
+                whitelisted: true
+              }
+            ];
+          })
+        );
+        commit('LOAD_TOKEN_METADATA_SUCCESS', metadata);
+      },
     loadTokenMetadata: async ({ commit }, tokens) => {
         commit('LOAD_TOKEN_METADATA_REQUEST')
         /*
