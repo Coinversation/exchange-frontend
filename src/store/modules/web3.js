@@ -100,6 +100,9 @@ const mutations = {
         console.debug('GET_BALANCES_REQUEST')
     },
     GET_BALANCES_SUCCESS(_state, payload) {
+        for (const address in payload) {
+            Vue.set(_state.balances, address, payload[address]);
+        }
         console.debug('GET_BALANCES_SUCCESS')
     },
     GET_BALANCES_FAILURE(_state, payload) {
@@ -252,15 +255,14 @@ const actions = {
                     .then((result) => {
                         balances[value] =
                             result.output instanceof Raw
-                                ? result.output.toString()
+                                ? result.output.toString().replace('DOT','')
                                 : result.output instanceof Option &&
                                   result.output.isNone
                                 ? '0'
-                                : result.output.toHuman()
+                                : result.output.toHuman().replace('DOT','')
                     })
             })
             commit('GET_BALANCES_SUCCESS', balances)
-            console.log(balances)
             return balances
         } catch (e) {
             commit('GET_BALANCES_FAILURE', e)
