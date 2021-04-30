@@ -33,6 +33,7 @@
         "@polkadot/types": "^4.5.1",
         "@polkadot/util": "^6.1.1",
         "@polkadot/util-crypto": "^6.2.1",
+        "@snapshot-labs/lock": "^0.1.3",
         "axios": "^0.21.1",
         "bignumber.js": "^9.0.1",
         "lightweight-charts": "^3.3.0",

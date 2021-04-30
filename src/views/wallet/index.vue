@@ -3,73 +3,41 @@
 		<CCol col="12">
 			<CCard>
 				<CCardHeader @click="item++">
-					<div class="row d-flex justify-content-between">
+					<div class="row d-flex justify-content-between m-2">
 						<div>
 							<h3>My wallet</h3>
 							<div>{{ account }}</div>
 						</div>
 						<div>
-							<h3>$6,937.14</h3>
+							<h3>${{balancesTotalValue}}</h3>
 							<div class="float-right">Total value</div>
 						</div>
 					</div>
 				</CCardHeader>
 			</CCard>
 		</CCol>
-		<WalletList :items="items" :fields="fields" />
-		<CModal
-			:show.sync="darkModal"
-			:no-close-on-backdrop="true"
-			:centered="true"
-			title="Connect wallet"
-			size="lg"
-			color="dark"
-		>
-			<CCol xs="12" md="12">
-				<CCard>
-					<confTokenTable
-						:vettedTokenListData="vettedTokenListData"
-						@filterData="filterData"
-					></confTokenTable>
-				</CCard>
-			</CCol>
-			<template #header>
-				<h6 class="modal-title">Select token</h6>
-				<CButtonClose @click="darkModal = false" class="text-white" />
-			</template>
-			<template #footer>
-				<div></div>
-				<!-- <CButton @click="darkModal = false" color="danger"
-					>Discard</CButton
-				>
-				<CButton @click="darkModal = false" color="success"
-					>Accept</CButton
-				> -->
-			</template>
-		</CModal>
+		<WalletList :items="balances" :fields="fields" />
 	</CRow>
 </template>
 
 <script>
 import config from "@/config";
 import vettedTokenList from "../../config/vetted_tokenlist";
-import poolListData from "../../mock/poolListDataPrivate";
 import WalletList from "../../components/List/WalletList";
-import confTokenTable from "../../components/Tables/confTokenTable";
 export default {
 	name: "Users",
 	data() {
 		return {
-			items: poolListData,
 			vettedTokenListData: vettedTokenList.tokens,
 			darkModal: false,
 			fields: [
 				{
-					key: "asset",
+					key: "address",
 					label: "Asset",
 					_classes: "font-weight-bold",
 				},
-				{ key: "tokens", label: "Holdings" },
+				{ key: "price", label: "Holdings" },
+
 			],
 			activePage: 1,
 			filterTokenData: [],
@@ -77,7 +45,6 @@ export default {
 	},
 	components: {
 		WalletList,
-		confTokenTable,
 	},
 	watch: {
 		$route: {
@@ -97,6 +64,9 @@ export default {
 				: "";
 		},
 		balances() {
+			console.log(
+				JSON.parse(JSON.stringify(this.$store.state.web3.balances))
+			);
 			const balances = Object.entries(this.$store.state.web3.balances)
 				.filter(
 					([address]) =>

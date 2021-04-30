@@ -12,7 +12,6 @@ import {
     web3Enable,
     web3FromAddress,
 } from '@polkadot/extension-dapp'
-import { jsonParse } from '../../lib/utils'
 
 const state = {
     injectedLoaded: false,
@@ -44,9 +43,8 @@ const mutations = {
     },
     LOAD_TOKEN_METADATA_SUCCESS(_state, payload) {
         for (const address in payload) {
-            console.log(payload)
             Vue.set(_state.tokenMetadata, address, payload[address])
-            lsSet('tokenMetadata', JSON.stringify(payload))
+            lsSet('tokenMetadata', payload)
         }
         console.debug('LOAD_TOKEN_METADATA_SUCCESS')
     },
@@ -108,11 +106,11 @@ const mutations = {
         console.debug('GET_BALANCES_REQUEST')
     },
     GET_BALANCES_SUCCESS(_state, payload) {
+        console.log(109, payload)
+
         for (const address in payload) {
-            console.log(address)
-            console.log(payload)
             Vue.set(_state.balances, address, payload[address])
-            lsSet('balances', JSON.stringify(payload))
+            lsSet('balances', payload)
         }
         console.debug('GET_BALANCES_SUCCESS')
     },

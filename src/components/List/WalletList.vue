@@ -7,15 +7,14 @@
 					:items="items"
 					:fields="fields"
 					:items-per-page="15"
-					clickable-rows
 					:active-page="activePage"
 					:pagination="{ doubleArrows: false, align: 'center' }"
 					@page-change="pageChange"
 				>
-					<template slot="asset" slot-scope="{ item }">
+					<template slot="address" slot-scope="{ item }">
 						<td>
 							<div class="d-flex">
-								<img
+								<!-- <img
 									class="mr-3"
 									style="
 										width: 35px;
@@ -23,82 +22,21 @@
 										border-radius: 35px;
 										background-color: #d7d7d7;
 									"
-									:src="item.logoURI"
-								/>
+									:src="item.address"
+								/> -->
 								<span class="mr-3">
-									<h5 class="m-0">Wrapped Ether</h5>
-									<span>{{ item.name }}WETH</span>
-								</span>
-								<!-- <span>
-									<CButton
-										block
-										color="info"
-										@click="darkModal = true"
-									>
-										Unwrap to ETH
-									</CButton>
-								</span> -->
-							</div>
-						</td>
-					</template>
-					<template slot="tokens" slot-scope="{ item }">
-						<td>
-							<div
-								class="text-center d-flex justify-content-start"
-							>
-								<div class="pie">
-									<UiPie
-										:tokens="item.tokens"
-										class="mr-3"
-										size="34"
-									/>
-								</div>
-								<span
-									class="d-flex justify-content-center align-items-center mr-2"
-									v-for="(data, index) in item.tokens"
-									:key="index"
-								>
-									<i
-										class="m-1 d-flex justify-content-center"
-										:style="{
-											width: '10px',
-											height: '10px',
-											borderRadius: '10px',
-											backgroundColor: data.color,
-										}"
-									></i>
-									{{ data.num }}
-									{{ data.symbol }}
+									<h5 class="m-0">{{ item.name }}</h5>
+									<span>{{ item.symbol }}</span>
 								</span>
 							</div>
 						</td>
 					</template>
 
-					<template slot="swapFee" slot-scope="{ item }">
+					<template slot="price" slot-scope="{ item }">
 						<td>
-							<span>{{ item.swapFee }}%</span>
-						</td>
-					</template>
-					<template slot="marketCap" slot-scope="{ item }">
-						<td>
-							<span>${{ item.marketCap }}M</span>
-						</td>
-					</template>
-					<template slot="liquidity" slot-scope="{ item }">
-						<td>
-							<span
-								v-if="
-									item.liquidity !== '0' &&
-									item.liquidity !== ''
-								"
-								>${{ item.liquidity }}M</span
-							>
-							<span v-else>-</span>
-						</td>
-					</template>
-					<template slot="volume" slot-scope="{ item }">
-						<td>
-							<span>${{ item.volume }}M</span>
+							<span>{{ item.balance }}{{item.symbol}}</span>
+							<p>{{item.value}}</p>
+
 						</td>
 					</template>
 				</CDataTable>
