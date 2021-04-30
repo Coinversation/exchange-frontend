@@ -107,7 +107,6 @@ const mutations = {
     },
     GET_BALANCES_SUCCESS(_state, payload) {
         console.log(109, payload)
-
         for (const address in payload) {
             Vue.set(_state.balances, address, payload[address])
             lsSet('balances', payload)
@@ -257,8 +256,6 @@ const actions = {
     getBalances: async ({ commit }, tokens) => {
         commit('GET_BALANCES_REQUEST')
         const address = state.account
-        console.log(259, address)
-
         // Construct
         const wsProvider = new WsProvider(config.polkadotUrl)
         // Create the instance
@@ -266,7 +263,6 @@ const actions = {
 
         // Wait until we are ready and connected
         await api.isReady
-
         const tokensToFetch = tokens
             ? tokens
             : Object.keys(state.balances).filter((token) => token !== 'dot')
