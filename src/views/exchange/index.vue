@@ -3,7 +3,7 @@
 		class="d-flex justify-content-center align-items-center"
 		style="margin-top: 10%"
 	>
-		<CCol col="3">
+		<CCol lg="4" md='6'>
 			<CCard>
 				<CCardHeader class="d-flex justify-content-between">
 					<h4>Swap</h4>

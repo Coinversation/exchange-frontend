@@ -5,30 +5,14 @@
 				<div class="row">
 					<div class="col-6">
 						<CNav variant="pills">
-							<CNavItem
-								active
-								:to="{
-									path: '/explore-pools',
-									query: { type: 'shared' },
-								}"
-							>
-								Shared
-							</CNavItem>
-
-							<!-- <CNavItem
-								:to="{
-									path: '/explore-pools',
-									query: { type: 'private' },
-								}"
-								>Private
-							</CNavItem> -->
+							<CNavItem active> Shared </CNavItem>
 						</CNav>
 					</div>
 					<div class="col-6 d-flex justify-content-end">
 						<CButton
 							color="warning"
 							style="color: #ffffff"
-							@click="darkModal = true"
+							@click="addToken"
 						>
 							Add token</CButton
 						>
@@ -41,7 +25,7 @@
 				<CCardHeader>
 					<h4>Assets</h4>
 				</CCardHeader>
-				<CPoolList :items="items" :fields="fields" />
+				<CPoolList :tokens="tokens" :fields="fields" />
 				<CCardHeader>
 					<h4>Swap fee (%)</h4>
 					<CCol col="2">
@@ -54,7 +38,7 @@
 					color="primary"
 					style="color: #ffffff"
 					@click="createPool"
-                    size="lg"
+					size="lg"
 				>
 					Create</CButton
 				>
@@ -83,12 +67,6 @@
 			</template>
 			<template #footer>
 				<div></div>
-				<!-- <CButton @click="darkModal = false" color="danger"
-					>Discard</CButton
-				>
-				<CButton @click="darkModal = false" color="success"
-					>Accept</CButton
-				> -->
 			</template>
 		</CModal>
 	</CRow>
@@ -98,14 +76,32 @@
 // import poolListData from "../../mock/poolListDataShared";
 import vettedTokenList from "../../config/vetted_tokenlist";
 // import poolListData from "../../mock/poolListDataPrivate";
-import cPoolListData from "../../mock/cPoolListDataPrivate";
 import CPoolList from "../../components/List/CPoolList";
 import confTokenTable from "../../components/Tables/confTokenTable";
+import { getTokenBySymbol } from "@/lib/utils";
+import { addressEq } from "@polkadot/util-crypto";
+
+import config from "@/config";
+
+function getAnotherToken(tokens, selectedTokens) {
+	const tokenAddresses = Object.keys(tokens);
+	for (const tokenAddress of tokenAddresses) {
+		const token = tokens[tokenAddress];
+		if (token.symbol === "ETH") {
+			console.log(123);
+			continue;
+		}
+		if (!selectedTokens.includes(token.address)) {
+			console.log(token.address);
+			return token.address;
+		}
+	}
+}
+
 export default {
 	name: "Users",
 	data() {
 		return {
-			items: cPoolListData,
 			vettedTokenListData: vettedTokenList.tokens,
 			darkModal: false,
 			fields: [
@@ -124,6 +120,9 @@ export default {
 			],
 			activePage: 1,
 			filterTokenData: [],
+			tokens: [],
+			amounts: {},
+			weights: {},
 		};
 	},
 	components: {
@@ -139,6 +138,18 @@ export default {
 				}
 			},
 		},
+	},
+	created() {
+		// Initialize an (arbitrary) two-token pool, with weights
+		const dai = getTokenBySymbol("dai");
+		const usdc = getTokenBySymbol("usdc");
+		this.tokens = [dai, usdc];
+		// weights contain percentage values - denorms are calculated later
+		// Vue.set(this.weights, dai, "60");
+		// Vue.set(this.weights, usdc, "40");
+		this.weights = "";
+		this.amounts = "";
+		this.loading = false;
 	},
 	methods: {
 		getBadge(status) {
@@ -156,15 +167,24 @@ export default {
 			}
 		},
 		createPool() {},
-		rowClicked(item, index) {
-			this.$router.push({ path: `users/${index + 1}` });
+		addToken() {
+			const anotherToken = getAnotherToken(config.tokens, this.tokens);
+			this.tokens.push(anotherToken);
+			this.weights = "";
+			this.amounts = "";
 		},
-		pageChange(val) {
-			this.$router.push({ query: { page: val } });
+		changeToken(selectedToken) {
+			const tokenAddress = addressEq(selectedToken);
+			console.log(tokenAddress);
+			// Vue.set(this.tokens, this.activeToken, tokenAddress);
+			// Vue.set(this.weights, tokenAddress, "");
+			// Vue.set(this.amounts, tokenAddress, "");
 		},
 		filterData(s) {
-			this.filterTokenData.push(s);
+			console.log(193, s);
+			this.tokens.push(s);
 			this.darkModal = false;
+			console.log(this.tokens);
 		},
 		removeFilter(s) {
 			Array.prototype.indexOf = function (val) {
@@ -179,7 +199,7 @@ export default {
 					this.splice(index, 1);
 				}
 			};
-			this.filterTokenData.remove(s);
+			this.tokens.remove(s);
 			console.log(this.filterTokenData);
 		},
 	},

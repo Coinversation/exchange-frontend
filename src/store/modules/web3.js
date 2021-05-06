@@ -292,11 +292,11 @@ const actions = {
                                   result.output.isNone
                                 ? '0'
                                 : result.output.toHuman().replace('DOT', '')
+
+                        commit('GET_BALANCES_SUCCESS', balances)
+                        return balances
                     })
             })
-            console.log(balances)
-            commit('GET_BALANCES_SUCCESS', balances)
-            return balances
         } catch (e) {
             commit('GET_BALANCES_FAILURE', e)
             return Promise.reject()

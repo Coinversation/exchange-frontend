@@ -4,7 +4,7 @@
 			<CCardBody>
 				<CDataTable
 					hover
-					:items="items"
+					:items="tokens"
 					:fields="fields"
 					:items-per-page="15"
 					:active-page="activePage"
@@ -120,12 +120,14 @@ import confTokenTable from "../../components/Tables/confTokenTable";
 
 export default {
 	name: "ListPool",
-	props: ["items", "fields"],
+	props: {
+		tokens: { type: Array },
+		fields: { type: Array },
+	},
 	data() {
 		return {
 			activePage: 1,
 			vettedTokenListData: vettedTokenList.tokens,
-
 			inputType: "",
 			selectAssetModal: false,
 			filterTokenDataA: "",
@@ -144,9 +146,13 @@ export default {
 			},
 		},
 	},
-    mounted() {
-        console.log(this.$store.state)
-    },
+	computed: {
+
+	},
+	mounted() {
+        console.log(this.tokens)
+		console.log(this.$store.state);
+	},
 	methods: {
 		getBadge(status) {
 			switch (status) {
