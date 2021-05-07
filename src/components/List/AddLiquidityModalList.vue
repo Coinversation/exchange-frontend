@@ -23,7 +23,7 @@
 										class="mr-2"
 										:src="
 											filterTokenDataA !== ''
-												? filterTokenDataA.logoURI
+												? filterTokenDataA.logoURL
 												: ''
 										"
 										style="

@@ -7,7 +7,7 @@
             "decimals": 18,
             "precision": 4,
             "hasIcon": true,
-            "logoUrl": "https://raw.githubusercontent.com/trustwallet/assets/master/blockchains/ethereum/info/logo.png"
+            "logoURL": "https://raw.githubusercontent.com/trustwallet/assets/master/blockchains/ethereum/info/logo.png"
         },
         "0xC02aaA39b223FE8D0A0e5C4F27eAD9083C756Cc2": {
             "address": "0xC02aaA39b223FE8D0A0e5C4F27eAD9083C756Cc2",
@@ -16,7 +16,7 @@
             "decimals": 18,
             "precision": 5,
             "hasIcon": true,
-            "logoUrl": "https://raw.githubusercontent.com/trustwallet/assets/master/blockchains/ethereum/assets/0xC02aaA39b223FE8D0A0e5C4F27eAD9083C756Cc2/logo.png"
+            "logoURL": "https://raw.githubusercontent.com/trustwallet/assets/master/blockchains/ethereum/assets/0xC02aaA39b223FE8D0A0e5C4F27eAD9083C756Cc2/logo.png"
         },
         "0xba100000625a3754423978a60c9317c58a424e3D": {
             "address": "0xba100000625a3754423978a60c9317c58a424e3D",
@@ -25,7 +25,7 @@
             "decimals": 18,
             "precision": 3,
             "hasIcon": true,
-            "logoUrl": "https://raw.githubusercontent.com/trustwallet/assets/master/blockchains/ethereum/assets/0xba100000625a3754423978a60c9317c58a424e3D/logo.png"
+            "logoURL": "https://raw.githubusercontent.com/trustwallet/assets/master/blockchains/ethereum/assets/0xba100000625a3754423978a60c9317c58a424e3D/logo.png"
         },
         "0xA0b86991c6218b36c1d19D4a2e9Eb0cE3606eB48": {
             "address": "0xA0b86991c6218b36c1d19D4a2e9Eb0cE3606eB48",
@@ -34,7 +34,7 @@
             "decimals": 6,
             "precision": 2,
             "hasIcon": true,
-            "logoUrl": "https://raw.githubusercontent.com/trustwallet/assets/master/blockchains/ethereum/assets/0xA0b86991c6218b36c1d19D4a2e9Eb0cE3606eB48/logo.png"
+            "logoURL": "https://raw.githubusercontent.com/trustwallet/assets/master/blockchains/ethereum/assets/0xA0b86991c6218b36c1d19D4a2e9Eb0cE3606eB48/logo.png"
         },
         "0x6B175474E89094C44Da98b954EedeAC495271d0F": {
             "address": "0x6B175474E89094C44Da98b954EedeAC495271d0F",
@@ -43,7 +43,7 @@
             "decimals": 18,
             "precision": 2,
             "hasIcon": true,
-            "logoUrl": "https://raw.githubusercontent.com/trustwallet/assets/master/blockchains/ethereum/assets/0x6B175474E89094C44Da98b954EedeAC495271d0F/logo.png"
+            "logoURL": "https://raw.githubusercontent.com/trustwallet/assets/master/blockchains/ethereum/assets/0x6B175474E89094C44Da98b954EedeAC495271d0F/logo.png"
         },
         "0x2260FAC5E5542a773Aa44fBCfeDf7C193bc2C599": {
             "address": "0x2260FAC5E5542a773Aa44fBCfeDf7C193bc2C599",
@@ -52,7 +52,7 @@
             "decimals": 8,
             "precision": 6,
             "hasIcon": true,
-            "logoUrl": "https://raw.githubusercontent.com/trustwallet/assets/master/blockchains/ethereum/assets/0x2260FAC5E5542a773Aa44fBCfeDf7C193bc2C599/logo.png"
+            "logoURL": "https://raw.githubusercontent.com/trustwallet/assets/master/blockchains/ethereum/assets/0x2260FAC5E5542a773Aa44fBCfeDf7C193bc2C599/logo.png"
         },
         "0xe2f2a5C287993345a840Db3B0845fbC70f5935a5": {
             "address": "0xe2f2a5C287993345a840Db3B0845fbC70f5935a5",
@@ -61,7 +61,7 @@
             "decimals": 18,
             "precision": 2,
             "hasIcon": true,
-            "logoUrl": "https://raw.githubusercontent.com/trustwallet/assets/master/blockchains/ethereum/assets/0xe2f2a5C287993345a840Db3B0845fbC70f5935a5/logo.png"
+            "logoURL": "https://raw.githubusercontent.com/trustwallet/assets/master/blockchains/ethereum/assets/0xe2f2a5C287993345a840Db3B0845fbC70f5935a5/logo.png"
         },
         "0x9f8F72aA9304c8B593d555F12eF6589cC3A579A2": {
             "address": "0x9f8F72aA9304c8B593d555F12eF6589cC3A579A2",
@@ -70,7 +70,7 @@
             "decimals": 18,
             "precision": 5,
             "hasIcon": true,
-            "logoUrl": "https://raw.githubusercontent.com/trustwallet/assets/master/blockchains/ethereum/assets/0x9f8F72aA9304c8B593d555F12eF6589cC3A579A2/logo.png"
+            "logoURL": "https://raw.githubusercontent.com/trustwallet/assets/master/blockchains/ethereum/assets/0x9f8F72aA9304c8B593d555F12eF6589cC3A579A2/logo.png"
         },
         "0xbC396689893D065F41bc2C6EcbeE5e0085233447": {
             "address": "0xbC396689893D065F41bc2C6EcbeE5e0085233447",
@@ -79,7 +79,7 @@
             "decimals": 18,
             "precision": 2,
             "hasIcon": true,
-            "logoUrl": "https://raw.githubusercontent.com/trustwallet/assets/master/blockchains/ethereum/assets/0xbC396689893D065F41bc2C6EcbeE5e0085233447/logo.png"
+            "logoURL": "https://raw.githubusercontent.com/trustwallet/assets/master/blockchains/ethereum/assets/0xbC396689893D065F41bc2C6EcbeE5e0085233447/logo.png"
         },
         "0x0bc529c00C6401aEF6D220BE8C6Ea1667F6Ad93e": {
             "address": "0x0bc529c00C6401aEF6D220BE8C6Ea1667F6Ad93e",
@@ -88,7 +88,7 @@
             "decimals": 18,
             "precision": 6,
             "hasIcon": true,
-            "logoUrl": "https://raw.githubusercontent.com/trustwallet/assets/master/blockchains/ethereum/assets/0x0bc529c00C6401aEF6D220BE8C6Ea1667F6Ad93e/logo.png"
+            "logoURL": "https://raw.githubusercontent.com/trustwallet/assets/master/blockchains/ethereum/assets/0x0bc529c00C6401aEF6D220BE8C6Ea1667F6Ad93e/logo.png"
         },
         "0x0d438F3b5175Bebc262bF23753C1E53d03432bDE": {
             "address": "0x0d438F3b5175Bebc262bF23753C1E53d03432bDE",
@@ -97,7 +97,7 @@
             "decimals": 18,
             "precision": 4,
             "hasIcon": true,
-            "logoUrl": "https://raw.githubusercontent.com/trustwallet/assets/master/blockchains/ethereum/assets/0x0d438F3b5175Bebc262bF23753C1E53d03432bDE/logo.png"
+            "logoURL": "https://raw.githubusercontent.com/trustwallet/assets/master/blockchains/ethereum/assets/0x0d438F3b5175Bebc262bF23753C1E53d03432bDE/logo.png"
         },
         "0x04Fa0d235C4abf4BcF4787aF4CF447DE572eF828": {
             "address": "0x04Fa0d235C4abf4BcF4787aF4CF447DE572eF828",
@@ -106,7 +106,7 @@
             "decimals": 18,
             "precision": 3,
             "hasIcon": true,
-            "logoUrl": "https://raw.githubusercontent.com/trustwallet/assets/master/blockchains/ethereum/assets/0x04Fa0d235C4abf4BcF4787aF4CF447DE572eF828/logo.png"
+            "logoURL": "https://raw.githubusercontent.com/trustwallet/assets/master/blockchains/ethereum/assets/0x04Fa0d235C4abf4BcF4787aF4CF447DE572eF828/logo.png"
         },
         "0x514910771AF9Ca656af840dff83E8264EcF986CA": {
             "address": "0x514910771AF9Ca656af840dff83E8264EcF986CA",
@@ -115,7 +115,7 @@
             "decimals": 18,
             "precision": 3,
             "hasIcon": true,
-            "logoUrl": "https://raw.githubusercontent.com/trustwallet/assets/master/blockchains/ethereum/assets/0x514910771AF9Ca656af840dff83E8264EcF986CA/logo.png"
+            "logoURL": "https://raw.githubusercontent.com/trustwallet/assets/master/blockchains/ethereum/assets/0x514910771AF9Ca656af840dff83E8264EcF986CA/logo.png"
         },
         "0xEB4C2781e4ebA804CE9a9803C67d0893436bB27D": {
             "address": "0xEB4C2781e4ebA804CE9a9803C67d0893436bB27D",
@@ -124,7 +124,7 @@
             "decimals": 8,
             "precision": 6,
             "hasIcon": true,
-            "logoUrl": "https://raw.githubusercontent.com/trustwallet/assets/master/blockchains/ethereum/assets/0xEB4C2781e4ebA804CE9a9803C67d0893436bB27D/logo.png"
+            "logoURL": "https://raw.githubusercontent.com/trustwallet/assets/master/blockchains/ethereum/assets/0xEB4C2781e4ebA804CE9a9803C67d0893436bB27D/logo.png"
         },
         "0x56d811088235F11C8920698a204A5010a788f4b3": {
             "address": "0x56d811088235F11C8920698a204A5010a788f4b3",
@@ -133,7 +133,7 @@
             "decimals": 18,
             "precision": 2,
             "hasIcon": true,
-            "logoUrl": "https://raw.githubusercontent.com/trustwallet/assets/master/blockchains/ethereum/assets/0x56d811088235F11C8920698a204A5010a788f4b3/logo.png"
+            "logoURL": "https://raw.githubusercontent.com/trustwallet/assets/master/blockchains/ethereum/assets/0x56d811088235F11C8920698a204A5010a788f4b3/logo.png"
         },
         "0x476c5E26a75bd202a9683ffD34359C0CC15be0fF": {
             "address": "0x476c5E26a75bd202a9683ffD34359C0CC15be0fF",
@@ -142,7 +142,7 @@
             "decimals": 6,
             "precision": 2,
             "hasIcon": true,
-            "logoUrl": "https://raw.githubusercontent.com/trustwallet/assets/master/blockchains/ethereum/assets/0x476c5E26a75bd202a9683ffD34359C0CC15be0fF/logo.png"
+            "logoURL": "https://raw.githubusercontent.com/trustwallet/assets/master/blockchains/ethereum/assets/0x476c5E26a75bd202a9683ffD34359C0CC15be0fF/logo.png"
         },
         "0x80fB784B7eD66730e8b1DBd9820aFD29931aab03": {
             "address": "0x80fB784B7eD66730e8b1DBd9820aFD29931aab03",
@@ -151,7 +151,7 @@
             "decimals": 18,
             "precision": 2,
             "hasIcon": true,
-            "logoUrl": "https://raw.githubusercontent.com/trustwallet/assets/master/blockchains/ethereum/assets/0x80fB784B7eD66730e8b1DBd9820aFD29931aab03/logo.png"
+            "logoURL": "https://raw.githubusercontent.com/trustwallet/assets/master/blockchains/ethereum/assets/0x80fB784B7eD66730e8b1DBd9820aFD29931aab03/logo.png"
         },
         "0x7Fc66500c84A76Ad7e9c93437bFc5Ac33E2DDaE9": {
             "address": "0x7Fc66500c84A76Ad7e9c93437bFc5Ac33E2DDaE9",
@@ -160,7 +160,7 @@
             "decimals": 18,
             "precision": 4,
             "hasIcon": true,
-            "logoUrl": "https://raw.githubusercontent.com/trustwallet/assets/master/blockchains/ethereum/assets/0x7Fc66500c84A76Ad7e9c93437bFc5Ac33E2DDaE9/logo.png"
+            "logoURL": "https://raw.githubusercontent.com/trustwallet/assets/master/blockchains/ethereum/assets/0x7Fc66500c84A76Ad7e9c93437bFc5Ac33E2DDaE9/logo.png"
         },
         "0x1f9840a85d5aF5bf1D1762F925BDADdC4201F984": {
             "address": "0x1f9840a85d5aF5bf1D1762F925BDADdC4201F984",
@@ -169,7 +169,7 @@
             "decimals": 18,
             "precision": 3,
             "hasIcon": true,
-            "logoUrl": "https://raw.githubusercontent.com/trustwallet/assets/master/blockchains/ethereum/assets/0x1f9840a85d5aF5bf1D1762F925BDADdC4201F984/logo.png"
+            "logoURL": "https://raw.githubusercontent.com/trustwallet/assets/master/blockchains/ethereum/assets/0x1f9840a85d5aF5bf1D1762F925BDADdC4201F984/logo.png"
         },
         "0xad32A8e6220741182940c5aBF610bDE99E737b2D": {
             "address": "0xad32A8e6220741182940c5aBF610bDE99E737b2D",
@@ -178,7 +178,7 @@
             "decimals": 18,
             "precision": 2,
             "hasIcon": false,
-            "logoUrl": "https://raw.githubusercontent.com/balancer-labs/assets/master/assets/0xad32a8e6220741182940c5abf610bde99e737b2d.png"
+            "logoURL": "https://raw.githubusercontent.com/balancer-labs/assets/master/assets/0xad32a8e6220741182940c5abf610bde99e737b2d.png"
         },
         "0xc00e94Cb662C3520282E6f5717214004A7f26888": {
             "address": "0xc00e94Cb662C3520282E6f5717214004A7f26888",
@@ -187,7 +187,7 @@
             "decimals": 18,
             "precision": 4,
             "hasIcon": true,
-            "logoUrl": "https://raw.githubusercontent.com/trustwallet/assets/master/blockchains/ethereum/assets/0xc00e94Cb662C3520282E6f5717214004A7f26888/logo.png"
+            "logoURL": "https://raw.githubusercontent.com/trustwallet/assets/master/blockchains/ethereum/assets/0xc00e94Cb662C3520282E6f5717214004A7f26888/logo.png"
         },
         "0xB4EFd85c19999D84251304bDA99E90B92300Bd93": {
             "address": "0xB4EFd85c19999D84251304bDA99E90B92300Bd93",
@@ -196,7 +196,7 @@
             "decimals": 18,
             "precision": 3,
             "hasIcon": true,
-            "logoUrl": "https://raw.githubusercontent.com/trustwallet/assets/master/blockchains/ethereum/assets/0xB4EFd85c19999D84251304bDA99E90B92300Bd93/logo.png"
+            "logoURL": "https://raw.githubusercontent.com/trustwallet/assets/master/blockchains/ethereum/assets/0xB4EFd85c19999D84251304bDA99E90B92300Bd93/logo.png"
         },
         "0x93ED3FBe21207Ec2E8f2d3c3de6e058Cb73Bc04d": {
             "address": "0x93ED3FBe21207Ec2E8f2d3c3de6e058Cb73Bc04d",
@@ -205,7 +205,7 @@
             "decimals": 18,
             "precision": 2,
             "hasIcon": true,
-            "logoUrl": "https://raw.githubusercontent.com/trustwallet/assets/master/blockchains/ethereum/assets/0x93ED3FBe21207Ec2E8f2d3c3de6e058Cb73Bc04d/logo.png"
+            "logoURL": "https://raw.githubusercontent.com/trustwallet/assets/master/blockchains/ethereum/assets/0x93ED3FBe21207Ec2E8f2d3c3de6e058Cb73Bc04d/logo.png"
         },
         "0x0327112423F3A68efdF1fcF402F6c5CB9f7C33fd": {
             "address": "0x0327112423F3A68efdF1fcF402F6c5CB9f7C33fd",
@@ -214,7 +214,7 @@
             "decimals": 18,
             "precision": 6,
             "hasIcon": true,
-            "logoUrl": "https://raw.githubusercontent.com/balancer-labs/assets/master/assets/0x0327112423f3a68efdf1fcf402f6c5cb9f7c33fd.png"
+            "logoURL": "https://raw.githubusercontent.com/balancer-labs/assets/master/assets/0x0327112423f3a68efdf1fcf402f6c5cb9f7c33fd.png"
         },
         "0x9A48BD0EC040ea4f1D3147C025cd4076A2e71e3e": {
             "address": "0x9A48BD0EC040ea4f1D3147C025cd4076A2e71e3e",
@@ -223,7 +223,7 @@
             "decimals": 18,
             "precision": 2,
             "hasIcon": true,
-            "logoUrl": "https://raw.githubusercontent.com/balancer-labs/assets/master/assets/0x9a48bd0ec040ea4f1d3147c025cd4076a2e71e3e.png"
+            "logoURL": "https://raw.githubusercontent.com/balancer-labs/assets/master/assets/0x9a48bd0ec040ea4f1d3147c025cd4076a2e71e3e.png"
         },
         "0xaD6A626aE2B43DCb1B39430Ce496d2FA0365BA9C": {
             "address": "0xaD6A626aE2B43DCb1B39430Ce496d2FA0365BA9C",
@@ -232,7 +232,7 @@
             "decimals": 18,
             "precision": 2,
             "hasIcon": false,
-            "logoUrl": "https://raw.githubusercontent.com/balancer-labs/assets/master/assets/0xad6a626ae2b43dcb1b39430ce496d2fa0365ba9c.png"
+            "logoURL": "https://raw.githubusercontent.com/balancer-labs/assets/master/assets/0xad6a626ae2b43dcb1b39430ce496d2fa0365ba9c.png"
         },
         "0x78F225869c08d478c34e5f645d07A87d3fe8eb78": {
             "address": "0x78F225869c08d478c34e5f645d07A87d3fe8eb78",
@@ -241,7 +241,7 @@
             "decimals": 18,
             "precision": 2,
             "hasIcon": false,
-            "logoUrl": "https://raw.githubusercontent.com/balancer-labs/assets/master/assets/0x78f225869c08d478c34e5f645d07a87d3fe8eb78.png"
+            "logoURL": "https://raw.githubusercontent.com/balancer-labs/assets/master/assets/0x78f225869c08d478c34e5f645d07a87d3fe8eb78.png"
         },
         "0xC011a73ee8576Fb46F5E1c5751cA3B9Fe0af2a6F": {
             "address": "0xC011a73ee8576Fb46F5E1c5751cA3B9Fe0af2a6F",
@@ -250,7 +250,7 @@
             "decimals": 18,
             "precision": 3,
             "hasIcon": true,
-            "logoUrl": "https://raw.githubusercontent.com/trustwallet/assets/master/blockchains/ethereum/assets/0xC011a73ee8576Fb46F5E1c5751cA3B9Fe0af2a6F/logo.png"
+            "logoURL": "https://raw.githubusercontent.com/trustwallet/assets/master/blockchains/ethereum/assets/0xC011a73ee8576Fb46F5E1c5751cA3B9Fe0af2a6F/logo.png"
         },
         "0x57Ab1ec28D129707052df4dF418D58a2D46d5f51": {
             "address": "0x57Ab1ec28D129707052df4dF418D58a2D46d5f51",
@@ -259,7 +259,7 @@
             "decimals": 18,
             "precision": 2,
             "hasIcon": true,
-            "logoUrl": "https://raw.githubusercontent.com/balancer-labs/assets/master/assets/0x57ab1ec28d129707052df4df418d58a2d46d5f51.png"
+            "logoURL": "https://raw.githubusercontent.com/balancer-labs/assets/master/assets/0x57ab1ec28d129707052df4df418d58a2d46d5f51.png"
         },
         "0xfE18be6b3Bd88A2D2A7f928d00292E7a9963CfC6": {
             "address": "0xfE18be6b3Bd88A2D2A7f928d00292E7a9963CfC6",
@@ -268,7 +268,7 @@
             "decimals": 18,
             "precision": 6,
             "hasIcon": false,
-            "logoUrl": "https://raw.githubusercontent.com/balancer-labs/assets/master/assets/0xfe18be6b3bd88a2d2a7f928d00292e7a9963cfc6.png"
+            "logoURL": "https://raw.githubusercontent.com/balancer-labs/assets/master/assets/0xfe18be6b3bd88a2d2a7f928d00292e7a9963cfc6.png"
         },
         "0x81ab848898b5ffD3354dbbEfb333D5D183eEDcB5": {
             "address": "0x81ab848898b5ffD3354dbbEfb333D5D183eEDcB5",
@@ -277,7 +277,7 @@
             "decimals": 18,
             "precision": 2,
             "hasIcon": false,
-            "logoUrl": "https://raw.githubusercontent.com/balancer-labs/assets/master/assets/0x81ab848898b5ffd3354dbbefb333d5d183eedcb5.png"
+            "logoURL": "https://raw.githubusercontent.com/balancer-labs/assets/master/assets/0x81ab848898b5ffd3354dbbefb333d5d183eedcb5.png"
         },
         "0xB2FdD60AD80ca7bA89B9BAb3b5336c2601C020b4": {
             "address": "0xB2FdD60AD80ca7bA89B9BAb3b5336c2601C020b4",
@@ -286,7 +286,7 @@
             "decimals": 18,
             "precision": 2,
             "hasIcon": false,
-            "logoUrl": "https://raw.githubusercontent.com/balancer-labs/assets/master/assets/0xb2fdd60ad80ca7ba89b9bab3b5336c2601c020b4.png"
+            "logoURL": "https://raw.githubusercontent.com/balancer-labs/assets/master/assets/0xb2fdd60ad80ca7ba89b9bab3b5336c2601c020b4.png"
         },
         "0x208D174775dc39fe18B1b374972F77ddEc6c0F73": {
             "address": "0x208D174775dc39fe18B1b374972F77ddEc6c0F73",
@@ -295,7 +295,7 @@
             "decimals": 18,
             "precision": 2,
             "hasIcon": false,
-            "logoUrl": "https://raw.githubusercontent.com/balancer-labs/assets/master/assets/0x208d174775dc39fe18b1b374972f77ddec6c0f73.png"
+            "logoURL": "https://raw.githubusercontent.com/balancer-labs/assets/master/assets/0x208d174775dc39fe18b1b374972f77ddec6c0f73.png"
         },
         "0xD16c79c8A39D44B2F3eB45D2019cd6A42B03E2A9": {
             "address": "0xD16c79c8A39D44B2F3eB45D2019cd6A42B03E2A9",
@@ -304,7 +304,7 @@
             "decimals": 18,
             "precision": 2,
             "hasIcon": false,
-            "logoUrl": "https://raw.githubusercontent.com/balancer-labs/assets/master/assets/0xd16c79c8a39d44b2f3eb45d2019cd6a42b03e2a9.png"
+            "logoURL": "https://raw.githubusercontent.com/balancer-labs/assets/master/assets/0xd16c79c8a39d44b2f3eb45d2019cd6a42b03e2a9.png"
         },
         "0xF06DdacF71e2992E2122A1a0168C6967aFdf63ce": {
             "address": "0xF06DdacF71e2992E2122A1a0168C6967aFdf63ce",
@@ -313,7 +313,7 @@
             "decimals": 18,
             "precision": 2,
             "hasIcon": false,
-            "logoUrl": "https://raw.githubusercontent.com/balancer-labs/assets/master/assets/0xf06ddacf71e2992e2122a1a0168c6967afdf63ce.png"
+            "logoURL": "https://raw.githubusercontent.com/balancer-labs/assets/master/assets/0xf06ddacf71e2992e2122a1a0168c6967afdf63ce.png"
         },
         "0x408e41876cCCDC0F92210600ef50372656052a38": {
             "address": "0x408e41876cCCDC0F92210600ef50372656052a38",
@@ -322,7 +322,7 @@
             "decimals": 18,
             "precision": 2,
             "hasIcon": true,
-            "logoUrl": "https://raw.githubusercontent.com/trustwallet/assets/master/blockchains/ethereum/assets/0x408e41876cCCDC0F92210600ef50372656052a38/logo.png"
+            "logoURL": "https://raw.githubusercontent.com/trustwallet/assets/master/blockchains/ethereum/assets/0x408e41876cCCDC0F92210600ef50372656052a38/logo.png"
         },
         "0x0D8775F648430679A709E98d2b0Cb6250d2887EF": {
             "address": "0x0D8775F648430679A709E98d2b0Cb6250d2887EF",
@@ -331,7 +331,7 @@
             "decimals": 18,
             "precision": 2,
             "hasIcon": true,
-            "logoUrl": "https://raw.githubusercontent.com/trustwallet/assets/master/blockchains/ethereum/assets/0x0D8775F648430679A709E98d2b0Cb6250d2887EF/logo.png"
+            "logoURL": "https://raw.githubusercontent.com/trustwallet/assets/master/blockchains/ethereum/assets/0x0D8775F648430679A709E98d2b0Cb6250d2887EF/logo.png"
         },
         "0xE41d2489571d322189246DaFA5ebDe1F4699F498": {
             "address": "0xE41d2489571d322189246DaFA5ebDe1F4699F498",
@@ -340,7 +340,7 @@
             "decimals": 18,
             "precision": 2,
             "hasIcon": true,
-            "logoUrl": "https://raw.githubusercontent.com/trustwallet/assets/master/blockchains/ethereum/assets/0xE41d2489571d322189246DaFA5ebDe1F4699F498/logo.png"
+            "logoURL": "https://raw.githubusercontent.com/trustwallet/assets/master/blockchains/ethereum/assets/0xE41d2489571d322189246DaFA5ebDe1F4699F498/logo.png"
         },
         "0x3212b29E33587A00FB1C83346f5dBFA69A458923": {
             "address": "0x3212b29E33587A00FB1C83346f5dBFA69A458923",
@@ -349,7 +349,7 @@
             "decimals": 8,
             "precision": 6,
             "hasIcon": true,
-            "logoUrl": "https://raw.githubusercontent.com/trustwallet/assets/master/blockchains/ethereum/assets/0x3212b29E33587A00FB1C83346f5dBFA69A458923/logo.png"
+            "logoURL": "https://raw.githubusercontent.com/trustwallet/assets/master/blockchains/ethereum/assets/0x3212b29E33587A00FB1C83346f5dBFA69A458923/logo.png"
         },
         "0x5228a22e72ccC52d415EcFd199F99D0665E7733b": {
             "address": "0x5228a22e72ccC52d415EcFd199F99D0665E7733b",
@@ -358,7 +358,7 @@
             "decimals": 18,
             "precision": 6,
             "hasIcon": true,
-            "logoUrl": "https://raw.githubusercontent.com/trustwallet/assets/master/blockchains/ethereum/assets/0x5228a22e72ccC52d415EcFd199F99D0665E7733b/logo.png"
+            "logoURL": "https://raw.githubusercontent.com/trustwallet/assets/master/blockchains/ethereum/assets/0x5228a22e72ccC52d415EcFd199F99D0665E7733b/logo.png"
         },
         "0x27054b13b1B798B345b591a4d22e6562d47eA75a": {
             "address": "0x27054b13b1B798B345b591a4d22e6562d47eA75a",
@@ -367,7 +367,7 @@
             "decimals": 4,
             "precision": 2,
             "hasIcon": true,
-            "logoUrl": "https://raw.githubusercontent.com/trustwallet/assets/master/blockchains/ethereum/assets/0x27054b13b1B798B345b591a4d22e6562d47eA75a/logo.png"
+            "logoURL": "https://raw.githubusercontent.com/trustwallet/assets/master/blockchains/ethereum/assets/0x27054b13b1B798B345b591a4d22e6562d47eA75a/logo.png"
         },
         "0xBBbbCA6A901c926F240b89EacB641d8Aec7AEafD": {
             "address": "0xBBbbCA6A901c926F240b89EacB641d8Aec7AEafD",
@@ -376,7 +376,7 @@
             "decimals": 18,
             "precision": 2,
             "hasIcon": true,
-            "logoUrl": "https://raw.githubusercontent.com/trustwallet/assets/master/blockchains/ethereum/assets/0xBBbbCA6A901c926F240b89EacB641d8Aec7AEafD/logo.png"
+            "logoURL": "https://raw.githubusercontent.com/trustwallet/assets/master/blockchains/ethereum/assets/0xBBbbCA6A901c926F240b89EacB641d8Aec7AEafD/logo.png"
         },
         "0xdd974D5C2e2928deA5F71b9825b8b646686BD200": {
             "address": "0xdd974D5C2e2928deA5F71b9825b8b646686BD200",
@@ -385,7 +385,7 @@
             "decimals": 18,
             "precision": 2,
             "hasIcon": true,
-            "logoUrl": "https://raw.githubusercontent.com/trustwallet/assets/master/blockchains/ethereum/assets/0xdd974D5C2e2928deA5F71b9825b8b646686BD200/logo.png"
+            "logoURL": "https://raw.githubusercontent.com/trustwallet/assets/master/blockchains/ethereum/assets/0xdd974D5C2e2928deA5F71b9825b8b646686BD200/logo.png"
         },
         "0x967da4048cD07aB37855c090aAF366e4ce1b9F48": {
             "address": "0x967da4048cD07aB37855c090aAF366e4ce1b9F48",
@@ -394,7 +394,7 @@
             "decimals": 18,
             "precision": 2,
             "hasIcon": true,
-            "logoUrl": "https://raw.githubusercontent.com/trustwallet/assets/master/blockchains/ethereum/assets/0x967da4048cD07aB37855c090aAF366e4ce1b9F48/logo.png"
+            "logoURL": "https://raw.githubusercontent.com/trustwallet/assets/master/blockchains/ethereum/assets/0x967da4048cD07aB37855c090aAF366e4ce1b9F48/logo.png"
         },
         "0xa3BeD4E1c75D00fa6f4E5E6922DB7261B5E9AcD2": {
             "address": "0xa3BeD4E1c75D00fa6f4E5E6922DB7261B5E9AcD2",
@@ -403,7 +403,7 @@
             "decimals": 18,
             "precision": 2,
             "hasIcon": true,
-            "logoUrl": "https://raw.githubusercontent.com/trustwallet/assets/master/blockchains/ethereum/assets/0xa3BeD4E1c75D00fa6f4E5E6922DB7261B5E9AcD2/logo.png"
+            "logoURL": "https://raw.githubusercontent.com/trustwallet/assets/master/blockchains/ethereum/assets/0xa3BeD4E1c75D00fa6f4E5E6922DB7261B5E9AcD2/logo.png"
         },
         "0xD533a949740bb3306d119CC777fa900bA034cd52": {
             "address": "0xD533a949740bb3306d119CC777fa900bA034cd52",
@@ -412,7 +412,7 @@
             "decimals": 18,
             "precision": 2,
             "hasIcon": true,
-            "logoUrl": "https://raw.githubusercontent.com/trustwallet/assets/master/blockchains/ethereum/assets/0xD533a949740bb3306d119CC777fa900bA034cd52/logo.png"
+            "logoURL": "https://raw.githubusercontent.com/trustwallet/assets/master/blockchains/ethereum/assets/0xD533a949740bb3306d119CC777fa900bA034cd52/logo.png"
         },
         "0x58b6A8A3302369DAEc383334672404Ee733aB239": {
             "address": "0x58b6A8A3302369DAEc383334672404Ee733aB239",
@@ -421,7 +421,7 @@
             "decimals": 18,
             "precision": 2,
             "hasIcon": true,
-            "logoUrl": "https://raw.githubusercontent.com/trustwallet/assets/master/blockchains/ethereum/assets/0x58b6A8A3302369DAEc383334672404Ee733aB239/logo.png"
+            "logoURL": "https://raw.githubusercontent.com/trustwallet/assets/master/blockchains/ethereum/assets/0x58b6A8A3302369DAEc383334672404Ee733aB239/logo.png"
         },
         "0x221657776846890989a759BA2973e427DfF5C9bB": {
             "address": "0x221657776846890989a759BA2973e427DfF5C9bB",
@@ -430,7 +430,7 @@
             "decimals": 18,
             "precision": 3,
             "hasIcon": true,
-            "logoUrl": "https://raw.githubusercontent.com/trustwallet/assets/master/blockchains/ethereum/assets/0x221657776846890989a759BA2973e427DfF5C9bB/logo.png"
+            "logoURL": "https://raw.githubusercontent.com/trustwallet/assets/master/blockchains/ethereum/assets/0x221657776846890989a759BA2973e427DfF5C9bB/logo.png"
         },
         "0x8dAEBADE922dF735c38C80C7eBD708Af50815fAa": {
             "address": "0x8dAEBADE922dF735c38C80C7eBD708Af50815fAa",
@@ -439,7 +439,7 @@
             "decimals": 18,
             "precision": 6,
             "hasIcon": true,
-            "logoUrl": "https://raw.githubusercontent.com/trustwallet/assets/master/blockchains/ethereum/assets/0x8dAEBADE922dF735c38C80C7eBD708Af50815fAa/logo.png"
+            "logoURL": "https://raw.githubusercontent.com/trustwallet/assets/master/blockchains/ethereum/assets/0x8dAEBADE922dF735c38C80C7eBD708Af50815fAa/logo.png"
         },
         "0x056Fd409E1d7A124BD7017459dFEa2F387b6d5Cd": {
             "address": "0x056Fd409E1d7A124BD7017459dFEa2F387b6d5Cd",
@@ -448,7 +448,7 @@
             "decimals": 2,
             "precision": 2,
             "hasIcon": true,
-            "logoUrl": "https://raw.githubusercontent.com/trustwallet/assets/master/blockchains/ethereum/assets/0x056Fd409E1d7A124BD7017459dFEa2F387b6d5Cd/logo.png"
+            "logoURL": "https://raw.githubusercontent.com/trustwallet/assets/master/blockchains/ethereum/assets/0x056Fd409E1d7A124BD7017459dFEa2F387b6d5Cd/logo.png"
         },
         "0xD46bA6D942050d489DBd938a2C909A5d5039A161": {
             "address": "0xD46bA6D942050d489DBd938a2C909A5d5039A161",
@@ -457,7 +457,7 @@
             "decimals": 9,
             "precision": 2,
             "hasIcon": true,
-            "logoUrl": "https://raw.githubusercontent.com/trustwallet/assets/master/blockchains/ethereum/assets/0xD46bA6D942050d489DBd938a2C909A5d5039A161/logo.png"
+            "logoURL": "https://raw.githubusercontent.com/trustwallet/assets/master/blockchains/ethereum/assets/0xD46bA6D942050d489DBd938a2C909A5d5039A161/logo.png"
         },
         "0xf1f955016EcbCd7321c7266BccFB96c68ea5E49b": {
             "address": "0xf1f955016EcbCd7321c7266BccFB96c68ea5E49b",
@@ -466,7 +466,7 @@
             "decimals": 18,
             "precision": 2,
             "hasIcon": true,
-            "logoUrl": "https://raw.githubusercontent.com/balancer-labs/assets/master/assets/0xf1f955016ecbcd7321c7266bccfb96c68ea5e49b.png"
+            "logoURL": "https://raw.githubusercontent.com/balancer-labs/assets/master/assets/0xf1f955016ecbcd7321c7266bccfb96c68ea5e49b.png"
         },
         "0xa117000000f279D81A1D3cc75430fAA017FA5A2e": {
             "address": "0xa117000000f279D81A1D3cc75430fAA017FA5A2e",
@@ -475,7 +475,7 @@
             "decimals": 18,
             "precision": 3,
             "hasIcon": true,
-            "logoUrl": "https://raw.githubusercontent.com/trustwallet/assets/master/blockchains/ethereum/assets/0xa117000000f279D81A1D3cc75430fAA017FA5A2e/logo.png"
+            "logoURL": "https://raw.githubusercontent.com/trustwallet/assets/master/blockchains/ethereum/assets/0xa117000000f279D81A1D3cc75430fAA017FA5A2e/logo.png"
         },
         "0x20945cA1df56D237fD40036d47E866C7DcCD2114": {
             "address": "0x20945cA1df56D237fD40036d47E866C7DcCD2114",
@@ -484,7 +484,7 @@
             "decimals": 18,
             "precision": 3,
             "hasIcon": true,
-            "logoUrl": "https://raw.githubusercontent.com/balancer-labs/assets/master/assets/0x20945ca1df56d237fd40036d47e866c7dccd2114.png"
+            "logoURL": "https://raw.githubusercontent.com/balancer-labs/assets/master/assets/0x20945ca1df56d237fd40036d47e866c7dccd2114.png"
         },
         "0xfC1E690f61EFd961294b3e1Ce3313fBD8aa4f85d": {
             "address": "0xfC1E690f61EFd961294b3e1Ce3313fBD8aa4f85d",
@@ -493,7 +493,7 @@
             "decimals": 18,
             "precision": 2,
             "hasIcon": true,
-            "logoUrl": "https://raw.githubusercontent.com/trustwallet/assets/master/blockchains/ethereum/assets/0xfC1E690f61EFd961294b3e1Ce3313fBD8aa4f85d/logo.png"
+            "logoURL": "https://raw.githubusercontent.com/trustwallet/assets/master/blockchains/ethereum/assets/0xfC1E690f61EFd961294b3e1Ce3313fBD8aa4f85d/logo.png"
         },
         "0x71fc860F7D3A592A4a98740e39dB31d25db65ae8": {
             "address": "0x71fc860F7D3A592A4a98740e39dB31d25db65ae8",
@@ -502,7 +502,7 @@
             "decimals": 6,
             "precision": 2,
             "hasIcon": true,
-            "logoUrl": "https://raw.githubusercontent.com/trustwallet/assets/master/blockchains/ethereum/assets/0x71fc860F7D3A592A4a98740e39dB31d25db65ae8/logo.png"
+            "logoURL": "https://raw.githubusercontent.com/trustwallet/assets/master/blockchains/ethereum/assets/0x71fc860F7D3A592A4a98740e39dB31d25db65ae8/logo.png"
         },
         "0x9bA00D6856a4eDF4665BcA2C2309936572473B7E": {
             "address": "0x9bA00D6856a4eDF4665BcA2C2309936572473B7E",
@@ -511,7 +511,7 @@
             "decimals": 6,
             "precision": 2,
             "hasIcon": true,
-            "logoUrl": "https://raw.githubusercontent.com/trustwallet/assets/master/blockchains/ethereum/assets/0x9bA00D6856a4eDF4665BcA2C2309936572473B7E/logo.png"
+            "logoURL": "https://raw.githubusercontent.com/trustwallet/assets/master/blockchains/ethereum/assets/0x9bA00D6856a4eDF4665BcA2C2309936572473B7E/logo.png"
         },
         "0x625aE63000f46200499120B906716420bd059240": {
             "address": "0x625aE63000f46200499120B906716420bd059240",
@@ -520,7 +520,7 @@
             "decimals": 18,
             "precision": 2,
             "hasIcon": true,
-            "logoUrl": "https://raw.githubusercontent.com/trustwallet/assets/master/blockchains/ethereum/assets/0x625aE63000f46200499120B906716420bd059240/logo.png"
+            "logoURL": "https://raw.githubusercontent.com/trustwallet/assets/master/blockchains/ethereum/assets/0x625aE63000f46200499120B906716420bd059240/logo.png"
         },
         "0x4DA9b813057D04BAef4e5800E36083717b4a0341": {
             "address": "0x4DA9b813057D04BAef4e5800E36083717b4a0341",
@@ -529,7 +529,7 @@
             "decimals": 18,
             "precision": 2,
             "hasIcon": true,
-            "logoUrl": "https://raw.githubusercontent.com/trustwallet/assets/master/blockchains/ethereum/assets/0x4DA9b813057D04BAef4e5800E36083717b4a0341/logo.png"
+            "logoURL": "https://raw.githubusercontent.com/trustwallet/assets/master/blockchains/ethereum/assets/0x4DA9b813057D04BAef4e5800E36083717b4a0341/logo.png"
         },
         "0x6Ee0f7BB50a54AB5253dA0667B0Dc2ee526C30a8": {
             "address": "0x6Ee0f7BB50a54AB5253dA0667B0Dc2ee526C30a8",
@@ -538,7 +538,7 @@
             "decimals": 18,
             "precision": 2,
             "hasIcon": true,
-            "logoUrl": "https://raw.githubusercontent.com/balancer-labs/assets/master/assets/0x6ee0f7bb50a54ab5253da0667b0dc2ee526c30a8.png"
+            "logoURL": "https://raw.githubusercontent.com/balancer-labs/assets/master/assets/0x6ee0f7bb50a54ab5253da0667b0dc2ee526c30a8.png"
         },
         "0xE1BA0FB44CCb0D11b80F92f4f8Ed94CA3fF51D00": {
             "address": "0xE1BA0FB44CCb0D11b80F92f4f8Ed94CA3fF51D00",
@@ -547,7 +547,7 @@
             "decimals": 18,
             "precision": 2,
             "hasIcon": true,
-            "logoUrl": "https://raw.githubusercontent.com/trustwallet/assets/master/blockchains/ethereum/assets/0xE1BA0FB44CCb0D11b80F92f4f8Ed94CA3fF51D00/logo.png"
+            "logoURL": "https://raw.githubusercontent.com/trustwallet/assets/master/blockchains/ethereum/assets/0xE1BA0FB44CCb0D11b80F92f4f8Ed94CA3fF51D00/logo.png"
         },
         "0x3a3A65aAb0dd2A17E3F1947bA16138cd37d08c04": {
             "address": "0x3a3A65aAb0dd2A17E3F1947bA16138cd37d08c04",
@@ -556,7 +556,7 @@
             "decimals": 18,
             "precision": 5,
             "hasIcon": true,
-            "logoUrl": "https://raw.githubusercontent.com/trustwallet/assets/master/blockchains/ethereum/assets/0x3a3A65aAb0dd2A17E3F1947bA16138cd37d08c04/logo.png"
+            "logoURL": "https://raw.githubusercontent.com/trustwallet/assets/master/blockchains/ethereum/assets/0x3a3A65aAb0dd2A17E3F1947bA16138cd37d08c04/logo.png"
         },
         "0x9D91BE44C06d373a8a226E1f3b146956083803eB": {
             "address": "0x9D91BE44C06d373a8a226E1f3b146956083803eB",
@@ -565,7 +565,7 @@
             "decimals": 18,
             "precision": 2,
             "hasIcon": true,
-            "logoUrl": "https://raw.githubusercontent.com/trustwallet/assets/master/blockchains/ethereum/assets/0x9D91BE44C06d373a8a226E1f3b146956083803eB/logo.png"
+            "logoURL": "https://raw.githubusercontent.com/trustwallet/assets/master/blockchains/ethereum/assets/0x9D91BE44C06d373a8a226E1f3b146956083803eB/logo.png"
         },
         "0x7D2D3688Df45Ce7C552E19c27e007673da9204B8": {
             "address": "0x7D2D3688Df45Ce7C552E19c27e007673da9204B8",
@@ -574,7 +574,7 @@
             "decimals": 18,
             "precision": 2,
             "hasIcon": true,
-            "logoUrl": "https://raw.githubusercontent.com/trustwallet/assets/master/blockchains/ethereum/assets/0x7D2D3688Df45Ce7C552E19c27e007673da9204B8/logo.png"
+            "logoURL": "https://raw.githubusercontent.com/trustwallet/assets/master/blockchains/ethereum/assets/0x7D2D3688Df45Ce7C552E19c27e007673da9204B8/logo.png"
         },
         "0xA64BD6C70Cb9051F6A9ba1F163Fdc07E0DfB5F84": {
             "address": "0xA64BD6C70Cb9051F6A9ba1F163Fdc07E0DfB5F84",
@@ -583,7 +583,7 @@
             "decimals": 18,
             "precision": 3,
             "hasIcon": true,
-            "logoUrl": "https://raw.githubusercontent.com/trustwallet/assets/master/blockchains/ethereum/assets/0xA64BD6C70Cb9051F6A9ba1F163Fdc07E0DfB5F84/logo.png"
+            "logoURL": "https://raw.githubusercontent.com/trustwallet/assets/master/blockchains/ethereum/assets/0xA64BD6C70Cb9051F6A9ba1F163Fdc07E0DfB5F84/logo.png"
         },
         "0x7deB5e830be29F91E298ba5FF1356BB7f8146998": {
             "address": "0x7deB5e830be29F91E298ba5FF1356BB7f8146998",
@@ -592,7 +592,7 @@
             "decimals": 18,
             "precision": 5,
             "hasIcon": true,
-            "logoUrl": "https://raw.githubusercontent.com/trustwallet/assets/master/blockchains/ethereum/assets/0x7deB5e830be29F91E298ba5FF1356BB7f8146998/logo.png"
+            "logoURL": "https://raw.githubusercontent.com/trustwallet/assets/master/blockchains/ethereum/assets/0x7deB5e830be29F91E298ba5FF1356BB7f8146998/logo.png"
         },
         "0x328C4c80BC7aCa0834Db37e6600A6c49E12Da4DE": {
             "address": "0x328C4c80BC7aCa0834Db37e6600A6c49E12Da4DE",
@@ -601,7 +601,7 @@
             "decimals": 18,
             "precision": 3,
             "hasIcon": true,
-            "logoUrl": "https://raw.githubusercontent.com/trustwallet/assets/master/blockchains/ethereum/assets/0x328C4c80BC7aCa0834Db37e6600A6c49E12Da4DE/logo.png"
+            "logoURL": "https://raw.githubusercontent.com/trustwallet/assets/master/blockchains/ethereum/assets/0x328C4c80BC7aCa0834Db37e6600A6c49E12Da4DE/logo.png"
         },
         "0xFC4B8ED459e00e5400be803A9BB3954234FD50e3": {
             "address": "0xFC4B8ED459e00e5400be803A9BB3954234FD50e3",
@@ -610,7 +610,7 @@
             "decimals": 8,
             "precision": 6,
             "hasIcon": true,
-            "logoUrl": "https://raw.githubusercontent.com/trustwallet/assets/master/blockchains/ethereum/assets/0xFC4B8ED459e00e5400be803A9BB3954234FD50e3/logo.png"
+            "logoURL": "https://raw.githubusercontent.com/trustwallet/assets/master/blockchains/ethereum/assets/0xFC4B8ED459e00e5400be803A9BB3954234FD50e3/logo.png"
         },
         "0x6Fb0855c404E09c47C3fBCA25f08d4E41f9F062f": {
             "address": "0x6Fb0855c404E09c47C3fBCA25f08d4E41f9F062f",
@@ -619,7 +619,7 @@
             "decimals": 18,
             "precision": 2,
             "hasIcon": true,
-            "logoUrl": "https://raw.githubusercontent.com/trustwallet/assets/master/blockchains/ethereum/assets/0x6Fb0855c404E09c47C3fBCA25f08d4E41f9F062f/logo.png"
+            "logoURL": "https://raw.githubusercontent.com/trustwallet/assets/master/blockchains/ethereum/assets/0x6Fb0855c404E09c47C3fBCA25f08d4E41f9F062f/logo.png"
         },
         "0x39AA39c021dfbaE8faC545936693aC917d5E7563": {
             "address": "0x39AA39c021dfbaE8faC545936693aC917d5E7563",
@@ -628,7 +628,7 @@
             "decimals": 8,
             "precision": 2,
             "hasIcon": true,
-            "logoUrl": "https://raw.githubusercontent.com/trustwallet/assets/master/blockchains/ethereum/assets/0x39AA39c021dfbaE8faC545936693aC917d5E7563/logo.png"
+            "logoURL": "https://raw.githubusercontent.com/trustwallet/assets/master/blockchains/ethereum/assets/0x39AA39c021dfbaE8faC545936693aC917d5E7563/logo.png"
         },
         "0x5d3a536E4D6DbD6114cc1Ead35777bAB948E3643": {
             "address": "0x5d3a536E4D6DbD6114cc1Ead35777bAB948E3643",
@@ -637,7 +637,7 @@
             "decimals": 8,
             "precision": 2,
             "hasIcon": true,
-            "logoUrl": "https://raw.githubusercontent.com/trustwallet/assets/master/blockchains/ethereum/assets/0x5d3a536E4D6DbD6114cc1Ead35777bAB948E3643/logo.png"
+            "logoURL": "https://raw.githubusercontent.com/trustwallet/assets/master/blockchains/ethereum/assets/0x5d3a536E4D6DbD6114cc1Ead35777bAB948E3643/logo.png"
         },
         "0x6810e776880C02933D47DB1b9fc05908e5386b96": {
             "address": "0x6810e776880C02933D47DB1b9fc05908e5386b96",
@@ -646,7 +646,7 @@
             "decimals": 18,
             "precision": 4,
             "hasIcon": true,
-            "logoUrl": "https://raw.githubusercontent.com/trustwallet/assets/master/blockchains/ethereum/assets/0x6810e776880C02933D47DB1b9fc05908e5386b96/logo.png"
+            "logoURL": "https://raw.githubusercontent.com/trustwallet/assets/master/blockchains/ethereum/assets/0x6810e776880C02933D47DB1b9fc05908e5386b96/logo.png"
         },
         "0xCc80C051057B774cD75067Dc48f8987C4Eb97A5e": {
             "address": "0xCc80C051057B774cD75067Dc48f8987C4Eb97A5e",
@@ -655,7 +655,7 @@
             "decimals": 18,
             "precision": 2,
             "hasIcon": true,
-            "logoUrl": "https://raw.githubusercontent.com/trustwallet/assets/master/blockchains/ethereum/assets/0xCc80C051057B774cD75067Dc48f8987C4Eb97A5e/logo.png"
+            "logoURL": "https://raw.githubusercontent.com/trustwallet/assets/master/blockchains/ethereum/assets/0xCc80C051057B774cD75067Dc48f8987C4Eb97A5e/logo.png"
         },
         "0xE59064a8185Ed1Fca1D17999621eFedfab4425c9": {
             "address": "0xE59064a8185Ed1Fca1D17999621eFedfab4425c9",
@@ -664,7 +664,7 @@
             "decimals": 18,
             "precision": 3,
             "hasIcon": false,
-            "logoUrl": "https://raw.githubusercontent.com/balancer-labs/assets/master/assets/0xe59064a8185ed1fca1d17999621efedfab4425c9.png"
+            "logoURL": "https://raw.githubusercontent.com/balancer-labs/assets/master/assets/0xe59064a8185ed1fca1d17999621efedfab4425c9.png"
         },
         "0x8D1ce361eb68e9E05573443C407D4A3Bed23B033": {
             "address": "0x8D1ce361eb68e9E05573443C407D4A3Bed23B033",
@@ -673,7 +673,7 @@
             "decimals": 18,
             "precision": 3,
             "hasIcon": false,
-            "logoUrl": "https://raw.githubusercontent.com/balancer-labs/assets/master/assets/0x8d1ce361eb68e9e05573443c407d4a3bed23b033.png"
+            "logoURL": "https://raw.githubusercontent.com/balancer-labs/assets/master/assets/0x8d1ce361eb68e9e05573443c407d4a3bed23b033.png"
         },
         "0xfFffFffF2ba8F66D4e51811C5190992176930278": {
             "address": "0xfFffFffF2ba8F66D4e51811C5190992176930278",
@@ -682,7 +682,7 @@
             "decimals": 18,
             "precision": 3,
             "hasIcon": false,
-            "logoUrl": "https://raw.githubusercontent.com/balancer-labs/assets/master/assets/0xffffffff2ba8f66d4e51811c5190992176930278.png"
+            "logoURL": "https://raw.githubusercontent.com/balancer-labs/assets/master/assets/0xffffffff2ba8f66d4e51811c5190992176930278.png"
         },
         "0x875773784Af8135eA0ef43b5a374AaD105c5D39e": {
             "address": "0x875773784Af8135eA0ef43b5a374AaD105c5D39e",
@@ -691,7 +691,7 @@
             "decimals": 18,
             "precision": 3,
             "hasIcon": false,
-            "logoUrl": "https://raw.githubusercontent.com/balancer-labs/assets/master/assets/0x875773784af8135ea0ef43b5a374aad105c5d39e.png"
+            "logoURL": "https://raw.githubusercontent.com/balancer-labs/assets/master/assets/0x875773784af8135ea0ef43b5a374aad105c5d39e.png"
         },
         "0x31c8EAcBFFdD875c74b94b077895Bd78CF1E64A3": {
             "address": "0x31c8EAcBFFdD875c74b94b077895Bd78CF1E64A3",
@@ -700,7 +700,7 @@
             "decimals": 18,
             "precision": 3,
             "hasIcon": false,
-            "logoUrl": "https://raw.githubusercontent.com/balancer-labs/assets/master/assets/0x31c8eacbffdd875c74b94b077895bd78cf1e64a3.png"
+            "logoURL": "https://raw.githubusercontent.com/balancer-labs/assets/master/assets/0x31c8eacbffdd875c74b94b077895bd78cf1e64a3.png"
         }
     },
     "untrusted": [

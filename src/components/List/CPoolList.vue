@@ -16,15 +16,13 @@
 							<div
 								class="text-center d-flex justify-content-start"
 							>
-								<CButton color="light" @click="selectAsset(1)">
+								<CButton
+									color="light"
+									@click="selectAsset(item)"
+								>
 									<img
-										v-if="filterTokenDataA !== ''"
 										class="mr-2"
-										:src="
-											filterTokenDataA !== ''
-												? filterTokenDataA.logoURI
-												: ''
-										"
+										:src="item.logoURL"
 										style="
 											width: 28px;
 											height: 28px;
@@ -43,14 +41,20 @@
 							</div>
 						</td>
 					</template>
+					<template slot="myBalance" slot-scope="{ item }">
+						<td>{{ getBalance(item.address) }}</td>
+					</template>
 					<template slot="weights" slot-scope="{ item }">
 						<td>
 							<div
 								class="text-center d-flex justify-content-start"
 							>
-								<CInput type="number" name="" id="" />
+								<CInput type="number" value="" name="" id="" />
 							</div>
 						</td>
+					</template>
+                    <template slot="percent" slot-scope="{ item }">
+						<td>{{ getBalance(item.address) }}</td>
 					</template>
 					<template slot="amount" slot-scope="{ item }">
 						<td>
@@ -60,6 +64,12 @@
 								<CInput type="number" name="" id="" />
 							</div>
 						</td>
+					</template>
+                     <template slot="price" slot-scope="{ item }">
+						<td>--</td>
+					</template>
+                     <template slot="totalValue" slot-scope="{ item }">
+						<td>--</td>
 					</template>
 					<template #remove="{ item, index }">
 						<td class="py-2">
@@ -88,7 +98,6 @@
 			<CCol xs="12" md="12">
 				<CCard>
 					<confTokenTable
-						:vettedTokenListData="vettedTokenListData"
 						:inputType="inputType"
 						@filterData="filterData"
 					></confTokenTable>
@@ -115,8 +124,8 @@
 </template>
 
 <script>
-import vettedTokenList from "../../config/vetted_tokenlist";
 import confTokenTable from "../../components/Tables/confTokenTable";
+import { normalizeBalance } from "@/lib/utils";
 
 export default {
 	name: "ListPool",
@@ -127,10 +136,9 @@ export default {
 	data() {
 		return {
 			activePage: 1,
-			vettedTokenListData: vettedTokenList.tokens,
 			inputType: "",
 			selectAssetModal: false,
-			filterTokenDataA: "",
+			filterTokenData: "",
 		};
 	},
 	components: {
@@ -146,44 +154,40 @@ export default {
 			},
 		},
 	},
-	computed: {
-
-	},
+	computed: {},
 	mounted() {
-        console.log(this.tokens)
-		console.log(this.$store.state);
+		// console.log(this.tokens);
+		// console.log(this.$store.state);
 	},
 	methods: {
-		getBadge(status) {
-			switch (status) {
-				case "Active":
-					return "success";
-				case "Inactive":
-					return "secondary";
-				case "Pending":
-					return "warning";
-				case "Banned":
-					return "danger";
-				default:
-					"primary";
-			}
-		},
 		selectAsset(s) {
-			switch (s) {
-				case 1:
-					this.inputType = s;
-					this.selectAssetModal = true;
-
-					break;
-				case 2:
-					this.inputType = s;
-					this.selectAssetModal = true;
-					break;
-			}
+			this.filterTokenData = s;
+			this.selectAssetModal = true;
 		},
 		filterData(s) {
-			this.filterTokenDataA = s;
+			this.tokens.map((item, index) => {
+				if (item.symbol === this.filterTokenData.symbol) {
+					this.tokens[index] = s;
+					// item = s;
+					return this.tokens;
+				}
+			});
+			this.filterTokenData = s;
 			this.selectAssetModal = false;
+		},
+		getBalance(tokenAddress) {
+            console.log(tokenAddress)
+            console.log(174,this.$store.state.web3.tokenMetadata)
+			const balance = normalizeBalance(
+				this.$store.state.web3.balances[tokenAddress],
+				this.$store.state.web3.tokenMetadata[tokenAddress].decimals
+			);
+			return parseFloat(balance).toFixed(3);
+		},
+		getPercentage(token) {
+			return this.totalWeight == 0
+				? 0
+				: (this.weights[token] / this.totalWeight) * 100;
 		},
 		removeItem(item) {
 			this.$set(this.usersData[item.id], "_toggled", !item._toggled);
@@ -191,10 +195,6 @@ export default {
 			this.$nextTick(() => {
 				this.collapseDuration = 0;
 			});
-		},
-		rowClicked(item) {
-			console.log(item);
-			this.$router.push({ path: `/explore-pools/${item.poolAddress}` });
 		},
 		pageChange(val) {
 			this.$router.push({ query: { page: val } });

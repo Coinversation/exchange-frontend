@@ -54,12 +54,7 @@
 			color="dark"
 		>
 			<CCol xs="12" md="12">
-				<CCard>
-					<confTokenTable
-						:vettedTokenListData="vettedTokenListData"
-						@filterData="filterData"
-					></confTokenTable>
-				</CCard>
+				<CCard> </CCard>
 			</CCol>
 			<template #header>
 				<h6 class="modal-title">Select token</h6>
@@ -77,7 +72,6 @@
 import vettedTokenList from "../../config/vetted_tokenlist";
 // import poolListData from "../../mock/poolListDataPrivate";
 import CPoolList from "../../components/List/CPoolList";
-import confTokenTable from "../../components/Tables/confTokenTable";
 import { getTokenBySymbol } from "@/lib/utils";
 import { addressEq } from "@polkadot/util-crypto";
 
@@ -127,7 +121,6 @@ export default {
 	},
 	components: {
 		CPoolList,
-		confTokenTable,
 	},
 	watch: {
 		$route: {
@@ -141,8 +134,8 @@ export default {
 	},
 	created() {
 		// Initialize an (arbitrary) two-token pool, with weights
-		const dai = getTokenBySymbol("dai");
-		const usdc = getTokenBySymbol("usdc");
+		const dai = getTokenBySymbol("DAI");
+		const usdc = getTokenBySymbol("USDC");
 		this.tokens = [dai, usdc];
 		// weights contain percentage values - denorms are calculated later
 		// Vue.set(this.weights, dai, "60");

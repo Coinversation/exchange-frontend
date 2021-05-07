@@ -17,7 +17,7 @@
 					<img
 						class="mr-3"
 						style="width: 35px; border-radius: 30px"
-						:src="item.logoURI"
+						:src="item.logoURL"
 					/>
 					<span>{{ item.name }}</span>
 				</td>
@@ -32,22 +32,24 @@
 </template>
 
 <script>
+import vettedTokenList from "../../config/vetted_tokenlist";
 export default {
-	props: ["vettedTokenListData", "inputType"],
+	props: ["inputType"],
 	name: "BackendTable",
 	data() {
 		return {
-			listData: this.vettedTokenListData.map((item, id) => {
-				return { ...item, id };
-			}),
-			details: [],
+			listData: [],
+			vettedTokenListData: vettedTokenList.tokens,
 			collapseDuration: 0,
 		};
 	},
+	mounted() {
+		this.listData = this.vettedTokenListData.map((item, id) => {
+			return { ...item, id };
+		});
+	},
 	methods: {
 		rowClicked(s) {
-			console.log(s);
-			console.log(52, this.inputType);
 			this.$emit("filterData", s, this.inputType);
 		},
 	},

@@ -11,34 +11,34 @@ const registry = {
             "address": "16KPHXYgRV8iixHAxj3ToJqymxu3wKvicvcM4giqB61hPXKB",
             "id": "usdc",
             "name": "USD Coin",
-            "symbol": "usdc",
+            "symbol": "USDC",
             "decimals": 10,
             "precision": 4,
             "color": "#828384",
             "hasIcon": false,
-            "logoUrl": "https://raw.githubusercontent.com/trustwallet/assets/master/blockchains/ethereum/assets/0xC02aaA39b223FE8D0A0e5C4F27eAD9083C756Cc2/logo.png"
+            "logoURL": "https://raw.githubusercontent.com/trustwallet/assets/master/blockchains/ethereum/assets/0xC02aaA39b223FE8D0A0e5C4F27eAD9083C756Cc2/logo.png"
           },
           "1ZB5xh2HWDDjQKKC99BL7ntkeLUADzWCmwc3GBqVXYQfh9X": {
             "address": "1ZB5xh2HWDDjQKKC99BL7ntkeLUADzWCmwc3GBqVXYQfh9X",
             "id": "dai",
             "name": "Dai Stablecoin",
-            "symbol": "dai",
+            "symbol": "DAI",
             "decimals": 18,
             "precision": 3,
             "color": "#fab323",
             "hasIcon": false,
-            "logoUrl": "https://raw.githubusercontent.com/trustwallet/assets/master/blockchains/ethereum/assets/0x6B175474E89094C44Da98b954EedeAC495271d0F/logo.png"
+            "logoURL": "https://raw.githubusercontent.com/trustwallet/assets/master/blockchains/ethereum/assets/0x6B175474E89094C44Da98b954EedeAC495271d0F/logo.png"
           },
           "1ZqzwjuqDyzuSyV1X3RNXko4CuomRX5TgXcVP8F4oiCYFk5": {
             "address": "1ZqzwjuqDyzuSyV1X3RNXko4CuomRX5TgXcVP8F4oiCYFk5",
             "id": "snx",
             "name": "Synthetix Network Token",
-            "symbol": "snx",
+            "symbol": "SNX",
             "decimals": 18,
             "precision": 4,
             "color": "#5eb8aa",
             "hasIcon": false,
-            "logoUrl": "https://raw.githubusercontent.com/trustwallet/assets/master/blockchains/ethereum/assets/0x9f8F72aA9304c8B593d555F12eF6589cC3A579A2/logo.png"
+            "logoURL": "https://raw.githubusercontent.com/trustwallet/assets/master/blockchains/ethereum/assets/0x9f8F72aA9304c8B593d555F12eF6589cC3A579A2/logo.png"
           },
     },
     untrusted: [],

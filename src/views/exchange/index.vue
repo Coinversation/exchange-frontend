@@ -35,7 +35,7 @@
 										class="mr-2"
 										:src="
 											filterTokenDataA !== ''
-												? filterTokenDataA.logoURI
+												? filterTokenDataA.logoURL
 												: ''
 										"
 										style="
@@ -85,7 +85,7 @@
 										class="mr-2"
 										:src="
 											filterTokenDataB !== ''
-												? filterTokenDataB.logoURI
+												? filterTokenDataB.logoURL
 												: ''
 										"
 										style="
