@@ -10,6 +10,7 @@
 					</div>
 					<div class="col-6 d-flex justify-content-end">
 						<CButton
+							v-if="tokens.length < 5"
 							color="warning"
 							style="color: #ffffff"
 							@click="addToken"
@@ -81,13 +82,13 @@ function getAnotherToken(tokens, selectedTokens) {
 	const tokenAddresses = Object.keys(tokens);
 	for (const tokenAddress of tokenAddresses) {
 		const token = tokens[tokenAddress];
-		if (token.symbol === "ETH") {
+		if (token.symbol === "DOT") {
 			console.log(123);
 			continue;
 		}
 		if (!selectedTokens.includes(token.address)) {
 			console.log(token.address);
-			return token.address;
+			return token;
 		}
 	}
 }
@@ -161,6 +162,8 @@ export default {
 		},
 		createPool() {},
 		addToken() {
+			console.log(164, config.tokens);
+			console.log(165, this.tokens);
 			const anotherToken = getAnotherToken(config.tokens, this.tokens);
 			this.tokens.push(anotherToken);
 			this.weights = "";
