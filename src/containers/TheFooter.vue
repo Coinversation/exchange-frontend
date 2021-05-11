@@ -1,7 +1,7 @@
 <template>
   <CFooter :fixed="false">
     <div>
-      <a href="#" target="_blank">Conversation Protocol</a>
+      <a href="#" target="_blank">Coinversation Protocol</a>
       <span class="ml-1">&copy; {{new Date().getFullYear()}}</span>
     </div>
     <!-- <div class="mfs-auto">

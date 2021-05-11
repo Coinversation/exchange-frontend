@@ -3,7 +3,7 @@
 		class="d-flex justify-content-center align-items-center"
 		style="margin-top: 10%"
 	>
-		<CCol lg="4" md='6'>
+		<CCol lg="4" md="6">
 			<CCard>
 				<CCardHeader class="d-flex justify-content-between">
 					<h4>Swap</h4>
@@ -31,7 +31,8 @@
 						>
 							<template #prepend>
 								<CButton color="light" @click="selectAsset(1)">
-									<img v-if="filterTokenDataA !== ''"
+									<img
+										v-if="filterTokenDataA !== ''"
 										class="mr-2"
 										:src="
 											filterTokenDataA !== ''
@@ -81,7 +82,8 @@
 						>
 							<template #prepend>
 								<CButton color="light" @click="selectAsset(2)">
-									<img v-if="filterTokenDataB !== ''"
+									<img
+										v-if="filterTokenDataB !== ''"
 										class="mr-2"
 										:src="
 											filterTokenDataB !== ''
@@ -226,18 +228,6 @@ export default {
 			inputType: "",
 			settingsModal: false,
 			selectAssetModal: false,
-			fields: [
-				{
-					key: "poolAddress",
-					label: "Pool address",
-					_classes: "font-weight-bold",
-				},
-				{ key: "tokens", label: "Assets" },
-				{ key: "swapFee", label: "Swap fee" },
-				{ key: "marketCap", label: "Market cap" },
-				{ key: "liquidity", label: "My liquidity" },
-				{ key: "volume", label: "Volume (24h)" },
-			],
 			activePage: 1,
 			filterTokenDataA: "",
 			filterTokenDataB: "",
