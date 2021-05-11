@@ -7,8 +7,8 @@ import rinkeby from '@/config/rinkeby.json'
 
 const registry = {
     tokens: {
-        "16KPHXYgRV8iixHAxj3ToJqymxu3wKvicvcM4giqB61hPXKB": {
-            "address": "16KPHXYgRV8iixHAxj3ToJqymxu3wKvicvcM4giqB61hPXKB",
+        "VwuS8w4xNRJgyn2KLReJ62gWnawxUxZHTTDTFGnTczYhXRB": {
+            "address": "VwuS8w4xNRJgyn2KLReJ62gWnawxUxZHTTDTFGnTczYhXRB",
             "id": "usdc",
             "name": "USD Coin",
             "symbol": "USDC",
@@ -18,8 +18,8 @@ const registry = {
             "hasIcon": false,
             "logoURL": "https://raw.githubusercontent.com/trustwallet/assets/master/blockchains/ethereum/assets/0xC02aaA39b223FE8D0A0e5C4F27eAD9083C756Cc2/logo.png"
           },
-          "1ZB5xh2HWDDjQKKC99BL7ntkeLUADzWCmwc3GBqVXYQfh9X": {
-            "address": "1ZB5xh2HWDDjQKKC99BL7ntkeLUADzWCmwc3GBqVXYQfh9X",
+          "W5PyAfrvVXi4BcVEEuUrJmvQmcwHRyjbt2u31zePY7QR1gn": {
+            "address": "W5PyAfrvVXi4BcVEEuUrJmvQmcwHRyjbt2u31zePY7QR1gn",
             "id": "dai",
             "name": "Dai Stablecoin",
             "symbol": "DAI",
@@ -29,8 +29,8 @@ const registry = {
             "hasIcon": false,
             "logoURL": "https://raw.githubusercontent.com/trustwallet/assets/master/blockchains/ethereum/assets/0x6B175474E89094C44Da98b954EedeAC495271d0F/logo.png"
           },
-          "1ZqzwjuqDyzuSyV1X3RNXko4CuomRX5TgXcVP8F4oiCYFk5": {
-            "address": "1ZqzwjuqDyzuSyV1X3RNXko4CuomRX5TgXcVP8F4oiCYFk5",
+          "Xpmf8aRNQbe1G6L29TUmhPmAkTJa3cEHFv5dU4VXNetpH1D": {
+            "address": "Xpmf8aRNQbe1G6L29TUmhPmAkTJa3cEHFv5dU4VXNetpH1D",
             "id": "snx",
             "name": "Synthetix Network Token",
             "symbol": "SNX",

@@ -4,8 +4,9 @@ import { lsGet, lsRemove, lsSet } from '@/lib/localStorage'
 
 import { ContractPromise } from '@polkadot/api-contract'
 import { Option, Raw } from '@polkadot/types'
-import abi from '../../abi/erc20_issue.json'
+import abi from '../../abi/pat_standard.json'
 import { ApiPromise, WsProvider } from '@polkadot/api'
+const plasmDefinitions = require('@plasm/types/interfaces/definitions');
 import {
     isWeb3Injected,
     web3Accounts,
@@ -258,14 +259,36 @@ const actions = {
         const address = state.account
         // Construct
         const wsProvider = new WsProvider(config.polkadotUrl)
+        const types = Object.values(plasmDefinitions).reduce((res, { types }) => ({ ...res, ...types }), {
+            SmartContract: {
+              _enum: {
+                Wasm: 'AccountId',
+                Evm: 'H160'
+              }
+            },    
+          });
         // Create the instance
-        const api = new ApiPromise({ provider: wsProvider })
+        const api = new ApiPromise({ provider: wsProvider ,
+            types: {
+                ...types,
+                // aliases that don't do well as part of interfaces
+                'voting::VoteType': 'VoteType',
+                'voting::TallyType': 'TallyType',
+                // chain-specific overrides
+                Address: 'GenericAddress',
+                Keys: 'SessionKeys4',
+                StakingLedger: 'StakingLedgerTo223',
+                Votes: 'VotesTo230',
+                ReferendumInfo: 'ReferendumInfoTo239',
+            },
+            // override duplicate type name
+            typesAlias: { voting: { Tally: 'VotingTally' } },})
 
         // Wait until we are ready and connected
         await api.isReady
         const tokensToFetch = tokens
             ? tokens
-            : Object.keys(state.balances).filter((token) => token !== 'dot')
+            : Object.keys(state.balances).filter((token) => token !== 'plasm')
         console.log(tokensToFetch)
 
         const {
@@ -273,13 +296,13 @@ const actions = {
         } = await api.query.system.account(address)
 
         const balances = {}
-        balances.dot = free.toHuman()
+        balances.plasm = free.toHuman()
         try {
             tokensToFetch.forEach((value) => {
                 let contract = new ContractPromise(api, abi, value)
                 contract
                     .read(
-                        'iErc20,balanceOf',
+                        'iPat,balanceOf',
                         { value: 0, gasLimit: -1 },
                         address
                     )
@@ -287,11 +310,11 @@ const actions = {
                     .then((result) => {
                         balances[value] =
                             result.output instanceof Raw
-                                ? result.output.toString().replace('DOT', '')
+                                ? result.output.toString().replace('UNIT', '')
                                 : result.output instanceof Option &&
                                   result.output.isNone
                                 ? '0'
-                                : result.output.toHuman().replace('DOT', '')
+                                : result.output.toHuman().replace('UNIT', '')
 
                         commit('GET_BALANCES_SUCCESS', balances)
                         return balances

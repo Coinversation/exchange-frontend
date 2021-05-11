@@ -1,7 +1,7 @@
 {
   "network": "kovan",
   "defaultPrecision": 2,
-  "polkadotUrl":"ws://8.210.86.149:9944",
+  "polkadotUrl":"ws://47.243.112.217:9944",
   "addresses": {
     "bFactory": "12kQAEvHhV8rBzbL3Nsk829A19FqCgsTx46RBRdm8SKGPNRK"
   }
