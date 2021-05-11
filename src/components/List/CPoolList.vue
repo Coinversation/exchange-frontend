@@ -112,6 +112,7 @@
 				<CCard>
 					<confTokenTable
 						:inputType="inputType"
+                        :tokens="tokens"
 						@filterData="filterData"
 					></confTokenTable>
 				</CCard>
@@ -183,6 +184,7 @@ export default {
 			this.selectAssetModal = true;
 		},
 		filterData(s) {
+            console.log(this.tokens)
 			this.tokens.map((item, index) => {
 				if (item.symbol === this.filterTokenData.symbol) {
 					this.tokens[index] = s;

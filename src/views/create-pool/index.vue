@@ -30,7 +30,7 @@
 				<CCardHeader>
 					<h4>Swap fee (%)</h4>
 					<CCol col="2">
-						<CInput width="20px"></CInput>
+						<CInput width="20px" type="number"></CInput>
 					</CCol>
 				</CCardHeader>
 			</CCard>
