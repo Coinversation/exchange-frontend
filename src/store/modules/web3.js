@@ -5,8 +5,8 @@ import { lsGet, lsRemove, lsSet } from '@/lib/localStorage'
 import { ContractPromise } from '@polkadot/api-contract'
 import { Option, Raw } from '@polkadot/types'
 import abi from '../../abi/pat_standard.json'
-import { ApiPromise, WsProvider } from '@polkadot/api'
-const plasmDefinitions = require('@plasm/types/interfaces/definitions');
+import { useApi , useChainInfo  } from '../../helps'
+
 import {
     isWeb3Injected,
     web3Accounts,
@@ -24,7 +24,15 @@ const state = {
     allowances: {},
     tokenMetadata: lsGet('tokenMetadata') || {},
     userInfo: lsGet('userInfo') || {},
+    chain: null,
+    genesisHash: null,
+    metaCalls: null,
+    specVersion: 0,
+    ss58Format: 0,
+    tokenDecimals: 10,
+    tokenSymbol:null
 }
+let api
 const mutations = {
     LOGOUT(_state) {
         Vue.set(_state, 'injectedLoaded', false)
@@ -36,6 +44,13 @@ const mutations = {
         Vue.set(_state, 'allowances', {})
         Vue.set(_state, 'userInfo', {})
         lsSet('userInfo', {})
+        Vue.set(_state, 'chain', null)
+        Vue.set(_state, 'genesisHash', null)
+        Vue.set(_state, 'metaCalls', null)
+        Vue.set(_state, 'specVersion', 0)
+        Vue.set(_state, 'ss58Format', 0)
+        Vue.set(_state, 'tokenDecimals', 10)
+        Vue.set(_state, 'tokenSymbol', null)
         console.debug('LOGOUT')
         // lsRemove()
     },
@@ -63,6 +78,26 @@ const mutations = {
     },
     LOAD_PROVIDER_REQUEST() {
         console.debug('LOAD_PROVIDER_REQUEST')
+    },
+    LOAD_CHAININFO_SUCCESS(_state, info) {
+        Vue.set(_state, 'chain', info.chain)
+        Vue.set(_state, 'genesisHash', info.genesisHash)
+        Vue.set(_state, 'metaCalls', info.metaCalls)
+        Vue.set(_state, 'specVersion', info.specVersion)
+        Vue.set(_state, 'ss58Format', info.ss58Format)
+        Vue.set(_state, 'tokenDecimals', info.tokenDecimals)
+        Vue.set(_state, 'tokenSymbol', info.tokenSymbol)
+        console.debug('LOAD_CHAININFO_SUCCESS')
+    },
+    LOAD_CHAININFO_FAILURE(_state, info) {
+        Vue.set(_state, 'chain', null)
+        Vue.set(_state, 'genesisHash', null)
+        Vue.set(_state, 'metaCalls', null)
+        Vue.set(_state, 'specVersion', 0)
+        Vue.set(_state, 'ss58Format', 0)
+        Vue.set(_state, 'tokenDecimals', 10)
+        Vue.set(_state, 'tokenSymbol', null)
+        console.debug('LOAD_CHAININFO_FAILURE')
     },
     LOAD_PROVIDER_SUCCESS(_state, payload) {
         Vue.set(_state, 'injectedLoaded', payload.injectedLoaded)
@@ -204,6 +239,7 @@ const actions = {
         commit('LOAD_WEB3_REQUEST')
         try {
             await dispatch('loadProvider')
+            await dispatch('loadChainInfo')
             await dispatch('loadAccount')
             //await dispatch('checkPendingTransactions')
             commit('LOAD_WEB3_SUCCESS')
@@ -253,36 +289,23 @@ const actions = {
             // dispatch('getUserPoolShares'),
         ])
     },
+    loadChainInfo:async({ commit })=>{
+        let chainInfo=await useChainInfo();
+        if (chainInfo!=null){
+            commit('LOAD_CHAININFO_SUCCESS',chainInfo);
+        }
+        else{
+            commit('LOAD_CHAININFO_FAILURE','fail');
+        }
+        
+    },
     getPoolBalances: async (_state, { poolAddress, tokens }) => {},
     getBalances: async ({ commit }, tokens) => {
         commit('GET_BALANCES_REQUEST')
         const address = state.account
         // Construct
-        const wsProvider = new WsProvider(config.polkadotUrl)
-        const types = Object.values(plasmDefinitions).reduce((res, { types }) => ({ ...res, ...types }), {
-            SmartContract: {
-              _enum: {
-                Wasm: 'AccountId',
-                Evm: 'H160'
-              }
-            },    
-          });
-        // Create the instance
-        const api = new ApiPromise({ provider: wsProvider ,
-            types: {
-                ...types,
-                // aliases that don't do well as part of interfaces
-                'voting::VoteType': 'VoteType',
-                'voting::TallyType': 'TallyType',
-                // chain-specific overrides
-                Address: 'GenericAddress',
-                Keys: 'SessionKeys4',
-                StakingLedger: 'StakingLedgerTo223',
-                Votes: 'VotesTo230',
-                ReferendumInfo: 'ReferendumInfoTo239',
-            },
-            // override duplicate type name
-            typesAlias: { voting: { Tally: 'VotingTally' } },})
+        
+        const api = useApi();
 
         // Wait until we are ready and connected
         await api.isReady
@@ -296,7 +319,7 @@ const actions = {
         } = await api.query.system.account(address)
 
         const balances = {}
-        balances.plasm = free.toHuman()
+        balances.plasm = free.toHuman().replace(state.tokenSymbol, '')
         try {
             tokensToFetch.forEach((value) => {
                 let contract = new ContractPromise(api, abi, value)
@@ -310,11 +333,11 @@ const actions = {
                     .then((result) => {
                         balances[value] =
                             result.output instanceof Raw
-                                ? result.output.toString().replace('UNIT', '')
+                                ? result.output.toString().replace(state.tokenSymbol, '')
                                 : result.output instanceof Option &&
                                   result.output.isNone
                                 ? '0'
-                                : result.output.toHuman().replace('UNIT', '')
+                                : result.output.toHuman().replace(state.tokenSymbol, '')
 
                         commit('GET_BALANCES_SUCCESS', balances)
                         return balances
