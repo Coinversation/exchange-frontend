@@ -26,4 +26,5 @@ new Vue({
     components: {
         App,
     },
+
 })
