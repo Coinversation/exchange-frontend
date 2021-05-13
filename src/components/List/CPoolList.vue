@@ -3,7 +3,6 @@
 		<CCard>
 			<CCardBody>
 				<CDataTable
-					hover
 					:items="tokens"
 					:fields="fields"
 					:items-per-page="15"
@@ -13,32 +12,25 @@
 				>
 					<template slot="assets" slot-scope="{ item }">
 						<td>
-							<div
-								class="text-center d-flex justify-content-start"
+							<img
+								class="mr-2"
+								:src="item.logoURL"
+								style="
+									width: 28px;
+									height: 28px;
+									border-radius: 35px;
+									background-color: #d7d7d7;
+								"
+								alt=""
+							/>
+							{{ item.symbol !== "" ? item.symbol : "Select" }}
+							<CButton
+								color="light"
+								variant="ghost"
+								@click="selectAsset(item)"
 							>
-								<CButton
-									color="light"
-									@click="selectAsset(item)"
-								>
-									<img
-										class="mr-2"
-										:src="item.logoURL"
-										style="
-											width: 28px;
-											height: 28px;
-											border-radius: 35px;
-											background-color: #d7d7d7;
-										"
-										alt=""
-									/>
-									{{
-										item.symbol !== ""
-											? item.symbol
-											: "Select"
-									}}
-									<CIcon size="sm" name="cil-caret-bottom" />
-								</CButton>
-							</div>
+								<CIcon size="sm" name="cil-caret-bottom" />
+							</CButton>
 						</td>
 					</template>
 					<template slot="myBalance" slot-scope="{ item }">
@@ -112,7 +104,7 @@
 				<CCard>
 					<confTokenTable
 						:inputType="inputType"
-                        :tokens="tokens"
+						:tokens="tokens"
 						@filterData="filterData"
 					></confTokenTable>
 				</CCard>
@@ -184,7 +176,7 @@ export default {
 			this.selectAssetModal = true;
 		},
 		filterData(s) {
-            console.log(this.tokens)
+			console.log(this.tokens);
 			this.tokens.map((item, index) => {
 				if (item.symbol === this.filterTokenData.symbol) {
 					this.tokens[index] = s;

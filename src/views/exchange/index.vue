@@ -22,7 +22,7 @@
 						<CInput
 							placeholder="0"
 							valid-feedback=""
-							invalid-feedback="enter"
+							invalid-feedback=""
 							value=""
 							:is-valid="validator"
 							size="lg"
@@ -342,7 +342,8 @@ export default {
 			}
 		},
 		validator(val) {
-			return val ? val.length >= 1 : false;
+			// return val ? val.length >= 1 : false;
+			return val ;
 		},
 	},
 };
