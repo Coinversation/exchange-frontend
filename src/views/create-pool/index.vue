@@ -10,7 +10,7 @@
 					</div>
 					<div class="col-6 d-flex justify-content-end">
 						<CButton
-							v-if="tokens.length < 5"
+							v-if="tokenFilterList.length < 5"
 							color="warning"
 							style="color: #ffffff"
 							@click="addToken"
@@ -26,7 +26,10 @@
 				<CCardHeader>
 					<h4>Assets</h4>
 				</CCardHeader>
-				<CPoolList :tokens="tokens" :fields="fields" />
+				<CPoolList
+					:tokenFilterList="tokenFilterList"
+					:fields="fields"
+				/>
 				<CCardHeader>
 					<h4>Swap fee (%)</h4>
 					<CCol col="2">
@@ -115,7 +118,6 @@ export default {
 			],
 			activePage: 1,
 			filterTokenData: [],
-			tokens: [],
 			amounts: {},
 			weights: {},
 		};
@@ -133,17 +135,20 @@ export default {
 			},
 		},
 	},
+	computed: {
+		tokenFilterList() {
+			return this.$store.state.tokenFilterList;
+		},
+	},
 	created() {
-		// Initialize an (arbitrary) two-token pool, with weights
 		const dai = getTokenBySymbol("DAI");
 		const usdc = getTokenBySymbol("USDC");
-		this.tokens = [dai, usdc];
-		// weights contain percentage values - denorms are calculated later
-		// Vue.set(this.weights, dai, "60");
-		// Vue.set(this.weights, usdc, "40");
+		const tokenFilterList = [dai, usdc];
+		this.$store.commit("TOKEN_FILTER_LIST", tokenFilterList);
 		this.weights = "";
 		this.amounts = "";
 		this.loading = false;
+		console.log(this.tokenFilterList);
 	},
 	methods: {
 		getBadge(status) {
@@ -163,40 +168,31 @@ export default {
 		createPool() {},
 		addToken() {
 			console.log(164, config.tokens);
-			console.log(165, this.tokens);
-			const anotherToken = getAnotherToken(config.tokens, this.tokens);
-			this.tokens.push(anotherToken);
+			console.log(165, this.tokenFilterList);
+			const anotherToken = getAnotherToken(
+				config.tokens,
+				this.tokenFilterList
+			);
+			this.tokenFilterList.push(anotherToken);
+			const tokenFilterList = this.tokenFilterList;
+			this.$store.commit("TOKEN_FILTER_LIST", tokenFilterList);
 			this.weights = "";
 			this.amounts = "";
 		},
 		changeToken(selectedToken) {
 			const tokenAddress = addressEq(selectedToken);
 			console.log(tokenAddress);
-			// Vue.set(this.tokens, this.activeToken, tokenAddress);
+			// Vue.set(this.tokenFilterList, this.activeToken, tokenAddress);
 			// Vue.set(this.weights, tokenAddress, "");
 			// Vue.set(this.amounts, tokenAddress, "");
 		},
 		filterData(s) {
 			console.log(193, s);
-			this.tokens.push(s);
+			this.tokenFilterList.push(s);
+			const tokenFilterList = this.tokenFilterList;
+			this.$store.commit("TOKEN_FILTER_LIST", tokenFilterList);
 			this.darkModal = false;
-			console.log(this.tokens);
-		},
-		removeFilter(s) {
-			Array.prototype.indexOf = function (val) {
-				for (var i = 0; i < this.length; i++) {
-					if (this[i] == val) return i;
-				}
-				return -1;
-			};
-			Array.prototype.remove = function (val) {
-				var index = this.indexOf(val);
-				if (index > -1) {
-					this.splice(index, 1);
-				}
-			};
-			this.tokens.remove(s);
-			console.log(this.filterTokenData);
+			console.log(this.tokenFilterList);
 		},
 	},
 };

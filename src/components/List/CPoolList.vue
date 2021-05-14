@@ -3,7 +3,7 @@
 		<CCard>
 			<CCardBody>
 				<CDataTable
-					:items="tokens"
+					:items="tokenFilterList"
 					:fields="fields"
 					:items-per-page="15"
 					:active-page="activePage"
@@ -104,7 +104,7 @@
 				<CCard>
 					<confTokenTable
 						:inputType="inputType"
-						:tokens="tokens"
+						:tokenFilterList="tokenFilterList"
 						@filterData="filterData"
 					></confTokenTable>
 				</CCard>
@@ -138,7 +138,6 @@ import { normalizeBalance, bnum } from "@/lib/utils";
 export default {
 	name: "ListPool",
 	props: {
-		tokens: { type: Array },
 		fields: { type: Array },
 	},
 	data() {
@@ -165,9 +164,13 @@ export default {
 			},
 		},
 	},
-	computed: {},
+	computed: {
+		tokenFilterList() {
+			return this.$store.state.tokenFilterList;
+		},
+	},
 	mounted() {
-		// console.log(this.tokens);
+		// console.log(this.tokenFilterList);
 		// console.log(this.$store.state);
 	},
 	methods: {
@@ -176,11 +179,18 @@ export default {
 			this.selectAssetModal = true;
 		},
 		filterData(s) {
-			console.log(this.tokens);
-			this.tokens.map((item, index) => {
+			console.log(this.tokenFilterList);
+			this.tokenFilterList.map((item, index) => {
 				if (item.symbol === this.filterTokenData.symbol) {
-					this.tokens[index] = s;
-					return this.tokens;
+					this.tokenFilterList[index] = s;
+					this.$store.commit(
+						"TOKEN_FILTER_LIST",
+						this.tokenFilterList
+					);
+					return this.$store.commit(
+						"TOKEN_FILTER_LIST",
+						this.tokenFilterList
+					);
 				}
 			});
 			this.filterTokenData = s;
@@ -212,12 +222,12 @@ export default {
 			);
 			const totalValue = tokenValue.div(this.weights[tokenAddress]);
 
-			this.totalWeight = this.tokens.reduce((acc, token) => {
+			this.totalWeight = this.tokenFilterList.reduce((acc, token) => {
 				const weight = parseFloat(this.weights[token]);
 				return acc + weight;
 			}, 0);
 
-			for (const token of this.tokens) {
+			for (const token of this.tokenFilterList) {
 				if (token === tokenAddress || !this.padlock) {
 					continue;
 				}
@@ -257,7 +267,8 @@ export default {
 					this.splice(index, 1);
 				}
 			};
-			this.tokens.remove(s);
+			this.tokenFilterList.remove(s);
+			this.$store.commit("TOKEN_FILTER_LIST", this.tokenFilterList);
 		},
 		pageChange(val) {
 			this.$router.push({ query: { page: val } });

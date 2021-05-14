@@ -32,7 +32,7 @@ const state = {
     tokenDecimals: 10,
     tokenSymbol:null
 }
-let api
+
 const mutations = {
     LOGOUT(_state) {
         Vue.set(_state, 'injectedLoaded', false)
@@ -297,14 +297,14 @@ const actions = {
         else{
             commit('LOAD_CHAININFO_FAILURE','fail');
         }
-        
+
     },
     getPoolBalances: async (_state, { poolAddress, tokens }) => {},
     getBalances: async ({ commit }, tokens) => {
         commit('GET_BALANCES_REQUEST')
         const address = state.account
         // Construct
-        
+
         const api = useApi();
 
         // Wait until we are ready and connected
