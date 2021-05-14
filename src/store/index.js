@@ -12,8 +12,6 @@ const state = {
     asideShow: false,
     // darkMode: false,
     darkMode: true,
-    tokenFilterList: [],
-    vettedTokenListData: vettedTokenList.tokens,
 }
 
 const mutations = {
@@ -31,12 +29,6 @@ const mutations = {
     toggle(state, variable) {
         state[variable] = !state[variable]
     },
-    TOKEN_FILTER_LIST(_state, payload) {
-        Vue.set(_state, 'tokenFilterList', payload)
-    },
-    // VETTED_TOKEN_LIST_DATA(_state, payload) {
-    //     Vue.set(_state, 'vettedTokenListData', payload)
-    // },
 }
 
 const store = new Vuex.Store({

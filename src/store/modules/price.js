@@ -34,7 +34,7 @@ const actions = {
             havven: {
                 usd: 16.99,
             },
-            'usd-coin': {
+            usdc: {
                 usd: 1,
             },
             'basic-attention-token': {
@@ -96,7 +96,7 @@ const actions = {
             havven: {
                 usd: 16.99,
             },
-            'usd-coin': {
+            usdc: {
                 usd: 1,
             },
             'basic-attention-token': {

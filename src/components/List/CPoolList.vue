@@ -170,7 +170,7 @@ export default {
 	},
 	computed: {
 		vettedTokenListData() {
-			return this.$store.state.vettedTokenListData;
+			return this.$store.state.app.vettedTokenListData;
 		},
 	},
 	methods: {

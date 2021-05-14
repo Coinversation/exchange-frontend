@@ -10,7 +10,7 @@
 					</div>
 					<div class="col-6 d-flex justify-content-end">
 						<CButton
-							v-if="tokenFilterList.length < 5"
+							v-if="tokenFilterList.length < 3"
 							color="warning"
 							style="color: #ffffff"
 							@click="addToken"
@@ -33,19 +33,56 @@
 				<CCardHeader>
 					<h4>Swap fee (%)</h4>
 					<CCol col="2">
-						<CInput width="20px" type="number"></CInput>
+						<CInput
+							:is-valid="validator"
+							width="20px"
+							:value="swapFee"
+							type="number"
+						></CInput>
 					</CCol>
 				</CCardHeader>
 			</CCard>
+			<!-- <CCard> -->
+			<CAlert
+				style="
+					background-color: #0e0e15;
+					color: #ff8a80;
+					border: 1px solid #ff8a80;
+				"
+				color="danger"
+				:show.sync="alert1"
+				class=""
+			>
+				Coinversation Labs is not liable for any losses you might incur
+				as a direct or indirect result of adding liquidity to this pool.
+				<CButton
+					class="position-absolute"
+					color="secondary"
+					style="
+						right: 10px;
+						top: 50%;
+						transform: translateY(-50%);
+						background-color: #0e0e15;
+						color: #ff8a80;
+						border: 1px solid #ff8a80;
+					"
+					@click="(alert1 = false), (disabled = false)"
+				>
+					I agree
+				</CButton>
+			</CAlert>
+
 			<CCol col="1">
 				<CButton
 					color="primary"
 					style="color: #ffffff"
 					@click="createPool"
 					size="lg"
+					:disabled="disabled"
 				>
-					Create</CButton
-				>
+					Create
+					<!-- Unlock USDC -->
+				</CButton>
 			</CCol>
 		</CCol>
 
@@ -72,8 +109,6 @@
 </template>
 
 <script>
-// import poolListData from "../../mock/poolListDataShared";
-// import poolListData from "../../mock/poolListDataPrivate";
 import CPoolList from "../../components/List/CPoolList";
 import { getTokenBySymbol } from "@/lib/utils";
 import { addressEq } from "@polkadot/util-crypto";
@@ -81,14 +116,17 @@ import { addressEq } from "@polkadot/util-crypto";
 import config from "@/config";
 
 function getAnotherToken(tokens, selectedTokens) {
+	console.log(tokens);
+	console.log(selectedTokens);
 	const tokenAddresses = Object.keys(tokens);
+	console.log(90, tokenAddresses);
 	for (const tokenAddress of tokenAddresses) {
 		const token = tokens[tokenAddress];
 		if (token.symbol === "DOT") {
 			console.log(123);
 			continue;
 		}
-		if (!selectedTokens.includes(token.address)) {
+		if (!selectedTokens.includes(token)) {
 			console.log(token.address);
 			return token;
 		}
@@ -100,6 +138,8 @@ export default {
 	data() {
 		return {
 			darkModal: false,
+			alert1: true,
+			disabled: true,
 			fields: [
 				{
 					key: "assets",
@@ -118,6 +158,7 @@ export default {
 			filterTokenData: [],
 			amounts: {},
 			weights: {},
+			swapFee: "0.15",
 		};
 	},
 	components: {
@@ -135,7 +176,7 @@ export default {
 	},
 	computed: {
 		tokenFilterList() {
-			return this.$store.state.tokenFilterList;
+			return this.$store.state.app.tokenFilterList;
 		},
 	},
 	created() {
@@ -146,27 +187,13 @@ export default {
 		this.weights = "";
 		this.amounts = "";
 		this.loading = false;
-		console.log(this.tokenFilterList);
 	},
 	methods: {
-		getBadge(status) {
-			switch (status) {
-				case "Active":
-					return "success";
-				case "Inactive":
-					return "secondary";
-				case "Pending":
-					return "warning";
-				case "Banned":
-					return "danger";
-				default:
-					"primary";
-			}
-		},
 		createPool() {},
 		addToken() {
 			console.log(164, config.tokens);
 			console.log(165, this.tokenFilterList);
+
 			const anotherToken = getAnotherToken(
 				config.tokens,
 				this.tokenFilterList
@@ -184,13 +211,8 @@ export default {
 			// Vue.set(this.weights, tokenAddress, "");
 			// Vue.set(this.amounts, tokenAddress, "");
 		},
-		filterData(s) {
-			console.log(193, s);
-			this.tokenFilterList.push(s);
-			const tokenFilterList = this.tokenFilterList;
-			this.$store.commit("TOKEN_FILTER_LIST", tokenFilterList);
-			this.darkModal = false;
-			console.log(this.tokenFilterList);
+		validator(val) {
+			return val ? val.length >= 1 && val !== "0" : false;
 		},
 	},
 };
