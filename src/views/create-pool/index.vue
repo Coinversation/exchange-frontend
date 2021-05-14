@@ -73,7 +73,6 @@
 
 <script>
 // import poolListData from "../../mock/poolListDataShared";
-import vettedTokenList from "../../config/vetted_tokenlist";
 // import poolListData from "../../mock/poolListDataPrivate";
 import CPoolList from "../../components/List/CPoolList";
 import { getTokenBySymbol } from "@/lib/utils";
@@ -100,7 +99,6 @@ export default {
 	name: "Users",
 	data() {
 		return {
-			vettedTokenListData: vettedTokenList.tokens,
 			darkModal: false,
 			fields: [
 				{

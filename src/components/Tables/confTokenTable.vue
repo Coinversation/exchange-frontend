@@ -32,41 +32,25 @@
 </template>
 
 <script>
+
 export default {
-	props: ["inputType", "tokenFilterList"],
+	props: ["inputType", "tokenFilterList",'listData'],
 	name: "BackendTable",
 	data() {
 		return {
 			collapseDuration: 0,
+			// vettedTokenListData: [],
 		};
 	},
 	computed: {
-		listData() {
-			console.log(this.vettedTokenListData);
-			console.log(this.tokenFilterList);
-			const that = this;
-			for (let i = 0; i < this.tokenFilterList.length; i++) {
-				for (let j = 0; j < this.vettedTokenListData.length; j++) {
-					if (
-						this.vettedTokenListData[j].symbol ==
-						this.tokenFilterList[i].symbol
-					) {
-						that.vettedTokenListData.splice(j, 1);
-						j--;
-					}
-				}
-			}
-			console.log(60, this.vettedTokenListData);
-			return this.$store.commit(
-				"VETTED_TOKEN_LIST_DATA",
-				this.vettedTokenListData
-			);
-			// return this.vettedTokenListData;
-			// return this.vettedTokenListData;
-		},
-		vettedTokenListData() {
-			return this.$store.state.vettedTokenListData;
-		},
+		// vettedTokenListData() {
+		// 	console.log(this.$store.state);
+		// 	return this.$store.state.vettedTokenListData;
+		// },
+
+	},
+	created() {
+
 	},
 	methods: {
 		rowClicked(s) {

@@ -105,6 +105,7 @@
 					<confTokenTable
 						:inputType="inputType"
 						:tokenFilterList="tokenFilterList"
+						:listData="listData"
 						@filterData="filterData"
 					></confTokenTable>
 				</CCard>
@@ -134,21 +135,24 @@ import Vue from "vue";
 // import { mapActions } from 'vuex';
 import confTokenTable from "../../components/Tables/confTokenTable";
 import { normalizeBalance, bnum } from "@/lib/utils";
+// import vettedTokenList from "@/config/vetted_tokenlist";
 
 export default {
 	name: "ListPool",
 	props: {
 		fields: { type: Array },
+		tokenFilterList: { type: Array },
 	},
 	data() {
 		return {
 			activePage: 1,
 			inputType: "",
 			selectAssetModal: false,
-			filterTokenData: "",
+			filterTokenData: {},
 			totalWeight: 0,
 			amounts: {},
 			weights: {},
+			listData: [],
 		};
 	},
 	components: {
@@ -165,18 +169,25 @@ export default {
 		},
 	},
 	computed: {
-		tokenFilterList() {
-			return this.$store.state.tokenFilterList;
+		vettedTokenListData() {
+			return this.$store.state.vettedTokenListData;
 		},
-	},
-	mounted() {
-		// console.log(this.tokenFilterList);
-		// console.log(this.$store.state);
 	},
 	methods: {
 		selectAsset(s) {
 			this.filterTokenData = s;
+			this.getListData();
 			this.selectAssetModal = true;
+		},
+		getListData() {
+			let vettedTokenListData = this.vettedTokenListData;
+			let tokenFilterList = this.tokenFilterList;
+			let set = tokenFilterList.map((item) => item.symbol);
+			let resArr = vettedTokenListData.filter(
+				(item) => !set.includes(item.symbol)
+			);
+
+			this.listData = resArr;
 		},
 		filterData(s) {
 			console.log(this.tokenFilterList);
@@ -187,10 +198,7 @@ export default {
 						"TOKEN_FILTER_LIST",
 						this.tokenFilterList
 					);
-					return this.$store.commit(
-						"TOKEN_FILTER_LIST",
-						this.tokenFilterList
-					);
+					return this.tokenFilterList;
 				}
 			});
 			this.filterTokenData = s;

@@ -12,11 +12,11 @@ const registry = {
             "id": "usdc",
             "name": "USD Coin",
             "symbol": "USDC",
-            "decimals": 10,
+            "decimals": 6,
             "precision": 4,
             "color": "#828384",
             "hasIcon": false,
-            "logoURL": "https://raw.githubusercontent.com/trustwallet/assets/master/blockchains/ethereum/assets/0xC02aaA39b223FE8D0A0e5C4F27eAD9083C756Cc2/logo.png"
+            "logoURL": "https://raw.githubusercontent.com/trustwallet/assets/master/blockchains/ethereum/assets/0xA0b86991c6218b36c1d19D4a2e9Eb0cE3606eB48/logo.png"
           },
           "W5PyAfrvVXi4BcVEEuUrJmvQmcwHRyjbt2u31zePY7QR1gn": {
             "address": "W5PyAfrvVXi4BcVEEuUrJmvQmcwHRyjbt2u31zePY7QR1gn",

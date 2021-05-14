@@ -34,15 +34,15 @@ const mutations = {
     TOKEN_FILTER_LIST(_state, payload) {
         Vue.set(_state, 'tokenFilterList', payload)
     },
-    VETTED_TOKEN_LIST_DATA(_state, payload) {
-        Vue.set(_state, 'vettedTokenListData', payload)
-    },
+    // VETTED_TOKEN_LIST_DATA(_state, payload) {
+    //     Vue.set(_state, 'vettedTokenListData', payload)
+    // },
 }
 
 const store = new Vuex.Store({
     state,
     modules,
-    strict: process.env.NODE_ENV !== 'production',
+    // strict: process.env.NODE_ENV !== 'production',
     mutations,
 })
 
