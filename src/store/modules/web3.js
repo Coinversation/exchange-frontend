@@ -5,7 +5,7 @@ import { lsGet, lsRemove, lsSet } from '@/lib/localStorage'
 import { ContractPromise } from '@polkadot/api-contract'
 import { Option, Raw } from '@polkadot/types'
 import abi from '../../abi/pat_standard.json'
-import { useApi , useChainInfo  } from '../../helps'
+import { useApi, useChainInfo } from '../../helpers'
 
 import {
     isWeb3Injected,

@@ -41,12 +41,18 @@
 							<div
 								class="text-center d-flex justify-content-start"
 							>
-								<CInput type="number" value="" name="" id="" />
+								<CInput
+									type="number"
+									:value="weights[item.address]"
+									@input="handleWeightChange(item.address)"
+									name=""
+									id=""
+								/>
 							</div>
 						</td>
 					</template>
 					<template slot="percent" slot-scope="{ item }">
-						<td>{{ getPercentage(item.address) }}</td>
+						<td>{{ getPercentage(item.address, item) }}</td>
 					</template>
 					<template slot="amount" slot-scope="{ item }">
 						<td>
@@ -56,6 +62,7 @@
 								<CInput
 									type="number"
 									@input="handleAmountChange(item.address)"
+									:value="amounts[item.address]"
 									name=""
 									id=""
 								/>
@@ -142,6 +149,7 @@ export default {
 	props: {
 		fields: { type: Array },
 		tokenFilterList: { type: Array },
+		weights: { type: Object },
 	},
 	data() {
 		return {
@@ -151,8 +159,8 @@ export default {
 			filterTokenData: {},
 			totalWeight: 0,
 			amounts: {},
-			weights: {},
 			listData: [],
+			padlock: true,
 		};
 	},
 	components: {
@@ -212,14 +220,15 @@ export default {
 			return parseFloat(balance).toFixed(3);
 		},
 
-		getPercentage(token) {
+		getPercentage(token, item) {
 			return this.totalWeight == 0
 				? 0
-				: (this.weights[token] / this.totalWeight) * 100;
+				: (item.weights[token] / this.totalWeight) * 100;
 		},
 		handleWeightChange(tokenAddress) {
 			this.handleAmountChange(tokenAddress);
 		},
+
 		handleAmountChange(tokenAddress) {
 			const tokenPrice = this.$store.state.price.values[tokenAddress];
 			if (!tokenPrice) {
@@ -228,29 +237,36 @@ export default {
 			const tokenValue = bnum(this.amounts[tokenAddress]).times(
 				tokenPrice
 			);
+			console.log(tokenValue);
 			const totalValue = tokenValue.div(this.weights[tokenAddress]);
+			console.log(this.tokenFilterList);
+			console.log(243, tokenValue);
 
 			this.totalWeight = this.tokenFilterList.reduce((acc, token) => {
-				const weight = parseFloat(this.weights[token]);
+				console.log(token);
+				const weight = parseFloat(this.weights[token.address]);
 				return acc + weight;
 			}, 0);
 
 			for (const token of this.tokenFilterList) {
-				if (token === tokenAddress || !this.padlock) {
+				if (token.address === tokenAddress || !this.padlock) {
 					continue;
 				}
-				const tokenWeight = bnum(this.weights[token] || "");
+				const tokenWeight = bnum(this.weights[token.address] || "");
 				if (totalValue.isNaN() || tokenWeight.isNaN()) {
-					Vue.set(this.amounts, token, "");
+                    Vue.set(this.amounts, token, "");
 					continue;
 				}
-				const tokenPrice = this.price.values[token];
+				const tokenPrice = this.$store.state.price.values[
+					token.address
+				];
 				if (!tokenPrice) {
 					continue;
 				}
 				const tokenValue = tokenWeight.times(totalValue);
 				const tokenAmount = tokenValue.div(tokenPrice);
-				Vue.set(this.amounts, token, tokenAmount.toString());
+                console.log(this)
+				Vue.set(this.amounts, token.address, tokenAmount.toString());
 			}
 		},
 		getValue(tokenAddress) {
@@ -275,6 +291,9 @@ export default {
 					this.splice(index, 1);
 				}
 			};
+			this.tokenFilterList.map((token) => {
+				this.handleWeightChange(token.address);
+			});
 			this.tokenFilterList.remove(s);
 			this.$store.commit("TOKEN_FILTER_LIST", this.tokenFilterList);
 		},

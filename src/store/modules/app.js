@@ -5,6 +5,7 @@ import vettedTokenList from '@/config/vetted_tokenlist'
 const state = {
     tokenFilterList: [],
     vettedTokenListData: vettedTokenList.tokens,
+    unlockTokenList: [],
 }
 
 const mutations = {

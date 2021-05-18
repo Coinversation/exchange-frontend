@@ -1,6 +1,6 @@
 {
     "name": "cto-admin",
-    "version": "3.2.2",
+    "version": "0.0.1",
     "description": "cto-admin",
     "author": {
         "name": "xiaoBai8512"
@@ -32,21 +32,25 @@
         "@polkadot/keyring": "^6.2.1",
         "@polkadot/typegen": "^4.5.1",
         "@polkadot/types": "^4.5.1",
+        "@polkadot/ui-keyring": "^0.75.2-4",
         "@polkadot/util": "^6.1.1",
         "@polkadot/util-crypto": "^6.2.1",
-        "@polkadot/ui-keyring": "^0.75.2-4",
         "@snapshot-labs/lock": "^0.1.3",
+        "@vue/cli-plugin-typescript": "^4.5.13",
         "axios": "^0.21.1",
+        "babel-loader": "^8.2.2",
         "bignumber.js": "^9.0.1",
         "lightweight-charts": "^3.3.0",
         "quill": "~1.3.7",
         "spinkit": "~2.0.1",
+        "typescript": "^4.2.4",
         "v-calendar": "~1.0.8",
         "vue": "^2.6.12",
         "vue-codemirror": "~4.0.6",
         "vue-grid-layout": "^2.3.9",
         "vue-i18n": "8.18.2",
         "vue-multiselect": "~2.1.6",
+        "vue-property-decorator": "^9.1.2",
         "vue-quill-editor": "~3.0.6",
         "vue-router": "~3.3.4",
         "vue-select": "~3.10.7",
@@ -75,7 +79,7 @@
         "eslint-plugin-vue": "~6.2.2",
         "node-sass": "~4.14.1",
         "npm-run-all": "~4.1.5",
-        "sass-loader": "~9.0.3",
+        "sass-loader": "^8.0.2",
         "vue-template-compiler": "~2.6.12"
     },
     "browserslist": [
