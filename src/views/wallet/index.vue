@@ -9,7 +9,7 @@
 							<div>{{ account }}</div>
 						</div>
 						<div>
-							<h3>${{balancesTotalValue}}</h3>
+							<h3>${{ balancesTotalValue }}</h3>
 							<div class="float-right">Total value</div>
 						</div>
 					</div>
@@ -37,7 +37,6 @@ export default {
 					_classes: "font-weight-bold",
 				},
 				{ key: "price", label: "Holdings" },
-
 			],
 			activePage: 1,
 			filterTokenData: [],
@@ -70,7 +69,7 @@ export default {
 			const balances = Object.entries(this.$store.state.web3.balances)
 				.filter(
 					([address]) =>
-						address !== "dot" &&
+						address !== this.$store.state.web3.tokenSymbol &&
 						this.$store.state.web3.tokenMetadata[address]
 				)
 				.map(([address, denormBalance]) => {
@@ -94,12 +93,12 @@ export default {
 			const ethPrice = this.$store.state.price.values[
 				config.addresses.weth
 			];
-			const ethBalance = this.$store.state.web3.balances["dot"];
+			const ethBalance = this.$store.state.web3.balances[this.$store.state.web3.tokenSymbol];
 			return [
 				{
-					address: "dot",
-					name: "DOT",
-					symbol: "DOT",
+					address: this.$store.state.web3.tokenSymbol,
+					name: this.$store.state.web3.tokenSymbol,
+					symbol: this.$store.state.web3.tokenSymbol,
 					price: ethPrice,
 					balance: ethBalance,
 					value: ethPrice * ethBalance,

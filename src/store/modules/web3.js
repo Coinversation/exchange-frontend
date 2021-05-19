@@ -30,7 +30,7 @@ const state = {
     specVersion: 0,
     ss58Format: 0,
     tokenDecimals: 10,
-    tokenSymbol:null
+    tokenSymbol: lsGet('tokenSymbol') || '',
 }
 
 const mutations = {
@@ -51,6 +51,8 @@ const mutations = {
         Vue.set(_state, 'ss58Format', 0)
         Vue.set(_state, 'tokenDecimals', 10)
         Vue.set(_state, 'tokenSymbol', null)
+        lsSet('tokenSymbol', '')
+
         console.debug('LOGOUT')
         // lsRemove()
     },
@@ -87,9 +89,11 @@ const mutations = {
         Vue.set(_state, 'ss58Format', info.ss58Format)
         Vue.set(_state, 'tokenDecimals', info.tokenDecimals)
         Vue.set(_state, 'tokenSymbol', info.tokenSymbol)
+        lsSet('tokenSymbol', info.tokenSymbol)
+
         console.debug('LOAD_CHAININFO_SUCCESS')
     },
-    LOAD_CHAININFO_FAILURE(_state, info) {
+    LOAD_CHAININFO_FAILURE(_state) {
         Vue.set(_state, 'chain', null)
         Vue.set(_state, 'genesisHash', null)
         Vue.set(_state, 'metaCalls', null)
@@ -97,6 +101,8 @@ const mutations = {
         Vue.set(_state, 'ss58Format', 0)
         Vue.set(_state, 'tokenDecimals', 10)
         Vue.set(_state, 'tokenSymbol', null)
+        lsSet('tokenSymbol', null)
+
         console.debug('LOAD_CHAININFO_FAILURE')
     },
     LOAD_PROVIDER_SUCCESS(_state, payload) {
@@ -289,25 +295,19 @@ const actions = {
             // dispatch('getUserPoolShares'),
         ])
     },
-    loadChainInfo:async({ commit })=>{
-        let chainInfo=await useChainInfo();
-        if (chainInfo!=null){
-            commit('LOAD_CHAININFO_SUCCESS',chainInfo);
+    loadChainInfo: async ({ commit }) => {
+        let chainInfo = await useChainInfo()
+        if (chainInfo != null) {
+            commit('LOAD_CHAININFO_SUCCESS', chainInfo)
+        } else {
+            commit('LOAD_CHAININFO_FAILURE', 'fail')
         }
-        else{
-            commit('LOAD_CHAININFO_FAILURE','fail');
-        }
-
     },
     getPoolBalances: async (_state, { poolAddress, tokens }) => {},
     getBalances: async ({ commit }, tokens) => {
         commit('GET_BALANCES_REQUEST')
         const address = state.account
-        // Construct
-
-        const api = useApi();
-
-        // Wait until we are ready and connected
+        const api = useApi()
         await api.isReady
         const tokensToFetch = tokens
             ? tokens
@@ -324,21 +324,20 @@ const actions = {
             tokensToFetch.forEach((value) => {
                 let contract = new ContractPromise(api, abi, value)
                 contract
-                    .read(
-                        'iPat,balanceOf',
-                        { value: 0, gasLimit: -1 },
-                        address
-                    )
+                    .read('iPat,balanceOf', { value: 0, gasLimit: -1 }, address)
                     .send(address)
                     .then((result) => {
                         balances[value] =
                             result.output instanceof Raw
-                                ? result.output.toString().replace(state.tokenSymbol, '')
+                                ? result.output
+                                      .toString()
+                                      .replace(state.tokenSymbol, '')
                                 : result.output instanceof Option &&
                                   result.output.isNone
                                 ? '0'
-                                : result.output.toHuman().replace(state.tokenSymbol, '')
-
+                                : result.output
+                                      .toHuman()
+                                      .replace(state.tokenSymbol, '')
                         commit('GET_BALANCES_SUCCESS', balances)
                         return balances
                     })
