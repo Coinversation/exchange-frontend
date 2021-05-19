@@ -120,7 +120,8 @@
 
 <script>
 import Vue from "vue";
-import { bnum, scale } from "../../helpers/utils";
+import { mapActions } from 'vuex';
+import { bnum, scale } from "@/helpers/utils";
 
 import CPoolList from "../../components/List/CPoolList";
 import { getTokenBySymbol } from "@/lib/utils";

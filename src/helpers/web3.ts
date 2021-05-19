@@ -6,10 +6,10 @@ const tokenAbi =require('./abi/pat_standard.json') ;
 const poolAbi =require('./abi/pool.json') ;
 
 export function createPool(accountId,contractAddress, messageAbi, params) {
-    let api= useApi();
-    let res={isSuccess:0,data:{poolAccount:"",tokenAccount:""}}
+    const api= useApi();
+    const res={isSuccess:0,data:{poolAccount:"",tokenAccount:""}}
     const currentPair = keyring.getPair(accountId);
-    let contract = new ContractPromise(api, factoryAbi, contractAddress);
+    const contract = new ContractPromise(api, factoryAbi, contractAddress);
     await contract.exec(messageAbi,{value:0, gasLimit:-1},params).signAndSend(currentPair,(result)=>{
         if (result.status.isFinalized || result.status.isInBlock) {
             res.data.blockHash=result.status.asInBlock.toHex();
@@ -35,10 +35,10 @@ export function createPool(accountId,contractAddress, messageAbi, params) {
 }
 
 export function unlock(accountId,tokenAddress,spenderAddress, messageAbi,balance) {
-    let api= useApi();
+    const api= useApi();
     let res=false;
     const currentPair = keyring.getPair(accountId);
-    let contract = new ContractPromise(api, tokenAbi, tokenAddress);
+    const contract = new ContractPromise(api, tokenAbi, tokenAddress);
     await contract.exec(messageAbi,{value:0, gasLimit:-1},spenderAddress,balance).signAndSend(currentPair,(result)=>{
         if (result.status.isFinalized || result.status.isInBlock) {
             result.events
@@ -58,10 +58,10 @@ export function unlock(accountId,tokenAddress,spenderAddress, messageAbi,balance
 }
 
 export function setPublicSwap(accountId,contractAddress) {
-    let api= useApi();
+    const api= useApi();
     let res=false;
     const currentPair = keyring.getPair(accountId);
-    let contract = new ContractPromise(api, poolAbi, contractAddress);
+    const contract = new ContractPromise(api, poolAbi, contractAddress);
     await contract.setPublicSwap({value:0, gasLimit:-1},true).signAndSend(currentPair,(result)=>{
         if (result.status.isFinalized || result.status.isInBlock) {
             result.events
@@ -82,10 +82,10 @@ export function setPublicSwap(accountId,contractAddress) {
 
 
 export function setSwapFee(accountId,contractAddress,fee) {
-    let api= useApi();
+    const api= useApi();
     let res=false;
     const currentPair = keyring.getPair(accountId);
-    let contract = new ContractPromise(api, poolAbi, contractAddress);
+    const contract = new ContractPromise(api, poolAbi, contractAddress);
     await contract.setSwapFee({value:0, gasLimit:-1},fee).signAndSend(currentPair,(result)=>{
         if (result.status.isFinalized || result.status.isInBlock) {
             result.events
@@ -105,10 +105,10 @@ export function setSwapFee(accountId,contractAddress,fee) {
 }
 
 export function bind(accountId,contractAddress,tokenAddress,denorm,balance) {
-    let api= useApi();
+    const api= useApi();
     let res=false;
     const currentPair = keyring.getPair(accountId);
-    let contract = new ContractPromise(api, poolAbi, contractAddress);
+    const contract = new ContractPromise(api, poolAbi, contractAddress);
     await contract.bind({value:0, gasLimit:-1},tokenAddress,balance,denorm).signAndSend(currentPair,(result)=>{
         if (result.status.isFinalized || result.status.isInBlock) {
             result.events
@@ -128,10 +128,10 @@ export function bind(accountId,contractAddress,tokenAddress,denorm,balance) {
 }
 
 export function finalize(accountId,contractAddress) {
-    let api= useApi();
+    const api= useApi();
     let res=false;
     const currentPair = keyring.getPair(accountId);
-    let contract = new ContractPromise(api, poolAbi, contractAddress);
+    const contract = new ContractPromise(api, poolAbi, contractAddress);
     await contract.finalize({value:0, gasLimit:-1}).signAndSend(currentPair,(result)=>{
         if (result.status.isFinalized || result.status.isInBlock) {
             result.events
@@ -151,10 +151,10 @@ export function finalize(accountId,contractAddress) {
 }
 
 export function joinPool(accountId,contractAddress,poolAmountOut,tokenList) {
-    let api= useApi();
+    const api= useApi();
     let res=false;
     const currentPair = keyring.getPair(accountId);
-    let contract = new ContractPromise(api, poolAbi, contractAddress);
+    const contract = new ContractPromise(api, poolAbi, contractAddress);
     await contract.joinPool({value:0, gasLimit:-1},poolAmountOut,tokenList).signAndSend(currentPair,(result)=>{
         if (result.status.isFinalized || result.status.isInBlock) {
             result.events
@@ -174,10 +174,10 @@ export function joinPool(accountId,contractAddress,poolAmountOut,tokenList) {
 }
 
 export function exitPool(accountId,contractAddress,poolAmountOut,tokenList) {
-    let api= useApi();
+    const api= useApi();
     let res=false;
     const currentPair = keyring.getPair(accountId);
-    let contract = new ContractPromise(api, poolAbi, contractAddress);
+    const contract = new ContractPromise(api, poolAbi, contractAddress);
     await contract.joinPool({value:0, gasLimit:-1},poolAmountOut,tokenList).signAndSend(currentPair,(result)=>{
         if (result.status.isFinalized || result.status.isInBlock) {
             result.events

@@ -3,7 +3,7 @@ import { useApi } from './useApi';
 import { getSpecTypes } from '@polkadot/types-known';
 import { formatBalance, isNumber } from '@polkadot/util';
 import { TypeRegistry } from '@polkadot/types/create';
-import { addressDefaults } from '@polkadot/util-crypto/address/defaults';
+// import { addressDefaults } from '@polkadot/util-crypto/address/defaults';
 
 const registry = new TypeRegistry();
 const DEFAULT_DECIMALS = registry.createType('u32', 12);
@@ -21,7 +21,7 @@ async function createInfo (api) {
     ss58Format: isNumber(api.registry.chainSS58) ? api.registry.chainSS58 : DEFAULT_SS58.toNumber(),
     tokenDecimals: (api.registry.chainDecimals || [DEFAULT_DECIMALS.toNumber()])[0],
     tokenSymbol: (api.registry.chainTokens || formatBalance.getDefaults().unit)[0],
-    //types: getSpecTypes(api.registry, systemChain, api.runtimeVersion.specName, api.runtimeVersion.specVersion) 
+    //types: getSpecTypes(api.registry, systemChain, api.runtimeVersion.specName, api.runtimeVersion.specVersion)
   };
 }
 

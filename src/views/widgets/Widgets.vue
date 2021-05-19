@@ -5,11 +5,11 @@
         <CWidgetProgress footer="Lorem ipsum dolor sit amet enim.">
           <div class="h4 m-0">89.9%</div>
           <div class="card-header-actions">
-            <a 
-              href="https://coreui.io/vue/docs/components/widgets" 
+            <a
+              href="https://coreui.io/vue/docs/components/widgets"
               class="card-header-action position-absolute"
               style="right:5px; top:5px"
-              rel="noreferrer noopener" 
+              rel="noreferrer noopener"
               target="_blank"
             >
               <small class="text-muted">docs</small>
@@ -488,7 +488,7 @@
 <script>
 import WidgetsBrand from './WidgetsBrand'
 import WidgetsDropdown from './WidgetsDropdown'
-import { CChartLineSimple, CChartBarSimple } from '../charts/index.js'
+import { CChartLineSimple, CChartBarSimple } from '../charts/index'
 
 export default {
   name: 'Widgets',

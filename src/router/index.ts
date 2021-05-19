@@ -2,103 +2,103 @@ import Vue from 'vue'
 import Router from 'vue-router'
 
 // Containers
-const TheContainer = () => import('@/containers/TheContainer')
+const TheContainer = () => import('@/containers/TheContainer.vue')
 
 // Views
 // const Dashboard = () => import('@/views/Dashboard')
-const Dashboard = () => import('@/views/dashboard')
-const ExplorePools = () => import('@/views/explore-pools')
-const Pool = () => import('@/views/explore-pools/Pool')
-const CreatePool = () => import('@/views/create-pool')
-const Exchange = () => import('@/views/exchange')
+const Dashboard = () => import('@/views/dashboard/index.vue')
+const ExplorePools = () => import('@/views/explore-pools/index.vue')
+const Pool = () => import('@/views/explore-pools/Pool.vue')
+const CreatePool = () => import('@/views/create-pool/index.vue')
+const Exchange = () => import('@/views/exchange/index.vue')
 
-const Wallet = () => import('@/views/wallet')
+const Wallet = () => import('@/views/wallet/index.vue')
 
-const Colors = () => import('@/views/theme/Colors')
-const Typography = () => import('@/views/theme/Typography')
+const Colors = () => import('@/views/theme/Colors.vue')
+const Typography = () => import('@/views/theme/Typography.vue')
 
-const Charts = () => import('@/views/charts/Charts')
-const Widgets = () => import('@/views/widgets/Widgets')
+const Charts = () => import('@/views/charts/Charts.vue')
+const Widgets = () => import('@/views/widgets/Widgets.vue')
 
 // Views - Components
-const Cards = () => import('@/views/base/Cards')
-const Switches = () => import('@/views/base/Switches')
-const Tabs = () => import('@/views/base/Tabs')
-const Breadcrumbs = () => import('@/views/base/Breadcrumbs')
-const Carousels = () => import('@/views/base/Carousels')
-const Collapses = () => import('@/views/base/Collapses')
-const Jumbotrons = () => import('@/views/base/Jumbotrons')
-const ListGroups = () => import('@/views/base/ListGroups')
-const Navs = () => import('@/views/base/Navs')
-const Navbars = () => import('@/views/base/Navbars')
-const Paginations = () => import('@/views/base/Paginations')
-const Popovers = () => import('@/views/base/Popovers')
-const ProgressBars = () => import('@/views/base/ProgressBars')
-const Tables = () => import('@/views/tables/Tables')
-const AdvancedTables = () => import('@/views/tables/AdvancedTables')
-const Tooltips = () => import('@/views/base/Tooltips')
+const Cards = () => import('@/views/base/Cards.vue')
+const Switches = () => import('@/views/base/Switches.vue')
+const Tabs = () => import('@/views/base/Tabs.vue')
+const Breadcrumbs = () => import('@/views/base/Breadcrumbs.vue')
+const Carousels = () => import('@/views/base/Carousels.vue')
+const Collapses = () => import('@/views/base/Collapses.vue')
+const Jumbotrons = () => import('@/views/base/Jumbotrons.vue')
+const ListGroups = () => import('@/views/base/ListGroups.vue')
+const Navs = () => import('@/views/base/Navs.vue')
+const Navbars = () => import('@/views/base/Navbars.vue')
+const Paginations = () => import('@/views/base/Paginations.vue')
+const Popovers = () => import('@/views/base/Popovers.vue')
+const ProgressBars = () => import('@/views/base/ProgressBars.vue')
+const Tables = () => import('@/views/tables/Tables.vue')
+const AdvancedTables = () => import('@/views/tables/AdvancedTables.vue')
+const Tooltips = () => import('@/views/base/Tooltips.vue')
 
 // Views - Buttons
-const StandardButtons = () => import('@/views/buttons/StandardButtons')
-const ButtonGroups = () => import('@/views/buttons/ButtonGroups')
-const Dropdowns = () => import('@/views/buttons/Dropdowns')
-const BrandButtons = () => import('@/views/buttons/BrandButtons')
-const LoadingButtons = () => import('@/views/buttons/LoadingButtons')
+const StandardButtons = () => import('@/views/buttons/StandardButtons.vue')
+const ButtonGroups = () => import('@/views/buttons/ButtonGroups.vue')
+const Dropdowns = () => import('@/views/buttons/Dropdowns.vue')
+const BrandButtons = () => import('@/views/buttons/BrandButtons.vue')
+const LoadingButtons = () => import('@/views/buttons/LoadingButtons.vue')
 
 // Views - Editors
-const TextEditors = () => import('@/views/editors/TextEditors')
-const CodeEditors = () => import('@/views/editors/CodeEditors')
+const TextEditors = () => import('@/views/editors/TextEditors.vue')
+const CodeEditors = () => import('@/views/editors/CodeEditors.vue')
 
 // Views - Forms
-const BasicForms = () => import('@/views/forms/Forms')
-const AdvancedForms = () => import('@/views/forms/AdvancedForms')
-const ValidationForms = () => import('@/views/forms/ValidationForms')
-const MultiSelect = () => import('@/views/forms/MultiSelect')
+const BasicForms = () => import('@/views/forms/Forms.vue')
+const AdvancedForms = () => import('@/views/forms/AdvancedForms.vue')
+const ValidationForms = () => import('@/views/forms/ValidationForms.vue')
+const MultiSelect = () => import('@/views/forms/MultiSelect.vue')
 
 // Views GoogleMaps
-const GoogleMaps = () => import('@/views/GoogleMaps')
+const GoogleMaps = () => import('@/views/GoogleMaps.vue')
 
 // Views - Icons
-const CoreUIIcons = () => import('@/views/icons/CoreUIIcons')
-const Brands = () => import('@/views/icons/Brands')
-const Flags = () => import('@/views/icons/Flags')
+const CoreUIIcons = () => import('@/views/icons/CoreUIIcons.vue')
+const Brands = () => import('@/views/icons/Brands.vue')
+const Flags = () => import('@/views/icons/Flags.vue')
 
 // Views - Notifications
-const Alerts = () => import('@/views/notifications/Alerts')
-const Badges = () => import('@/views/notifications/Badges')
-const Modals = () => import('@/views/notifications/Modals')
-const Toaster = () => import('@/views/notifications/Toaster')
+const Alerts = () => import('@/views/notifications/Alerts.vue')
+const Badges = () => import('@/views/notifications/Badges.vue')
+const Modals = () => import('@/views/notifications/Modals.vue')
+const Toaster = () => import('@/views/notifications/Toaster.vue')
 
 // Views - Pages
-const Page404 = () => import('@/views/pages/Page404')
-const Page500 = () => import('@/views/pages/Page500')
-const Login = () => import('@/views/pages/Login')
-const Register = () => import('@/views/pages/Register')
+const Page404 = () => import('@/views/pages/Page404.vue')
+const Page500 = () => import('@/views/pages/Page500.vue')
+const Login = () => import('@/views/pages/Login.vue')
+const Register = () => import('@/views/pages/Register.vue')
 
 // Users
-const Users = () => import('@/views/users/Users')
-const User = () => import('@/views/users/User')
+const Users = () => import('@/views/users/Users.vue')
+const User = () => import('@/views/users/User.vue')
 
 // Plugins
-const Draggable = () => import('@/views/plugins/Draggable')
-const Calendar = () => import('@/views/plugins/Calendar')
-const Spinners = () => import('@/views/plugins/Spinners')
+const Draggable = () => import('@/views/plugins/Draggable.vue')
+const Calendar = () => import('@/views/plugins/Calendar.vue')
+const Spinners = () => import('@/views/plugins/Spinners.vue')
 
 // Apps -> Invoice
-const Invoice = () => import('@/views/apps/invoicing/Invoice')
+const Invoice = () => import('@/views/apps/invoicing/Invoice.vue')
 
 // Apps -> Email
-const EmailApp = () => import('@/views/apps/email/EmailApp')
-const Compose = () => import('@/views/apps/email/Compose')
-const Inbox = () => import('@/views/apps/email/Inbox')
-const Message = () => import('@/views/apps/email/Message')
+const EmailApp = () => import('@/views/apps/email/EmailApp.vue')
+const Compose = () => import('@/views/apps/email/Compose.vue')
+const Inbox = () => import('@/views/apps/email/Inbox.vue')
+const Message = () => import('@/views/apps/email/Message.vue')
 
 Vue.use(Router)
 
 export default new Router({
     mode: 'hash', // https://router.vuejs.org/api/#mode
     linkActiveClass: 'open active',
-    scrollBehavior: () => ({ y: 0 }),
+    // scrollBehavior: () => ({ y: 0 }),
     routes: [
         {
             path: '/',

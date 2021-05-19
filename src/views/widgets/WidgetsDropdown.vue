@@ -129,7 +129,7 @@
 </template>
 
 <script>
-import { CChartLineSimple, CChartBarSimple } from '../charts/index.js'
+import { CChartLineSimple, CChartBarSimple } from '../charts/index'
 
 export default {
   name: 'WidgetsDropdown',

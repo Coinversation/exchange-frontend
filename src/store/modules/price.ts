@@ -27,7 +27,7 @@ const actions = {
     loadPricesById: async ({ commit }, payload) => {
         console.log(26, payload)
         commit('GET_PRICE_REQUEST')
-        let data = {
+        const data = {
             '0x': {
                 usd: 1.7,
             },
@@ -89,7 +89,7 @@ const actions = {
     loadPricesByAddress: async ({ commit }, payload) => {
         commit('GET_PRICE_REQUEST')
         // const contractString = payload.join('%2C')
-        let data = {
+        const data = {
             '0x': {
                 usd: 1.7,
             },

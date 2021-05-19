@@ -254,7 +254,7 @@ const actions = {
             await dispatch('clearUser')
             await dispatch('loadAccount')
             let allAccounts = await web3Accounts()
-            let account = allAccounts.length > 0 ? allAccounts[0] : null
+            const account = allAccounts.length > 0 ? allAccounts[0] : null
             console.log(account)
             allAccounts = allAccounts.map(({ address, meta }) => ({
                 address,
@@ -290,7 +290,7 @@ const actions = {
         ])
     },
     loadChainInfo:async({ commit })=>{
-        let chainInfo=await useChainInfo();
+        const chainInfo=await useChainInfo();
         if (chainInfo!=null){
             commit('LOAD_CHAININFO_SUCCESS',chainInfo);
         }
@@ -322,7 +322,7 @@ const actions = {
         balances.plasm = free.toHuman().replace(state.tokenSymbol, '')
         try {
             tokensToFetch.forEach((value) => {
-                let contract = new ContractPromise(api, abi, value)
+                const contract = new ContractPromise(api, abi, value)
                 contract
                     .read(
                         'iPat,balanceOf',
