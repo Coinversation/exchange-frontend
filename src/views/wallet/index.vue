@@ -73,6 +73,8 @@ export default {
 						this.$store.state.web3.tokenMetadata[address]
 				)
 				.map(([address, denormBalance]) => {
+					console.log(77, address, denormBalance);
+					console.log(78, this.$store.state.price.values[address]);
 					const price = this.$store.state.price.values[address];
 					const balance =
 						denormBalance /
@@ -90,10 +92,14 @@ export default {
 					};
 				})
 				.filter(({ value }) => value > 0.001);
+		console.log(config.addresses)
+
 			const ethPrice = this.$store.state.price.values[
-				config.addresses.weth
+				config.addresses.bFactory
 			];
-			const ethBalance = this.$store.state.web3.balances[this.$store.state.web3.tokenSymbol];
+			const ethBalance = this.$store.state.web3.balances[
+				this.$store.state.web3.tokenSymbol
+			];
 			return [
 				{
 					address: this.$store.state.web3.tokenSymbol,
