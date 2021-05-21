@@ -24,6 +24,7 @@
 import config from "@/config";
 import vettedTokenList from "../../config/vetted_tokenlist";
 import WalletList from "../../components/List/WalletList";
+import store from "@/store";
 export default {
 	name: "Users",
 	data() {
@@ -66,6 +67,7 @@ export default {
 			console.log(
 				JSON.parse(JSON.stringify(this.$store.state.web3.balances))
 			);
+			console.log(this.$store.state.web3.tokenMetadata);
 			const balances = Object.entries(this.$store.state.web3.balances)
 				.filter(
 					([address]) =>
@@ -73,13 +75,27 @@ export default {
 						this.$store.state.web3.tokenMetadata[address]
 				)
 				.map(([address, denormBalance]) => {
-					console.log(77, address, denormBalance);
-					console.log(78, this.$store.state.price.values[address]);
 					const price = this.$store.state.price.values[address];
+					const spstr = denormBalance.split("");
+					// spstr[spstr.length - 1];
+					// console.log(spstr[spstr.length - 1])
+					this.$store.state.price.si.filter((item) => {
+						if (item.value === spstr[spstr.length - 1]) {
+							console.log(item.power);
+							denormBalance =
+								denormBalance.substring(
+									0,
+									denormBalance.length - 1
+								) *
+								(10 ^ item.power);
+							return denormBalance;
+						}
+					});
+
 					const balance =
 						denormBalance /
 						this.$store.state.web3.tokenMetadata[address].decimals;
-
+					console.log(balance);
 					return {
 						address,
 						name: this.$store.state.web3.tokenMetadata[address]
@@ -92,8 +108,7 @@ export default {
 					};
 				})
 				.filter(({ value }) => value > 0.001);
-			console.log(this.$store.state.price.values["dot"]);
-
+            console.log( this.$store.state.price.values["dot"])
 			const dotPrice = this.$store.state.price.values["dot"];
 			const dotBalance = this.$store.state.web3.balances[
 				this.$store.state.web3.tokenSymbol
