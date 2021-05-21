@@ -92,12 +92,10 @@ export default {
 					};
 				})
 				.filter(({ value }) => value > 0.001);
-		console.log(config.addresses)
+			console.log(this.$store.state.price.values["dot"]);
 
-			const ethPrice = this.$store.state.price.values[
-				config.addresses.bFactory
-			];
-			const ethBalance = this.$store.state.web3.balances[
+			const dotPrice = this.$store.state.price.values["dot"];
+			const dotBalance = this.$store.state.web3.balances[
 				this.$store.state.web3.tokenSymbol
 			];
 			return [
@@ -105,9 +103,9 @@ export default {
 					address: this.$store.state.web3.tokenSymbol,
 					name: this.$store.state.web3.tokenSymbol,
 					symbol: this.$store.state.web3.tokenSymbol,
-					price: ethPrice,
-					balance: ethBalance,
-					value: ethPrice * ethBalance,
+					price: dotPrice,
+					balance: dotBalance,
+					value: dotPrice * dotBalance,
 				},
 				...balances,
 			];

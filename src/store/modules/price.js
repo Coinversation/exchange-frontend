@@ -68,7 +68,8 @@ const actions = {
             idToAddressMap[id] = address
         }
         const prices = {
-            '0xccb0F4Cf5D3F97f4a55bb5f5cA321C3ED033f244': 1.7,
+            // '0xccb0F4Cf5D3F97f4a55bb5f5cA321C3ED033f244': 1.7,
+            dot: 1,
             '0x86436BcE20258a6DcfE48C9512d4d49A30C4d8c4': 16.99,
             '0x2F375e94FC336Cdec2Dc0cCB5277FE59CBf1cAe5': 1,
             '0x1f1f156E0317167c11Aa412E3d1435ea29Dc3cCE': 1.2,
@@ -84,6 +85,7 @@ const actions = {
             const address = idToAddressMap[id]
             prices[address] = price
         }
+        console.log(88, prices)
         commit('GET_PRICE_SUCCESS', prices)
     },
     loadPricesByAddress: async ({ commit }, payload) => {
@@ -122,7 +124,8 @@ const actions = {
             },
         }
         const prices = {
-            '0xccb0F4Cf5D3F97f4a55bb5f5cA321C3ED033f244': 1.7,
+            // '0xccb0F4Cf5D3F97f4a55bb5f5cA321C3ED033f244': 1.7,
+            dot: 1,
             '0x86436BcE20258a6DcfE48C9512d4d49A30C4d8c4': 16.99,
             '0x2F375e94FC336Cdec2Dc0cCB5277FE59CBf1cAe5': 1,
             '0x1f1f156E0317167c11Aa412E3d1435ea29Dc3cCE': 1.2,
