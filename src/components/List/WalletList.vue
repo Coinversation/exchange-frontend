@@ -14,17 +14,23 @@
 					<template slot="address" slot-scope="{ item }">
 						<td>
 							<div class="d-flex">
-								<!-- <img
+								<img
 									class="mr-3"
-									style="
-										width: 35px;
-										height: 35px;
-										border-radius: 35px;
-										background-color: #d7d7d7;
-									"
-									:src="item.address"
+									:style="{
+										width: '35px',
+										height: '35px',
+										'border-radius': '35px',
+										'background-color': randomColor(
+											item.address
+										),
+									}"
+								/>
+								<!-- <Jazzicon
+									:address="item.address"
+									:diameter="40"
+									shape-count="6"
 								/> -->
-								<span class="mr-3">
+								<span class="ml-2 mr-3">
 									<h5 class="m-0">{{ item.name }}</h5>
 									<span>{{ item.symbol }}</span>
 								</span>
@@ -34,9 +40,8 @@
 
 					<template slot="price" slot-scope="{ item }">
 						<td>
-							<span>{{ item.balance }}{{item.symbol}}</span>
-							<p>{{item.value}}</p>
-
+							<span>{{ item.balance }} {{ item.symbol }}</span>
+							<p>$ {{ item.value }}</p>
 						</td>
 					</template>
 				</CDataTable>
@@ -102,7 +107,9 @@
 </template>
 
 <script>
-import UiPie from "../../components/UiPie";
+import Jazzicon from "vue3-jazzicon/src/components";
+import { addressEq } from "@polkadot/util-crypto";
+
 export default {
 	name: "ListPool",
 	props: ["items", "fields"],
@@ -114,9 +121,7 @@ export default {
 			text2: "ETH",
 		};
 	},
-	components: {
-		UiPie,
-	},
+	computed: {},
 	watch: {
 		$route: {
 			immediate: true,
@@ -127,7 +132,17 @@ export default {
 			},
 		},
 	},
+	components: {
+		Jazzicon,
+	},
+	mounted() {
+		console.log(this.items);
+	},
 	methods: {
+		randomColor(s) {
+			console.log(Number.parseInt(s));
+			return "#" + Math.random().toString(16).slice(-6);
+		},
 		getBadge(status) {
 			switch (status) {
 				case "Active":

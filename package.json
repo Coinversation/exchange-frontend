@@ -39,6 +39,7 @@
         "axios": "^0.21.1",
         "bignumber.js": "^9.0.1",
         "lightweight-charts": "^3.3.0",
+        "numeral": "^2.0.6",
         "quill": "~1.3.7",
         "spinkit": "~2.0.1",
         "v-calendar": "~1.0.8",
@@ -53,6 +54,7 @@
         "vue-simple-calendar": "~4.4.0",
         "vue-text-mask": "~6.1.2",
         "vue2-google-maps": "~0.10.7",
+        "vue3-jazzicon": "^0.1.2",
         "vuelidate": "~0.7.5",
         "vuex": "~3.5.1"
     },

@@ -75,10 +75,9 @@ export default {
 						this.$store.state.web3.tokenMetadata[address]
 				)
 				.map(([address, denormBalance]) => {
+					console.log(denormBalance);
 					const price = this.$store.state.price.values[address];
 					const spstr = denormBalance.split("");
-					// spstr[spstr.length - 1];
-					// console.log(spstr[spstr.length - 1])
 					this.$store.state.price.si.filter((item) => {
 						if (item.value === spstr[spstr.length - 1]) {
 							console.log(item.power);
@@ -88,13 +87,15 @@ export default {
 									denormBalance.length - 1
 								) *
 								(10 ^ item.power);
+							console.log(90, denormBalance);
 							return denormBalance;
 						}
 					});
 
-					const balance =
-						denormBalance /
-						this.$store.state.web3.tokenMetadata[address].decimals;
+					// const balance =
+					// 	denormBalance /
+					// 	this.$store.state.web3.tokenMetadata[address].decimals;
+					const balance = denormBalance;
 					console.log(balance);
 					return {
 						address,
@@ -108,7 +109,7 @@ export default {
 					};
 				})
 				.filter(({ value }) => value > 0.001);
-            console.log( this.$store.state.price.values["dot"])
+			console.log(this.$store.state.price.values["dot"]);
 			const dotPrice = this.$store.state.price.values["dot"];
 			const dotBalance = this.$store.state.web3.balances[
 				this.$store.state.web3.tokenSymbol

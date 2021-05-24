@@ -43,16 +43,23 @@
 							>
 								<CInput
 									type="number"
-									:value="weights[item.address]"
-									@input="handleWeightChange(item.address)"
-									name=""
-									id=""
+									v-model="item.weights"
+									@input="
+										handleWeightChange(item.address, item)
+									"
 								/>
 							</div>
 						</td>
 					</template>
 					<template slot="percent" slot-scope="{ item }">
-						<td>{{ getPercentage(item.address, item) }}</td>
+						<td>
+							{{
+								_num(
+									getPercentage(item.address, item) / 100,
+									"percent"
+								)
+							}}
+						</td>
 					</template>
 					<template slot="amount" slot-scope="{ item }">
 						<td>
@@ -61,10 +68,10 @@
 							>
 								<CInput
 									type="number"
-									@input="handleAmountChange(item.address)"
-									:value="amounts[item.address]"
-									name=""
-									id=""
+									v-model="item.amounts"
+									@input="
+										handleAmountChange(item.address, item)
+									"
 								/>
 							</div>
 						</td>
@@ -180,6 +187,24 @@ export default {
 		vettedTokenListData() {
 			return this.$store.state.app.vettedTokenListData;
 		},
+		// pool() {
+		// 	if (this.validationError) {
+		// 		return;
+		// 	}
+		// 	const tokens = this.tokens.map((token) => {
+		// 		return {
+		// 			checksum: token,
+		// 			weightPercent: this.getPercentage(token),
+		// 		};
+		// 	});
+		// 	const swapFee = (parseFloat(this.swapFee) / 100).toString();
+		// 	const liquidity = "0";
+		// 	return {
+		// 		tokens,
+		// 		swapFee,
+		// 		liquidity,
+		// 	};
+		// },
 	},
 	methods: {
 		selectAsset(s) {
@@ -213,48 +238,67 @@ export default {
 			this.selectAssetModal = false;
 		},
 		getBalance(tokenAddress) {
-			const balance = normalizeBalance(
-				this.$store.state.web3.balances[tokenAddress],
+			console.log(this.$store.state.web3.balances[tokenAddress]);
+			console.log(
 				this.$store.state.web3.tokenMetadata[tokenAddress].decimals
 			);
+			// const balance = normalizeBalance(
+			// 	this.$store.state.web3.balances[tokenAddress],
+			// 	this.$store.state.web3.tokenMetadata[tokenAddress].decimals
+			// );
+			let balance = this.$store.state.web3.balances[tokenAddress];
+			const spstr = this.$store.state.web3.balances[tokenAddress].split(
+				""
+			);
+			this.$store.state.price.si.filter((item) => {
+				if (item.value === spstr[spstr.length - 1]) {
+					console.log(item.power);
+					balance =
+						balance.substring(0, balance.length - 1) *
+						(10 ^ item.power);
+					console.log(balance);
+					return balance;
+				}
+			});
 			return parseFloat(balance).toFixed(3);
 		},
 
 		getPercentage(token, item) {
 			return this.totalWeight == 0
 				? 0
-				: (item.weights[token] / this.totalWeight) * 100;
+				: (item.weights / this.totalWeight) * 100;
 		},
-		handleWeightChange(tokenAddress) {
-			this.handleAmountChange(tokenAddress);
+		handleWeightChange(tokenAddress, item) {
+			// console.log(tokenAddress, item);
+			// console.log(this.tokenFilterList);
+			this.handleAmountChange(tokenAddress, item);
 		},
 
-		handleAmountChange(tokenAddress) {
+		handleAmountChange(tokenAddress, item) {
 			const tokenPrice = this.$store.state.price.values[tokenAddress];
 			if (!tokenPrice) {
 				return;
 			}
-			const tokenValue = bnum(this.amounts[tokenAddress]).times(
-				tokenPrice
-			);
-			console.log(tokenValue);
-			const totalValue = tokenValue.div(this.weights[tokenAddress]);
-			console.log(this.tokenFilterList);
-			console.log(243, tokenValue);
+			const tokenValue = bnum(item.amounts).times(tokenPrice);
+			const totalValue = tokenValue.div(item.weights);
 
 			this.totalWeight = this.tokenFilterList.reduce((acc, token) => {
-				console.log(token);
-				const weight = parseFloat(this.weights[token.address]);
+				// console.log(acc);
+				// console.log(token);
+				// const weight = parseFloat(item.weights[token.address]);
+				const weight = parseFloat(token.weights);
+				// console.log(weight);
 				return acc + weight;
 			}, 0);
+			// console.log(this.totalWeight)
 
 			for (const token of this.tokenFilterList) {
 				if (token.address === tokenAddress || !this.padlock) {
 					continue;
 				}
-				const tokenWeight = bnum(this.weights[token.address] || "");
+				const tokenWeight = bnum(token.weights || "");
 				if (totalValue.isNaN() || tokenWeight.isNaN()) {
-                    Vue.set(this.amounts, token, "");
+					token.amounts = "";
 					continue;
 				}
 				const tokenPrice = this.$store.state.price.values[
@@ -263,10 +307,11 @@ export default {
 				if (!tokenPrice) {
 					continue;
 				}
+				// console.log(123123321111111111111111111111);
 				const tokenValue = tokenWeight.times(totalValue);
 				const tokenAmount = tokenValue.div(tokenPrice);
-                console.log(this)
-				Vue.set(this.amounts, token.address, tokenAmount.toString());
+				console.log(tokenAmount.toString());
+				token.amounts = tokenAmount.toString();
 			}
 		},
 		getValue(tokenAddress) {

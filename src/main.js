@@ -3,15 +3,18 @@ import Vue from 'vue'
 //import CoreuiVuePro from '@coreui/vue-pro'
 import CoreuiVuePro from '../node_modules/@coreui/vue-pro/src/index.js'
 import { brandSet as brands } from '@coreui/icons'
+import Jazzicon from 'vue3-jazzicon/src/components'
 
 import App from './App'
 import router from './router/index'
 import { iconsSet as icons } from './assets/icons/icons.js'
 import store from './store'
+import mixins from './mixins'
 import i18n from './i18n.js'
 
 Vue.use(CoreuiVuePro)
 Vue.prototype.$log = console.log.bind(console)
+Vue.mixin(mixins)
 
 // console.log(17,freeSet)
 new Vue({
@@ -25,6 +28,7 @@ new Vue({
     template: '<App/>',
     components: {
         App,
+        jazzicon: Jazzicon,
     },
     render: (h) => h(App),
 })

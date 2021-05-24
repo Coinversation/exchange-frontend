@@ -162,6 +162,15 @@ const mutations = {
         console.debug('GET_ALLOWANCES_REQUEST')
     },
     GET_ALLOWANCES_SUCCESS(_state, payload) {
+        for (const address in payload) {
+            if (!_state.allowances.address) {
+                Vue.set(_state.allowances, address, {})
+            }
+            for (const spender in payload[address]) {
+                const allowance = payload[address][spender]
+                Vue.set(_state.allowances[address], spender, allowance)
+            }
+        }
         console.debug('GET_ALLOWANCES_SUCCESS')
     },
     GET_ALLOWANCES_FAILURE(_state, payload) {

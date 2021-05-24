@@ -1,9 +1,9 @@
 import Vue from 'vue'
-// import { lsGet, lsSet } from '@/lib/localStorage'
+import { lsGet, lsSet } from '@/lib/localStorage'
 import vettedTokenList from '@/config/vetted_tokenlist'
 
 const state = {
-    tokenFilterList: [],
+    tokenFilterList: lsGet('tokenFilterList') || [],
     vettedTokenListData: vettedTokenList.tokens,
     unlockTokenList: [],
 }
@@ -11,6 +11,7 @@ const state = {
 const mutations = {
     TOKEN_FILTER_LIST(_state, payload) {
         Vue.set(_state, 'tokenFilterList', payload)
+        lsSet('tokenFilterList', payload)
     },
     // VETTED_TOKEN_LIST_DATA(_state, payload) {
     //     Vue.set(_state, 'vettedTokenListData', payload)
