@@ -5,26 +5,25 @@
 		size="lg"
 		@click="handleClick"
 		:disabled="isDisabled"
-		type="button"
-		class="button"
-		:class="disabled || !stepTip ? '' : 'tooltipped tooltipped-n'"
 		:aria-label="stepTip"
 	>
 		<span v-if="step === 'loading'" />
 		<span v-else-if="step === 'login'" v-text="'Connect wallet'" />
 		<span v-else-if="step === 'proxy'" v-text="'Setup proxy'" />
-		<span
+		<!-- <span
 			v-else-if="step === 'approval'"
 			v-text="`Unlock ${nextRequiredApproval.symbol}`"
-		/>
+		/> -->
+		<span v-else-if="step === 'approval'" v-text="`Unlock `" />
 
 		<UiLoading v-if="step === 'loading'" />
 		<span v-else-if="step === 'login'" v-text="'Connect wallet'" />
 		<span v-else-if="step === 'proxy'" v-text="'Setup proxy'" />
-		<span
+		<!-- <span
 			v-else-if="step === 'approval'"
 			v-text="`Unlock ${nextRequiredApproval.symbol}`"
-		/>
+		/> -->
+		<span v-else-if="step === 'approval'" v-text="`Unlock `" />
 	</CButton>
 </template>
 
@@ -59,7 +58,7 @@ export default {
 	},
 	computed: {
 		step() {
-			if (this.loading || this.isLoading) return "loading";
+			// if (this.loading || this.isLoading) return "loading";
 			// if (this.requireLogin && !this.$auth.isAuthenticated)
 			// if (this.requireLogin) return "login";
 			// if (this.requireProxy && !this.$store.state.web3.dsProxyAddress) return "proxy";
@@ -76,7 +75,6 @@ export default {
 			} else if (this.step === "approval") {
 				return this.$t("approveToken");
 			}
-
 			return undefined;
 		},
 		isDisabled() {
@@ -85,16 +83,22 @@ export default {
 		nextRequiredApproval() {
 			if (!this.requireApprovals) return false;
 			const allowances = Object.fromEntries(
-				Object.entries(this.$store.state.web3.allowances).map((allowance) => [
+				Object.entries(
+					this.$store.state.web3.allowances
+				).map((allowance) => [
 					allowance[0],
 					allowance[1][this.$store.state.web3.dsProxyAddress],
 				])
 			);
 			let nextRequiredApproval = false;
-            console.log(this.requireApprovals)
+			console.log(this.requireApprovals);
 			Object.entries(this.requireApprovals).forEach(
 				(requiredApproval) => {
-					const token = this.$store.state.web3.tokenMetadata[requiredApproval[0]];
+					const token = this.$store.state.web3.tokenMetadata[
+						requiredApproval[0]
+					];
+					console.log(requiredApproval[1]);
+					console.log(this.$store.state.web3.tokenMetadata[requiredApproval[0]]);
 					const requiredAmount = scale(
 						bnum(requiredApproval[1]),
 						token.decimals

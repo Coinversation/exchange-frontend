@@ -326,9 +326,14 @@ export default {
 		// 	);
 		// },
 
-        requiredApprovals() {
+		requiredApprovals() {
+			// console.log(
+			// 	Object.fromEntries(
+			// 		this.tokenFilterList.map((token) => [token.address, token.amounts])
+			// 	)
+			// );
 			return Object.fromEntries(
-				this.tokenFilterList.map((token) => [token, token.amounts[token]])
+				this.tokenFilterList.map((token) => [token.address, token.amounts])
 			);
 		},
 	},
@@ -338,7 +343,6 @@ export default {
 		dai.weights = 60;
 		usdc.weights = 40;
 
-		console.log(dai);
 		// Vue.set(this.weights, dai.address, "60");
 		// Vue.set(this.weights, usdc.address, "40");
 		// console.log(this.weights);
