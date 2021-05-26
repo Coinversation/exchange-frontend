@@ -332,9 +332,12 @@ export default {
 			// 		this.tokenFilterList.map((token) => [token.address, token.amounts])
 			// 	)
 			// );
-			return Object.fromEntries(
-				this.tokenFilterList.map((token) => [token.address, token.amounts])
-			);
+			const requiredApprovalsJson = {
+				token: this.tokenFilterList,
+				swapFee: this.swapFee,
+			};
+			console.log(requiredApprovalsJson);
+			return requiredApprovalsJson;
 		},
 	},
 	created() {

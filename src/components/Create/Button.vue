@@ -5,31 +5,32 @@
 		size="lg"
 		@click="handleClick"
 		:disabled="isDisabled"
-		:aria-label="stepTip"
 	>
-		<span v-if="step === 'loading'" />
+		<!-- <span v-if="step === 'loading'" />
 		<span v-else-if="step === 'login'" v-text="'Connect wallet'" />
-		<span v-else-if="step === 'proxy'" v-text="'Setup proxy'" />
+		<span v-else-if="step === 'proxy'" v-text="'Setup proxy'" /> -->
 		<!-- <span
 			v-else-if="step === 'approval'"
 			v-text="`Unlock ${nextRequiredApproval.symbol}`"
 		/> -->
-		<span v-else-if="step === 'approval'" v-text="`Unlock `" />
+		<!-- <span v-else-if="step === 'approval'" v-text="`Unlock `" />
 
 		<UiLoading v-if="step === 'loading'" />
 		<span v-else-if="step === 'login'" v-text="'Connect wallet'" />
-		<span v-else-if="step === 'proxy'" v-text="'Setup proxy'" />
+		<span v-else-if="step === 'proxy'" v-text="'Setup proxy'" /> -->
 		<!-- <span
 			v-else-if="step === 'approval'"
 			v-text="`Unlock ${nextRequiredApproval.symbol}`"
 		/> -->
-		<span v-else-if="step === 'approval'" v-text="`Unlock `" />
+		<!-- <span v-else-if="step === 'approval'" v-text="`Unlock `" /> -->
+		<span v-text="`Create`" />
 	</CButton>
 </template>
 
 <script>
 import { mapActions } from "vuex";
 import { bnum, scale } from "@/lib/utils";
+// import { createPool } from "@/helpers/web3";
 
 export default {
 	props: {
@@ -45,16 +46,16 @@ export default {
 		};
 	},
 	watch: {
-		requireApprovals(value, oldValue) {
-			if (
-				value &&
-				oldValue &&
-				JSON.stringify(Object.keys(value)) !==
-					JSON.stringify(Object.keys(oldValue))
-			) {
-				this.getAllowances(Object.keys(value));
-			}
-		},
+		// requireApprovals(value, oldValue) {
+		// 	if (
+		// 		value &&
+		// 		oldValue &&
+		// 		JSON.stringify(Object.keys(value)) !==
+		// 			JSON.stringify(Object.keys(oldValue))
+		// 	) {
+		// 		this.getAllowances(Object.keys(value));
+		// 	}
+		// },
 	},
 	computed: {
 		step() {
@@ -62,8 +63,8 @@ export default {
 			// if (this.requireLogin && !this.$auth.isAuthenticated)
 			// if (this.requireLogin) return "login";
 			// if (this.requireProxy && !this.$store.state.web3.dsProxyAddress) return "proxy";
-			if (this.requireApprovals && this.nextRequiredApproval)
-				return "approval";
+			// if (this.requireApprovals && this.nextRequiredApproval)
+			// 	return "approval";
 			if (this.disabled) return false;
 			return false;
 		},
@@ -98,7 +99,11 @@ export default {
 						requiredApproval[0]
 					];
 					console.log(requiredApproval[1]);
-					console.log(this.$store.state.web3.tokenMetadata[requiredApproval[0]]);
+					console.log(
+						this.$store.state.web3.tokenMetadata[
+							requiredApproval[0]
+						]
+					);
 					const requiredAmount = scale(
 						bnum(requiredApproval[1]),
 						token.decimals
@@ -124,11 +129,12 @@ export default {
 		},
 	},
 	methods: {
-		...mapActions(["createProxy", "getAllowances", "approve"]),
+		// ...mapActions(["createProxy", "getAllowances", "approve"]),
 		async handleClick() {
-			if (this.step === "proxy") return this.handleCreateProxy();
-			if (this.step === "approval") return this.handleApprove();
-			if (!this.step) return this.$emit("submit");
+			// if (this.step === "proxy") return this.handleCreateProxy();
+			// if (this.step === "approval") return this.handleApprove();
+			// if (!this.step) return this.$emit("submit");
+			// createPool(this.$store.state.web3.userInfo.account, this.requireApprovals);
 		},
 		async handleCreateProxy() {
 			this.isLoading = true;

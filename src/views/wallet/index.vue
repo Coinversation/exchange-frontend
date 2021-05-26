@@ -21,10 +21,8 @@
 </template>
 
 <script>
-import config from "@/config";
 import vettedTokenList from "../../config/vetted_tokenlist";
 import WalletList from "../../components/List/WalletList";
-import store from "@/store";
 export default {
 	name: "Users",
 	data() {

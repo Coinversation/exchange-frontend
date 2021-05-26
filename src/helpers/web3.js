@@ -24,7 +24,7 @@ export function createPool(accountId,contractAddress, messageAbi, params) {
                 else if (method === 'NewAccount'&&res.data.tokenAccount==""){
                     res.data.tokenAccount=data[0].toString()
                 }else if (method === 'NewAccount'){
-                    res.data.poolAccount=data[0].toString() 
+                    res.data.poolAccount=data[0].toString()
                 }
               });
           } else if (result.isError) {
