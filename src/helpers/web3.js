@@ -1,11 +1,11 @@
 import { useApi } from './useApi';
 import { ContractPromise } from '@polkadot/api-contract';
 import { keyring } from '@polkadot/ui-keyring';
-const factoryAbi =require('./abi/factory.json') ;
-const tokenAbi =require('./abi/pat_standard.json') ;
-const poolAbi =require('./abi/pool.json') ;
+const factoryAbi =require('@/abi/factory.json') ;
+const tokenAbi =require('@/abi/pat_standard.json') ;
+const poolAbi =require('@/abi/pool.json') ;
 
-export function createPool(accountId,contractAddress, messageAbi, params) {
+export async function createPool(accountId,contractAddress, messageAbi, params) {
     let api= useApi();
     let res={isSuccess:0,data:{poolAccount:"",tokenAccount:""}}
     const currentPair = keyring.getPair(accountId);
@@ -34,7 +34,7 @@ export function createPool(accountId,contractAddress, messageAbi, params) {
     return res;
 }
 
-export function unlock(accountId,tokenAddress,spenderAddress, messageAbi,balance) {
+export async function unlock(accountId,tokenAddress,spenderAddress, messageAbi,balance) {
     let api= useApi();
     let res=false;
     const currentPair = keyring.getPair(accountId);
@@ -57,7 +57,7 @@ export function unlock(accountId,tokenAddress,spenderAddress, messageAbi,balance
     return res;
 }
 
-export function setPublicSwap(accountId,contractAddress) {
+export async function setPublicSwap(accountId,contractAddress) {
     let api= useApi();
     let res=false;
     const currentPair = keyring.getPair(accountId);
@@ -81,7 +81,7 @@ export function setPublicSwap(accountId,contractAddress) {
 }
 
 
-export function setSwapFee(accountId,contractAddress,fee) {
+export async function setSwapFee(accountId,contractAddress,fee) {
     let api= useApi();
     let res=false;
     const currentPair = keyring.getPair(accountId);
@@ -104,7 +104,7 @@ export function setSwapFee(accountId,contractAddress,fee) {
     return res;
 }
 
-export function bind(accountId,contractAddress,tokenAddress,denorm,balance) {
+export async function bind(accountId,contractAddress,tokenAddress,denorm,balance) {
     let api= useApi();
     let res=false;
     const currentPair = keyring.getPair(accountId);
@@ -127,7 +127,7 @@ export function bind(accountId,contractAddress,tokenAddress,denorm,balance) {
     return res;
 }
 
-export function finalize(accountId,contractAddress) {
+export async function finalize(accountId,contractAddress) {
     let api= useApi();
     let res=false;
     const currentPair = keyring.getPair(accountId);
@@ -150,7 +150,7 @@ export function finalize(accountId,contractAddress) {
     return res;
 }
 
-export function joinPool(accountId,contractAddress,poolAmountOut,tokenList) {
+export async function joinPool(accountId,contractAddress,poolAmountOut,tokenList) {
     let api= useApi();
     let res=false;
     const currentPair = keyring.getPair(accountId);
@@ -173,7 +173,7 @@ export function joinPool(accountId,contractAddress,poolAmountOut,tokenList) {
     return res;
 }
 
-export function exitPool(accountId,contractAddress,poolAmountOut,tokenList) {
+export async function exitPool(accountId,contractAddress,poolAmountOut,tokenList) {
     let api= useApi();
     let res=false;
     const currentPair = keyring.getPair(accountId);

@@ -3,6 +3,18 @@
     "defaultPrecision": 2,
     "polkadotUrl": "ws://47.243.112.217:9944",
     "addresses": {
-        "bFactory": "12kQAEvHhV8rBzbL3Nsk829A19FqCgsTx46RBRdm8SKGPNRK"
+        "cFactory": "ZmK4VVjjMRRUfkDGX7YXXs8pmuENXF3ZdYL2TUZBFv4ZB8g"
+    },
+    "messageAbi":{
+        "createPoool":"newPool",
+        "tokenUnlock":"iPat,approve",
+        "tokenAllowance":"iPat,allowance",
+        "exitPool":"exitPool",
+        "joinPool":"joinPool",
+        "bind":"bind",
+        "setPublicSwap":"setPublicSwap",
+        "finalize":"finalize",
+        "joinSwapExternAmountIn":"joinSwapExternAmountIn",
+        "setSwapFee":"setSwapFee"
     }
 }

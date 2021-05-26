@@ -3,6 +3,6 @@
     "defaultPrecision": 2,
     "polkadotUrl": "ws://8.210.86.149:9944",
     "addresses": {
-        "bFactory": "0x9424B1412450D0f8Fc2255FAf6046b98213B76Bd"
+        "cFactory": "0x9424B1412450D0f8Fc2255FAf6046b98213B76Bd"
     }
 }

@@ -7,6 +7,6 @@
   "explorer": "https://rinkeby.etherscan.io",
   "exchangeUrl": "https://rinkeby.balancer.exchange",
   "addresses": {
-    "bFactory": "0x9C84391B443ea3a48788079a5f98e2EaD55c9309"
+    "cFactory": "0x9C84391B443ea3a48788079a5f98e2EaD55c9309"
   }
 }
