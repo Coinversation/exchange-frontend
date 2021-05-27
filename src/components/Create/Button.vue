@@ -135,7 +135,7 @@ export default {
 			// if (this.step === "proxy") return this.handleCreateProxy();
 			// if (this.step === "approval") return this.handleApprove();
 			// if (!this.step) return this.$emit("submit");
-			await createPool(this.$store.state.web3.userInfo.account,config.address.cFactory,config.messageAbi.createPoool, this.requireApprovals);
+			await createPool(this.$store.state.web3.userInfo.account,config.addresses.cFactory,config.messageAbi.createPoool, this.requireApprovals);
 		},
 		async handleCreateProxy() {
 			this.isLoading = true;

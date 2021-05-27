@@ -12,7 +12,7 @@ const registry = {
             "id": "usdc",
             "name": "USD Coin",
             "symbol": "USDC",
-            "decimals": 6,
+            "decimals": 10,
             "precision": 4,
             "color": "#828384",
             'amounts':'',

@@ -1,18 +1,77 @@
 import { useApi } from './useApi';
 import { ContractPromise } from '@polkadot/api-contract';
 import { keyring } from '@polkadot/ui-keyring';
+import { web3Accounts, web3Enable } from '@polkadot/extension-dapp';
+import { settings } from '@polkadot/ui-settings';
 const factoryAbi =require('@/abi/factory.json') ;
 const tokenAbi =require('@/abi/pat_standard.json') ;
 const poolAbi =require('@/abi/pool.json') ;
 
+function isKeyringLoaded () {
+  try {
+    return !!keyring.keyring;
+  } catch {
+    return false;
+  }
+}
+const injectedPromise =  web3Enable('polkadot-js/apps');
+async function getInjectedAccounts (injectedPromise){
+  try {
+    await injectedPromise;
+
+    const accounts = await web3Accounts();
+
+    return accounts.map(({ address, meta }, whenCreated) => ({
+      address,
+      meta: {
+        ...meta,
+        name: `${meta.name || 'unknown'} (${meta.source === 'polkadot-js' ? 'extension' : meta.source})`,
+        whenCreated
+      }
+    }));
+  } catch (error) {
+    console.error('web3Enable', error);
+
+    return [];
+  }
+}
 export async function createPool(accountId,contractAddress, messageAbi, params) {
     let api= useApi();
+    await api.isReady;
     let res={isSuccess:0,data:{poolAccount:"",tokenAccount:""}}
+    // keyring.loadAll({
+    //   genesisHash: api.genesisHash,
+    //   isDevelopment:true,
+    //   ss58Format:0,
+    //   store:new MemoryStore() ,
+    //   type:  'ed25519'
+    // });
+    
+    
+   
+    let injectedAccounts=await getInjectedAccounts(injectedPromise);
+    console.log(isKeyringLoaded());
+    isKeyringLoaded() || keyring.loadAll({
+      genesisHash: api.genesisHash,
+      isDevelopment:true,
+      ss58Format:api.registry.chainSS58,
+      type: 'sr25519'
+    }, injectedAccounts);
+    
+    const salt = 1621240222;
+    const tokenEndowment=3100000n * 1000000000000n;
+    const poolEndowment=3200000n * 1000000000000n;
+    console.log("aaa");
     const currentPair = keyring.getPair(accountId);
+    if (currentPair.isLocked){
+      currentPair.unlock();
+    }
+    console.log("1212");
     let contract = new ContractPromise(api, factoryAbi, contractAddress);
-    await contract.exec(messageAbi,{value:0, gasLimit:-1},params).signAndSend(currentPair,(result)=>{
+    await contract.tx.newPool({value:0, gasLimit:-1},salt,tokenEndowment,poolEndowment).signAndSend(currentPair,(result)=>{
         if (result.status.isFinalized || result.status.isInBlock) {
             res.data.blockHash=result.status.asInBlock.toHex();
+            console.log(res.data.blockHash);
             result.events
               .filter(({ event: { section } }) => section === 'system')
               .forEach(({ event: { method,data } }) => {
@@ -31,6 +90,7 @@ export async function createPool(accountId,contractAddress, messageAbi, params) 
             res.isSuccess=0;
           }
     });
+    console.log(res);
     return res;
 }
 
@@ -39,7 +99,7 @@ export async function unlock(accountId,tokenAddress,spenderAddress, messageAbi,b
     let res=false;
     const currentPair = keyring.getPair(accountId);
     let contract = new ContractPromise(api, tokenAbi, tokenAddress);
-    await contract.exec(messageAbi,{value:0, gasLimit:-1},spenderAddress,balance).signAndSend(currentPair,(result)=>{
+    await contract.tx[messageAbi]({value:0, gasLimit:-1},spenderAddress,balance).signAndSend(currentPair,(result)=>{
         if (result.status.isFinalized || result.status.isInBlock) {
             result.events
               .filter(({ event: { section } }) => section === 'system')

@@ -1,12 +1,20 @@
 {
   "network": "rinkeby",
   "defaultPrecision": 2,
-  "rpcUrl": "https://rinkeby.infura.io/v3/03f1a9a53dee4bd5a7d3dde58ce26442",
-  "wsUrl": "wss://rinkeby.infura.io/ws/v3/03f1a9a53dee4bd5a7d3dde58ce26442",
-  "subgraphUrl": "https://api.thegraph.com/subgraphs/name/balancer-labs/balancer-rinkeby",
-  "explorer": "https://rinkeby.etherscan.io",
-  "exchangeUrl": "https://rinkeby.balancer.exchange",
+  "polkadotUrl": "ws://47.243.112.217:9944",
   "addresses": {
-    "cFactory": "0x9C84391B443ea3a48788079a5f98e2EaD55c9309"
+      "cFactory": "ZmK4VVjjMRRUfkDGX7YXXs8pmuENXF3ZdYL2TUZBFv4ZB8g"
+  },
+  "messageAbi":{
+      "createPoool":"newPool",
+      "tokenUnlock":"iPat,approve",
+      "tokenAllowance":"iPat,allowance",
+      "exitPool":"exitPool",
+      "joinPool":"joinPool",
+      "bind":"bind",
+      "setPublicSwap":"setPublicSwap",
+      "finalize":"finalize",
+      "joinSwapExternAmountIn":"joinSwapExternAmountIn",
+      "setSwapFee":"setSwapFee"
   }
 }

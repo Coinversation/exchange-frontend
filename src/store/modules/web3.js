@@ -332,9 +332,7 @@ const actions = {
         try {
             tokensToFetch.forEach((value) => {
                 let contract = new ContractPromise(api, abi, value)
-                contract
-                    .read('iPat,balanceOf', { value: 0, gasLimit: -1 }, address)
-                    .send(address)
+                contract.query['iPat,balanceOf'](address,{ value: 0, gasLimit: -1 },address)
                     .then((result) => {
                         balances[value] =
                             result.output instanceof Raw
