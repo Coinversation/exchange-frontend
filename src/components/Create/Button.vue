@@ -31,7 +31,7 @@
 import { mapActions } from "vuex";
 import { bnum, scale } from "@/lib/utils";
 import { createPool } from "@/helpers/web3";
-import config from "@/config"
+import config from "@/config";
 
 export default {
 	props: {
@@ -135,7 +135,12 @@ export default {
 			// if (this.step === "proxy") return this.handleCreateProxy();
 			// if (this.step === "approval") return this.handleApprove();
 			// if (!this.step) return this.$emit("submit");
-			await createPool(this.$store.state.web3.userInfo.account,config.addresses.cFactory,config.messageAbi.createPoool, this.requireApprovals);
+			await createPool(
+				this.$store.state.web3.userInfo.account,
+				config.address.cFactory,
+				config.messageAbi.createPoool,
+				this.requireApprovals
+			);
 		},
 		async handleCreateProxy() {
 			this.isLoading = true;
