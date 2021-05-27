@@ -32,9 +32,8 @@
 </template>
 
 <script>
-
 export default {
-	props: ["inputType", "tokenFilterList",'listData'],
+	props: ["tokenFilterList", "listData"],
 	name: "BackendTable",
 	data() {
 		return {
@@ -47,14 +46,11 @@ export default {
 		// 	console.log(this.$store.state);
 		// 	return this.$store.state.vettedTokenListData;
 		// },
-
 	},
-	created() {
-
-	},
+	created() {},
 	methods: {
 		rowClicked(s) {
-			this.$emit("filterData", s, this.inputType);
+			this.$emit("filterData", s);
 		},
 	},
 };

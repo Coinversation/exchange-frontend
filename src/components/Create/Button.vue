@@ -139,7 +139,9 @@ export default {
 				this.$store.state.web3.userInfo.account,
 				config.addresses.cFactory,
 				this.requireApprovals
-			);
+			).then(() => {
+				window.location.reload();
+			});
 		},
 		async handleCreateProxy() {
 			this.isLoading = true;

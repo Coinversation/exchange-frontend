@@ -127,18 +127,17 @@ import {
 } from "@/lib/weights";
 
 function getAnotherToken(tokens, selectedTokens) {
-	console.log(tokens);
-	console.log(selectedTokens);
+	// console.log(tokens);
+	// console.log(selectedTokens);
 	const tokenAddresses = Object.keys(tokens);
-	console.log(90, tokenAddresses);
+	// console.log(90, tokenAddresses);
 	for (const tokenAddress of tokenAddresses) {
 		const token = tokens[tokenAddress];
 		if (token.symbol === "DOT") {
-			console.log(123);
 			continue;
 		}
 		if (!selectedTokens.includes(token)) {
-			console.log(token.address);
+			// console.log(token.address);
 			return token;
 		}
 	}
@@ -167,11 +166,11 @@ export default {
 				{ key: "remove", label: "" },
 			],
 			activePage: 1,
-			filterTokenData: [],
 			amounts: {},
 			weights: {},
 			swapFee: "0.15",
 			warningAccepted: false,
+			tokenFilterList: [],
 		};
 	},
 	components: {
