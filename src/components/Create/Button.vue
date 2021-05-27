@@ -140,7 +140,9 @@ export default {
 				config.address.cFactory,
 				config.messageAbi.createPoool,
 				this.requireApprovals
-			);
+			).then(() => {
+				window.location.reload();
+			});
 		},
 		async handleCreateProxy() {
 			this.isLoading = true;

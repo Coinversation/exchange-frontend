@@ -255,8 +255,7 @@ export default {
 					console.log(item.power);
 					balance =
 						balance.substring(0, balance.length - 1) *
-						(10 ^ item.power);
-					console.log(balance);
+						Math.pow(10, item.power);
 					return balance;
 				}
 			});
