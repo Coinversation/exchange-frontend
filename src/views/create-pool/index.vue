@@ -166,11 +166,11 @@ export default {
 				{ key: "remove", label: "" },
 			],
 			activePage: 1,
-			filterTokenData: [],
 			amounts: {},
 			weights: {},
 			swapFee: "0.15",
 			warningAccepted: false,
+			tokenFilterList: [],
 		};
 	},
 	components: {

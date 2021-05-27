@@ -117,7 +117,6 @@
 			<CCol xs="12" md="12">
 				<CCard>
 					<confTokenTable
-						:inputType="inputType"
 						:tokenFilterList="tokenFilterList"
 						:listData="listData"
 						@filterData="filterData"
@@ -161,7 +160,6 @@ export default {
 	data() {
 		return {
 			activePage: 1,
-			inputType: "",
 			selectAssetModal: false,
 			filterTokenData: {},
 			totalWeight: 0,

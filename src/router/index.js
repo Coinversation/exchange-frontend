@@ -3,6 +3,7 @@ import Router from 'vue-router'
 
 // Containers
 const TheContainer = () => import('@/containers/TheContainer')
+const TheContainerHeader = () => import('@/containers/TheContainerHeader')
 
 // Views
 // const Dashboard = () => import('@/views/Dashboard')
@@ -112,14 +113,6 @@ export default new Router({
                     component: Dashboard,
                 },
                 {
-                    // path: 'explore-pools',
-                    // name: 'ExplorePools',
-                    // // component: ExplorePools,
-                    // component: {
-                    //     render(c) {
-                    //         return c('router-view')
-                    //     },
-                    // },
                     path: 'explore-pools',
                     meta: { label: 'ExplorePools' },
                     component: {
@@ -148,11 +141,11 @@ export default new Router({
                     name: 'CreatePool',
                     component: CreatePool,
                 },
-                {
-                    path: 'exchange',
-                    name: 'Exchange',
-                    component: Exchange,
-                },
+                // {
+                //     path: 'exchange',
+                //     name: 'Exchange',
+                //     component: Exchange,
+                // },
                 {
                     path: 'wallet',
                     name: 'Wallet',
@@ -561,8 +554,21 @@ export default new Router({
             ],
         },
         {
-            path: '/pages',
+            path: '/',
             redirect: '/pages/404',
+            name: 'ex',
+            component: TheContainerHeader,
+            children: [
+                {
+                    path: 'exchange',
+                    name: 'Exchange',
+                    component: Exchange,
+                },
+            ],
+        },
+        {
+            path: '/',
+            redirect: '/404',
             name: 'Pages',
             component: {
                 render(c) {
