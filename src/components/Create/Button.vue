@@ -137,8 +137,7 @@ export default {
 			// if (!this.step) return this.$emit("submit");
 			await createPool(
 				this.$store.state.web3.userInfo.account,
-				config.address.cFactory,
-				config.messageAbi.createPoool,
+				config.addresses.cFactory,
 				this.requireApprovals
 			);
 		},

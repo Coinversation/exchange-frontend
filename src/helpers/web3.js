@@ -2,6 +2,7 @@ import { useApi } from './useApi';
 import { ContractPromise } from '@polkadot/api-contract';
 import { keyring } from '@polkadot/ui-keyring';
 import { web3Accounts, web3Enable } from '@polkadot/extension-dapp';
+import BN from 'bn.js';
 import { settings } from '@polkadot/ui-settings';
 const factoryAbi =require('@/abi/factory.json') ;
 const tokenAbi =require('@/abi/pat_standard.json') ;
@@ -14,13 +15,13 @@ function isKeyringLoaded () {
     return false;
   }
 }
-const injectedPromise =  web3Enable('polkadot-js/apps');
+
 async function getInjectedAccounts (injectedPromise){
   try {
     await injectedPromise;
 
     const accounts = await web3Accounts();
-
+    console.log("accounts : "+accounts.length)
     return accounts.map(({ address, meta }, whenCreated) => ({
       address,
       meta: {
@@ -35,22 +36,13 @@ async function getInjectedAccounts (injectedPromise){
     return [];
   }
 }
-export async function createPool(accountId,contractAddress, messageAbi, params) {
-    let api= useApi();
+const api= useApi();
+export async function createPool(accountId,factory,params) {
     await api.isReady;
+    console.log(params);
     let res={isSuccess:0,data:{poolAccount:"",tokenAccount:""}}
-    // keyring.loadAll({
-    //   genesisHash: api.genesisHash,
-    //   isDevelopment:true,
-    //   ss58Format:0,
-    //   store:new MemoryStore() ,
-    //   type:  'ed25519'
-    // });
-    
-    
-   
+    const injectedPromise =  web3Enable('polkadot-js/apps');
     let injectedAccounts=await getInjectedAccounts(injectedPromise);
-    console.log(isKeyringLoaded());
     isKeyringLoaded() || keyring.loadAll({
       genesisHash: api.genesisHash,
       isDevelopment:true,
@@ -58,18 +50,22 @@ export async function createPool(accountId,contractAddress, messageAbi, params) 
       type: 'sr25519'
     }, injectedAccounts);
     
-    const salt = 1621240222;
+    const salt = new Date().getTime().toString().substring(0,9);
     const tokenEndowment=3100000n * 1000000000000n;
     const poolEndowment=3200000n * 1000000000000n;
-    console.log("aaa");
-    const currentPair = keyring.getPair(accountId);
+    const currentPair = keyring.getPairs()[0] ;
     if (currentPair.isLocked){
       currentPair.unlock();
     }
-    console.log("1212");
-    let contract = new ContractPromise(api, factoryAbi, contractAddress);
-    await contract.tx.newPool({value:0, gasLimit:-1},salt,tokenEndowment,poolEndowment).signAndSend(currentPair,(result)=>{
-        if (result.status.isFinalized || result.status.isInBlock) {
+    console.log('getPairs.length:'+keyring.getPairs().length)
+    console.log('getPairs()[0]:'+keyring.getPairs()[0].address)
+    return
+    const { nonce } = await api.query.system.account(keyring.getPairs()[0].address);
+    let currentNonce = new BN(nonce.toString());
+    console.log(currentNonce);
+    let contract = new ContractPromise(api, factoryAbi, factory);
+    await contract.tx.newPool({value:0, gasLimit:-1},salt,tokenEndowment,poolEndowment).signAndSend(currentPair,{nonce:currentNonce},(result)=>{
+        if (result.status.isInBlock) {
             res.data.blockHash=result.status.asInBlock.toHex();
             console.log(res.data.blockHash);
             result.events
@@ -86,20 +82,102 @@ export async function createPool(accountId,contractAddress, messageAbi, params) 
                     res.data.poolAccount=data[0].toString()
                 }
               });
+              console.log(res);
+              return res;
           } else if (result.isError) {
             res.isSuccess=0;
+            console.log(res);
+            return res;
+          } else if (result.status.isFinalized) {
+            currentNonce = currentNonce.add(new BN(1))
+            setSwapFee(res.data.poolAccount,parseFloat(params.swapFee)*100000,currentNonce)
+            currentNonce = currentNonce.add(new BN(1));
+            params.token.forEach(({address,amounts,weights})=>{
+              let amount=new BN(amounts)
+              let tempNonce=currentNonce;
+              console.log(res.data.poolAccount)
+              console.log(amount.toNumber())
+              unlock(address,res.data.poolAccount,amounts,tempNonce)
+              currentNonce = currentNonce.add(new BN(1))
+            })
           }
+          
+          
     });
-    console.log(res);
-    return res;
+    
 }
 
-export async function unlock(accountId,tokenAddress,spenderAddress, messageAbi,balance) {
-    let api= useApi();
-    let res=false;
-    const currentPair = keyring.getPair(accountId);
+export async function unlock(tokenAddress,spenderAddress,balance,nonce) {
+    const currentPair = keyring.getPairs()[0];
     let contract = new ContractPromise(api, tokenAbi, tokenAddress);
-    await contract.tx[messageAbi]({value:0, gasLimit:-1},spenderAddress,balance).signAndSend(currentPair,(result)=>{
+    await contract.tx['iPat,approve']({value:0, gasLimit:-1},spenderAddress,balance).signAndSend(currentPair,{nonce},(result)=>{
+        if (result.status.isInBlock) {
+            console.log(result.status.asInBlock.toHex())
+            result.events
+              .filter(({ event: { section } }) => section === 'system')
+              .forEach(({ event: { method } }) => {
+                if (method === 'ExtrinsicFailed') {
+                  console.log(tokenAddress+" unlock is fail");
+                } else if (method === 'ExtrinsicSuccess') {
+                  console.log(tokenAddress+" unlock is success");
+                }
+              });
+          } else if (result.isError) {
+            console.log(tokenAddress+" unlock is error");
+          }
+    });
+}
+
+export async function setPublicSwap(contractAddress) {
+    let res=false;
+    const currentPair = keyring.getPairs()[0];
+    let contract = new ContractPromise(api, poolAbi, contractAddress);
+    await contract.tx['setPublicSwap']({value:0, gasLimit:-1},true).signAndSend(currentPair,(result)=>{
+        if (result.status.isInBlock) {
+            console.log(result.status.asInBlock.toHex())
+            result.events
+              .filter(({ event: { section } }) => section === 'system')
+              .forEach(({ event: { method } }) => {
+                if (method === 'ExtrinsicFailed') {
+                    res=false;
+                } else if (method === 'ExtrinsicSuccess') {
+                    res=true;
+                }
+              });
+          } else if (result.isError) {
+            res=false;
+          }
+    });
+    return res;
+}
+
+
+export async function setSwapFee(contractAddress,fee,nonce) {
+    const currentPair = keyring.getPairs()[0];
+    let contract = new ContractPromise(api, poolAbi, contractAddress);
+    await contract.tx["setSwapFee"]({value:0, gasLimit:-1},fee).signAndSend(currentPair,{nonce},(result)=>{
+        if (result.status.isInBlock) {
+          console.log(result.status.asInBlock.toHex())
+            result.events
+              .filter(({ event: { section } }) => section === 'system')
+              .forEach(({ event: { method } }) => {
+                if (method === 'ExtrinsicFailed') {
+                  console.log(contractAddress+" setSwapFee is fail");
+                } else if (method === 'ExtrinsicSuccess') {
+                  console.log(contractAddress+" setSwapFee is success");
+                }
+              });
+          } else if (result.isError) {
+            console.log(contractAddress+" setSwapFee is error");
+          }
+    });
+}
+
+export async function bind(contractAddress,tokenAddress,denorm,balance) {
+    let res=false;
+    const currentPair = keyring.getPairs()[0];
+    let contract = new ContractPromise(api, poolAbi, contractAddress);
+    await contract.tx["bind"]({value:0, gasLimit:-1},tokenAddress,balance,denorm).signAndSend(currentPair,(result)=>{
         if (result.status.isFinalized || result.status.isInBlock) {
             result.events
               .filter(({ event: { section } }) => section === 'system')
@@ -117,12 +195,11 @@ export async function unlock(accountId,tokenAddress,spenderAddress, messageAbi,b
     return res;
 }
 
-export async function setPublicSwap(accountId,contractAddress) {
-    let api= useApi();
+export async function finalize(contractAddress) {
     let res=false;
-    const currentPair = keyring.getPair(accountId);
+    const currentPair = keyring.getPairs()[0];
     let contract = new ContractPromise(api, poolAbi, contractAddress);
-    await contract.setPublicSwap({value:0, gasLimit:-1},true).signAndSend(currentPair,(result)=>{
+    await contract.tx['finalize']({value:0, gasLimit:-1}).signAndSend(currentPair,(result)=>{
         if (result.status.isFinalized || result.status.isInBlock) {
             result.events
               .filter(({ event: { section } }) => section === 'system')
@@ -140,13 +217,11 @@ export async function setPublicSwap(accountId,contractAddress) {
     return res;
 }
 
-
-export async function setSwapFee(accountId,contractAddress,fee) {
-    let api= useApi();
+export async function joinPool(contractAddress,poolAmountOut,tokenList) {
     let res=false;
-    const currentPair = keyring.getPair(accountId);
+    const currentPair = keyring.getPairs()[0];
     let contract = new ContractPromise(api, poolAbi, contractAddress);
-    await contract.setSwapFee({value:0, gasLimit:-1},fee).signAndSend(currentPair,(result)=>{
+    await contract.tx['joinPool']({value:0, gasLimit:-1},poolAmountOut,tokenList).signAndSend(currentPair,(result)=>{
         if (result.status.isFinalized || result.status.isInBlock) {
             result.events
               .filter(({ event: { section } }) => section === 'system')
@@ -164,81 +239,11 @@ export async function setSwapFee(accountId,contractAddress,fee) {
     return res;
 }
 
-export async function bind(accountId,contractAddress,tokenAddress,denorm,balance) {
-    let api= useApi();
+export async function exitPool(contractAddress,poolAmountOut,tokenList) {
     let res=false;
-    const currentPair = keyring.getPair(accountId);
+    const currentPair = keyring.getPairs()[0];
     let contract = new ContractPromise(api, poolAbi, contractAddress);
-    await contract.bind({value:0, gasLimit:-1},tokenAddress,balance,denorm).signAndSend(currentPair,(result)=>{
-        if (result.status.isFinalized || result.status.isInBlock) {
-            result.events
-              .filter(({ event: { section } }) => section === 'system')
-              .forEach(({ event: { method } }) => {
-                if (method === 'ExtrinsicFailed') {
-                    res=false;
-                } else if (method === 'ExtrinsicSuccess') {
-                    res=true;
-                }
-              });
-          } else if (result.isError) {
-            res=false;
-          }
-    });
-    return res;
-}
-
-export async function finalize(accountId,contractAddress) {
-    let api= useApi();
-    let res=false;
-    const currentPair = keyring.getPair(accountId);
-    let contract = new ContractPromise(api, poolAbi, contractAddress);
-    await contract.finalize({value:0, gasLimit:-1}).signAndSend(currentPair,(result)=>{
-        if (result.status.isFinalized || result.status.isInBlock) {
-            result.events
-              .filter(({ event: { section } }) => section === 'system')
-              .forEach(({ event: { method } }) => {
-                if (method === 'ExtrinsicFailed') {
-                    res=false;
-                } else if (method === 'ExtrinsicSuccess') {
-                    res=true;
-                }
-              });
-          } else if (result.isError) {
-            res=false;
-          }
-    });
-    return res;
-}
-
-export async function joinPool(accountId,contractAddress,poolAmountOut,tokenList) {
-    let api= useApi();
-    let res=false;
-    const currentPair = keyring.getPair(accountId);
-    let contract = new ContractPromise(api, poolAbi, contractAddress);
-    await contract.joinPool({value:0, gasLimit:-1},poolAmountOut,tokenList).signAndSend(currentPair,(result)=>{
-        if (result.status.isFinalized || result.status.isInBlock) {
-            result.events
-              .filter(({ event: { section } }) => section === 'system')
-              .forEach(({ event: { method } }) => {
-                if (method === 'ExtrinsicFailed') {
-                    res=false;
-                } else if (method === 'ExtrinsicSuccess') {
-                    res=true;
-                }
-              });
-          } else if (result.isError) {
-            res=false;
-          }
-    });
-    return res;
-}
-
-export async function exitPool(accountId,contractAddress,poolAmountOut,tokenList) {
-    let api= useApi();
-    let res=false;
-    const currentPair = keyring.getPair(accountId);
-    let contract = new ContractPromise(api, poolAbi, contractAddress);
-    await contract.joinPool({value:0, gasLimit:-1},poolAmountOut,tokenList).signAndSend(currentPair,(result)=>{
+    await contract.tx['exitPool']({value:0, gasLimit:-1},poolAmountOut,tokenList).signAndSend(currentPair,(result)=>{
         if (result.status.isFinalized || result.status.isInBlock) {
             result.events
               .filter(({ event: { section } }) => section === 'system')

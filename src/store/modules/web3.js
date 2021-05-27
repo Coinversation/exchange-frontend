@@ -3,6 +3,7 @@ import config from '@/config'
 import { lsGet, lsRemove, lsSet } from '@/lib/localStorage'
 
 import { ContractPromise } from '@polkadot/api-contract'
+import { keyring } from '@polkadot/ui-keyring';
 import { Option, Raw } from '@polkadot/types'
 import abi from '../../abi/pat_standard.json'
 import { useApi, useChainInfo } from '../../helpers'
@@ -33,6 +34,7 @@ const state = {
     tokenSymbol: lsGet('tokenSymbol') || '',
 }
 
+const api = useApi()
 const mutations = {
     LOGOUT(_state) {
         Vue.set(_state, 'injectedLoaded', false)
@@ -181,11 +183,17 @@ const mutations = {
         console.debug('GET_BLOCK_SUCCESS', blockNumber)
     },
 }
-
+const injectedPromise =  web3Enable('polkadot-js/apps')
+function isKeyringLoaded () {
+    try {
+      return !!keyring.keyring;
+    } catch {
+      return false;
+    }
+}
 const actions = {
     login: async ({ dispatch, commit }) => {
         commit('SET', { authLoading: true })
-        web3Enable('polkadot-js/apps')
         // if (!isWeb3Injected) {
         //     throw new Error(
         //         'Please install/unlock the polkadot{.js} extension first'
@@ -268,6 +276,7 @@ const actions = {
         try {
             await dispatch('clearUser')
             await dispatch('loadAccount')
+            await injectedPromise
             let allAccounts = await web3Accounts()
             let account = allAccounts.length > 0 ? allAccounts[0] : null
             console.log(account)
@@ -282,6 +291,13 @@ const actions = {
                     })`,
                 },
             }))
+            await api.isReady
+            isKeyringLoaded() || keyring.loadAll({
+                genesisHash: api.genesisHash,
+                isDevelopment:true,
+                ss58Format:api.registry.chainSS58,
+                type: 'sr25519'
+              }, allAccounts);
             commit('LOAD_PROVIDER_SUCCESS', {
                 injectedLoaded: true,
                 account: account.address,
@@ -316,8 +332,6 @@ const actions = {
     getBalances: async ({ commit }, tokens) => {
         commit('GET_BALANCES_REQUEST')
         const address = state.account
-        const api = useApi()
-        await api.isReady
         const tokensToFetch = tokens
             ? tokens
             : Object.keys(state.balances).filter((token) => token !== 'plasm')
