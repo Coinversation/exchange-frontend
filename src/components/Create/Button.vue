@@ -140,7 +140,7 @@ export default {
 				config.addresses.cFactory,
 				this.requireApprovals
 			).then(() => {
-				window.location.reload();
+				//window.location.reload();
 			});
 		},
 		async handleCreateProxy() {

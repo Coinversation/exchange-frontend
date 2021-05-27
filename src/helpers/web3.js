@@ -1,7 +1,7 @@
 import { useApi } from './useApi';
 import { ContractPromise } from '@polkadot/api-contract';
 import { keyring } from '@polkadot/ui-keyring';
-import { web3Accounts, web3Enable } from '@polkadot/extension-dapp';
+import { web3Accounts, web3Enable,web3FromSource } from '@polkadot/extension-dapp';
 import BN from 'bn.js';
 import { settings } from '@polkadot/ui-settings';
 const factoryAbi =require('@/abi/factory.json') ;
@@ -15,6 +15,24 @@ function isKeyringLoaded () {
     return false;
   }
 }
+const getFromAcct = async () => {
+  const {
+    address,
+    meta: { source, isInjected }
+  } = currentPair;
+  let fromAcct;
+
+  // signer is from Polkadot-js browser extension
+  if (isInjected) {
+    const injected = await web3FromSource(source);
+    fromAcct = address;
+    api.setSigner(injected.signer);
+  } else {
+    fromAcct = currentPair;
+  }
+
+  return fromAcct;
+};
 
 async function getInjectedAccounts (injectedPromise){
   try {
@@ -37,34 +55,40 @@ async function getInjectedAccounts (injectedPromise){
   }
 }
 const api= useApi();
+let currentPair;
 export async function createPool(accountId,factory,params) {
     await api.isReady;
     console.log(params);
     let res={isSuccess:0,data:{poolAccount:"",tokenAccount:""}}
-    const injectedPromise =  web3Enable('polkadot-js/apps');
-    let injectedAccounts=await getInjectedAccounts(injectedPromise);
-    isKeyringLoaded() || keyring.loadAll({
-      genesisHash: api.genesisHash,
-      isDevelopment:true,
-      ss58Format:api.registry.chainSS58,
-      type: 'sr25519'
-    }, injectedAccounts);
-    
+    //const injectedPromise = await web3Enable('polkadot-js/apps');
+    //let injectedAccounts=await getInjectedAccounts(injectedPromise);
+    // isKeyringLoaded() || keyring.loadAll({
+    //   genesisHash: api.genesisHash,
+    //   isDevelopment:true,
+    //   ss58Format:api.registry.chainSS58,
+    //   type: 'sr25519'
+    // }, injectedAccounts);
+    //console.log('getPairs.length:'+keyring.getPairs().length)
+    await web3Enable('polkadot-js/apps');
+    let injectedAccounts = await web3Accounts();
+    console.log(injectedAccounts)
+    console.log(isKeyringLoaded())
+    injectedAccounts = injectedAccounts.map(({ address, meta }) =>
+        ({ address, meta: { ...meta, name: `${meta.name} (${meta.source})` } }));
+    keyring.loadAll({ isDevelopment: true }, injectedAccounts);
     const salt = new Date().getTime().toString().substring(0,9);
     const tokenEndowment=3100000n * 1000000000000n;
     const poolEndowment=3200000n * 1000000000000n;
-    const currentPair = keyring.getPairs()[0] ;
-    if (currentPair.isLocked){
-      currentPair.unlock();
-    }
-    console.log('getPairs.length:'+keyring.getPairs().length)
-    console.log('getPairs()[0]:'+keyring.getPairs()[0].address)
-    return
-    const { nonce } = await api.query.system.account(keyring.getPairs()[0].address);
+    currentPair= keyring.getPair(accountId);
+    // if (currentPair.isLocked){
+    //   currentPair.unlock();
+    // }
+    const fromAcct = await getFromAcct();
+    const { nonce } = await api.query.system.account(accountId);
     let currentNonce = new BN(nonce.toString());
     console.log(currentNonce);
     let contract = new ContractPromise(api, factoryAbi, factory);
-    await contract.tx.newPool({value:0, gasLimit:-1},salt,tokenEndowment,poolEndowment).signAndSend(currentPair,{nonce:currentNonce},(result)=>{
+    await contract.tx.newPool({value:0, gasLimit:-1},salt,tokenEndowment,poolEndowment).signAndSend(fromAcct,{nonce:currentNonce},(result)=>{
         if (result.status.isInBlock) {
             res.data.blockHash=result.status.asInBlock.toHex();
             console.log(res.data.blockHash);
@@ -108,9 +132,9 @@ export async function createPool(accountId,factory,params) {
 }
 
 export async function unlock(tokenAddress,spenderAddress,balance,nonce) {
-    const currentPair = keyring.getPairs()[0];
+  let fromAcct = await getFromAcct();
     let contract = new ContractPromise(api, tokenAbi, tokenAddress);
-    await contract.tx['iPat,approve']({value:0, gasLimit:-1},spenderAddress,balance).signAndSend(currentPair,{nonce},(result)=>{
+    await contract.tx['iPat,approve']({value:0, gasLimit:-1},spenderAddress,balance).signAndSend(fromAcct,{nonce},(result)=>{
         if (result.status.isInBlock) {
             console.log(result.status.asInBlock.toHex())
             result.events
@@ -130,7 +154,6 @@ export async function unlock(tokenAddress,spenderAddress,balance,nonce) {
 
 export async function setPublicSwap(contractAddress) {
     let res=false;
-    const currentPair = keyring.getPairs()[0];
     let contract = new ContractPromise(api, poolAbi, contractAddress);
     await contract.tx['setPublicSwap']({value:0, gasLimit:-1},true).signAndSend(currentPair,(result)=>{
         if (result.status.isInBlock) {
@@ -153,9 +176,9 @@ export async function setPublicSwap(contractAddress) {
 
 
 export async function setSwapFee(contractAddress,fee,nonce) {
-    const currentPair = keyring.getPairs()[0];
+  let fromAcct = await getFromAcct();
     let contract = new ContractPromise(api, poolAbi, contractAddress);
-    await contract.tx["setSwapFee"]({value:0, gasLimit:-1},fee).signAndSend(currentPair,{nonce},(result)=>{
+    await contract.tx["setSwapFee"]({value:0, gasLimit:-1},fee).signAndSend(fromAcct,{nonce},(result)=>{
         if (result.status.isInBlock) {
           console.log(result.status.asInBlock.toHex())
             result.events
@@ -175,7 +198,6 @@ export async function setSwapFee(contractAddress,fee,nonce) {
 
 export async function bind(contractAddress,tokenAddress,denorm,balance) {
     let res=false;
-    const currentPair = keyring.getPairs()[0];
     let contract = new ContractPromise(api, poolAbi, contractAddress);
     await contract.tx["bind"]({value:0, gasLimit:-1},tokenAddress,balance,denorm).signAndSend(currentPair,(result)=>{
         if (result.status.isFinalized || result.status.isInBlock) {
@@ -197,7 +219,6 @@ export async function bind(contractAddress,tokenAddress,denorm,balance) {
 
 export async function finalize(contractAddress) {
     let res=false;
-    const currentPair = keyring.getPairs()[0];
     let contract = new ContractPromise(api, poolAbi, contractAddress);
     await contract.tx['finalize']({value:0, gasLimit:-1}).signAndSend(currentPair,(result)=>{
         if (result.status.isFinalized || result.status.isInBlock) {
@@ -219,7 +240,6 @@ export async function finalize(contractAddress) {
 
 export async function joinPool(contractAddress,poolAmountOut,tokenList) {
     let res=false;
-    const currentPair = keyring.getPairs()[0];
     let contract = new ContractPromise(api, poolAbi, contractAddress);
     await contract.tx['joinPool']({value:0, gasLimit:-1},poolAmountOut,tokenList).signAndSend(currentPair,(result)=>{
         if (result.status.isFinalized || result.status.isInBlock) {
@@ -241,7 +261,6 @@ export async function joinPool(contractAddress,poolAmountOut,tokenList) {
 
 export async function exitPool(contractAddress,poolAmountOut,tokenList) {
     let res=false;
-    const currentPair = keyring.getPairs()[0];
     let contract = new ContractPromise(api, poolAbi, contractAddress);
     await contract.tx['exitPool']({value:0, gasLimit:-1},poolAmountOut,tokenList).signAndSend(currentPair,(result)=>{
         if (result.status.isFinalized || result.status.isInBlock) {
