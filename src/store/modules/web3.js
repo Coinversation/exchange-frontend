@@ -3,10 +3,11 @@ import config from '@/config'
 import { lsGet, lsRemove, lsSet } from '@/lib/localStorage'
 
 import { ContractPromise } from '@polkadot/api-contract'
-import { keyring } from '@polkadot/ui-keyring';
+import { keyring } from '@polkadot/ui-keyring'
 import { Option, Raw } from '@polkadot/types'
 import abi from '../../abi/pat_standard.json'
 import { useApi, useChainInfo } from '../../helpers'
+import { createPool } from '../../helpers/web3'
 
 import {
     isWeb3Injected,
@@ -32,6 +33,7 @@ const state = {
     ss58Format: 0,
     tokenDecimals: 10,
     tokenSymbol: lsGet('tokenSymbol') || '',
+    pageLoading: false,
 }
 
 const api = useApi()
@@ -182,13 +184,18 @@ const mutations = {
         Vue.set(_state, 'blockNumber', blockNumber)
         console.debug('GET_BLOCK_SUCCESS', blockNumber)
     },
+    PAGE_LOADING(_state, payload) {
+        console.log(payload)
+        Vue.set(_state, 'pageLoading', payload)
+        // lsSet('pageLoading', payload)
+    },
 }
-const injectedPromise =  web3Enable('polkadot-js/apps')
-function isKeyringLoaded () {
+const injectedPromise = web3Enable('polkadot-js/apps')
+function isKeyringLoaded() {
     try {
-      return !!keyring.keyring;
+        return !!keyring.keyring
     } catch {
-      return false;
+        return false
     }
 }
 const actions = {
@@ -292,12 +299,16 @@ const actions = {
                 },
             }))
             await api.isReady
-            isKeyringLoaded() || keyring.loadAll({
-                genesisHash: api.genesisHash,
-                isDevelopment:true,
-                ss58Format:api.registry.chainSS58,
-                type: 'sr25519'
-              }, allAccounts);
+            isKeyringLoaded() ||
+                keyring.loadAll(
+                    {
+                        genesisHash: api.genesisHash,
+                        isDevelopment: true,
+                        ss58Format: api.registry.chainSS58,
+                        type: 'sr25519',
+                    },
+                    allAccounts
+                )
             commit('LOAD_PROVIDER_SUCCESS', {
                 injectedLoaded: true,
                 account: account.address,
@@ -328,6 +339,11 @@ const actions = {
             commit('LOAD_CHAININFO_FAILURE', 'fail')
         }
     },
+    getCreatePool: async ({ commit }, a) => {
+        // console.log(c)
+        await createPool(a.a, a.b, a.c)
+        // console.log(344, chainInfo)
+    },
     getPoolBalances: async (_state, { poolAddress, tokens }) => {},
     getBalances: async ({ commit }, tokens) => {
         commit('GET_BALANCES_REQUEST')
@@ -346,22 +362,25 @@ const actions = {
         try {
             tokensToFetch.forEach((value) => {
                 let contract = new ContractPromise(api, abi, value)
-                contract.query['iPat,balanceOf'](address,{ value: 0, gasLimit: -1 },address)
-                    .then((result) => {
-                        balances[value] =
-                            result.output instanceof Raw
-                                ? result.output
-                                      .toString()
-                                      .replace(state.tokenSymbol, '')
-                                : result.output instanceof Option &&
-                                  result.output.isNone
-                                ? '0'
-                                : result.output
-                                      .toHuman()
-                                      .replace(state.tokenSymbol, '')
-                        commit('GET_BALANCES_SUCCESS', balances)
-                        return balances
-                    })
+                contract.query['iPat,balanceOf'](
+                    address,
+                    { value: 0, gasLimit: -1 },
+                    address
+                ).then((result) => {
+                    balances[value] =
+                        result.output instanceof Raw
+                            ? result.output
+                                  .toString()
+                                  .replace(state.tokenSymbol, '')
+                            : result.output instanceof Option &&
+                              result.output.isNone
+                            ? '0'
+                            : result.output
+                                  .toHuman()
+                                  .replace(state.tokenSymbol, '')
+                    commit('GET_BALANCES_SUCCESS', balances)
+                    return balances
+                })
             })
         } catch (e) {
             commit('GET_BALANCES_FAILURE', e)

@@ -130,17 +130,18 @@ export default {
 		},
 	},
 	methods: {
-		// ...mapActions(["createProxy", "getAllowances", "approve"]),
-		async handleClick() {
+		...mapActions(["getCreatePool"]),
+		handleClick() {
 			// if (this.step === "proxy") return this.handleCreateProxy();
 			// if (this.step === "approval") return this.handleApprove();
 			// if (!this.step) return this.$emit("submit");
-			await createPool(
-				this.$store.state.web3.userInfo.account,
-				config.addresses.cFactory,
-				this.requireApprovals
-			).then(() => {
-				//window.location.reload();
+			console.log(this.$store.state.web3.userInfo.account);
+			console.log(config.addresses.cFactory);
+			console.log(this.requireApprovals);
+			this.getCreatePool({
+				a: this.$store.state.web3.userInfo.account,
+				b: config.addresses.cFactory,
+				c: this.requireApprovals,
 			});
 		},
 		async handleCreateProxy() {
