@@ -1,8 +1,11 @@
 <template>
-	<CRow v-if="loading">
+	<CRow
+		style="background-color: #6c6e7e; width: 100%; height: 100%;"
+		v-if="!loading"
+	>
 		<CCol
 			col="12"
-			style="margin-top: 20rem;"
+			style="background-color: #6c6e7e; margin-top: 20rem"
 			class="d-flex flex-column justify-content-center align-items-center"
 		>
 			<CSpinner color="primary" style="width: 4rem; height: 4rem" />
