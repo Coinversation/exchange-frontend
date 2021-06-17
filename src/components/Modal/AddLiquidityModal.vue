@@ -25,7 +25,10 @@
 									<!-- :tokens="item.tokens" -->
 								</CCol>
 								<CCol col="8">
-									<AddLiquidityModalList />
+									<AddLiquidityModalList
+										:tokens="tokens"
+										:fields="fields"
+									/>
 								</CCol>
 							</CRow>
 						</CTab>
@@ -54,9 +57,24 @@
 import AddLiquidityModalList from "../../components/List/AddLiquidityModalList";
 export default {
 	name: "AddLiquidityModal",
-	props: ["addModal"],
+	props: ["addModal", "tokens"],
 	data() {
-		return {};
+		return {
+			fields: [
+				{
+					key: "symbol",
+					label: "Assets",
+					_classes: "font-weight-bold",
+				},
+				{ key: "wallet", label: "Wallet balance" },
+				{ key: "amount", label: "Deposit amount" },
+				// { key: "percent", label: "Percent" },
+				// { key: "amount", label: "Amount" },
+				// { key: "price", label: "Price" },
+				// { key: "totalValue", label: "Total value" },
+				// { key: "remove", label: "" },
+			],
+		};
 	},
 	components: {
 		// UiPie,

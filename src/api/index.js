@@ -26,3 +26,24 @@ export const createPoolToken = (data, poolID) => {
         },
     })
 }
+
+export const details = (poolID) => {
+    return request({
+        url: '/api/v1/pool/details',
+        method: 'get',
+        params: {
+            poolID: poolID,
+        },
+    })
+}
+
+export const initLiq = (poolID, accountID) => {
+    return request({
+        url: '/api/v1/pool/initLiq',
+        method: 'post',
+        data: {
+            poolID: poolID,
+            accountID: accountID,
+        },
+    })
+}

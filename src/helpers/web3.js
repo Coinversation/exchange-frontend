@@ -10,9 +10,7 @@ import {
 import BN from 'bn.js'
 import { settings } from '@polkadot/ui-settings'
 
-import { create, createPoolToken } from '@/api'
-
-import { bnum, scale } from '@/lib/utils'
+import { create, createPoolToken, initLiq } from '@/api'
 
 const factoryAbi = require('@/abi/factory.json')
 const tokenAbi = require('@/abi/pat_standard.json')
@@ -71,6 +69,7 @@ let currentPair
 let tokenCal = 0
 let tokenNum = 0
 let tokens = []
+let cptAddress = ''
 
 export async function createPool(accountId, factory, params) {
     store.commit('PAGE_LOADING', true)
@@ -137,6 +136,7 @@ export async function createPool(accountId, factory, params) {
                             res.data.tokenAccount == ''
                         ) {
                             res.data.tokenAccount = data[0].toString()
+                            cptAddress = res.data.tokenAccount
                         } else if (method === 'NewAccount') {
                             res.data.poolAccount = data[0].toString()
                             store.commit('POOL_ACCOUNT', res.data.poolAccount)
@@ -170,7 +170,7 @@ export async function createPool(accountId, factory, params) {
                 console.log(res)
                 return res
             } else if (result.status.isFinalized) {
-
+                return
             }
         })
 }
@@ -319,6 +319,7 @@ export async function getPoolDetails(poolAddress, account) {
         'isFinalized',
         []
     )
+    result.cptAddress = cptAddress
     result.controllerID = await getPoolMessage(
         poolAddress,
         account,
@@ -351,6 +352,7 @@ export async function getPoolDetails(poolAddress, account) {
     console.log(result)
     create(result)
     createPoolToken(tokens, result.poolID)
+    initLiq(result.poolID, currentPair.address)
     store.commit('IS_UPDATE', true)
     return result
 }

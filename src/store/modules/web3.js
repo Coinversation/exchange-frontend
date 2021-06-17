@@ -344,11 +344,9 @@ const actions = {
             commit('LOAD_CHAININFO_FAILURE', 'fail')
         }
     },
-    getCreatePool: async ({ commit }, a) => {
-        console.log('a')
-        await createPool(a.a, a.b, a.c).then((data) => {
-            console.log(data)
-        })
+    getCreatePool: async ({ dispatch }, a) => {
+        await createPool(a.a, a.b, a.c)
+        await dispatch('loadAccount')
     },
     getPoolBalances: async (_state, { poolAddress, tokens }) => {},
     getBalances: async ({ commit }, tokens) => {

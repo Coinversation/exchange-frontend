@@ -4,7 +4,7 @@
 			<CCardBody>
 				<CDataTable
 					hover
-					:items="items"
+					:items="tokens"
 					:fields="fields"
 					:items-per-page="15"
 					clickable-rows
@@ -12,44 +12,31 @@
 					:pagination="{ doubleArrows: false, align: 'center' }"
 					@page-change="pageChange"
 				>
-					<template slot="assets" slot-scope="{ item }">
+					<template slot="Asset" slot-scope="{ item }">
 						<td>
 							<div
 								class="text-center d-flex justify-content-start"
 							>
-								<CButton color="light" @click="selectAsset(1)">
-									<img
-										v-if="filterTokenDataA !== ''"
-										class="mr-2"
-										:src="
-											filterTokenDataA !== ''
-												? filterTokenDataA.logoURL
-												: ''
-										"
-										style="
-											width: 28px;
-											height: 28px;
-											border-radius: 35px;
-											background-color: #d7d7d7;
-										"
-										alt=""
-									/>
-									{{
-										item.symbol !== ""
-											? item.symbol
-											: "Select"
-									}}
-									<CIcon size="sm" name="cil-caret-bottom" />
-								</CButton>
+								{{ item.symbol }}
 							</div>
 						</td>
 					</template>
-					<template slot="weights" slot-scope="{ item }">
+					<template slot="wallet" slot-scope="{ item }">
 						<td>
 							<div
 								class="text-center d-flex justify-content-start"
 							>
-								<CInput type="number" name="" id="" />
+								{{ 0 }}
+								<CButton
+									class="ml-3"
+									color="info"
+									variant="outline"
+									square
+									size="sm"
+									@click="toggleDetails(item, index)"
+								>
+									Max
+								</CButton>
 							</div>
 						</td>
 					</template>
@@ -60,19 +47,6 @@
 							>
 								<CInput type="number" name="" id="" />
 							</div>
-						</td>
-					</template>
-					<template #remove="{ item, index }">
-						<td class="py-2">
-							<CButton
-								color="primary"
-								variant="outline"
-								square
-								size="sm"
-								@click="toggleDetails(item, index)"
-							>
-								Remove
-							</CButton>
 						</td>
 					</template>
 				</CDataTable>
@@ -104,12 +78,6 @@
 			</template>
 			<template #footer>
 				<div></div>
-				<!-- <CButton @click="selectAssetModal = false" color="danger"
-					>Discard</CButton
-				>
-				<CButton @click="selectAssetModal = false" color="success"
-					>Accept</CButton
-				> -->
 			</template>
 		</CModal>
 	</CCol>
@@ -121,24 +89,11 @@ import confTokenTable from "../../components/Tables/confTokenTable";
 
 export default {
 	name: "ListPool",
-	props: ["items", "fields"],
+	props: ["tokens", "fields"],
 	data() {
 		return {
-			// fields: [
-			// 	{
-			// 		key: "poolAddress",
-			// 		label: "Pool address",
-			// 		_classes: "font-weight-bold",
-			// 	},
-			// 	{ key: "tokens", label: "Assets" },
-			// 	{ key: "swapFee", label: "Swap fee" },
-			// 	{ key: "marketCap", label: "Market cap" },
-			// 	{ key: "liquidity", label: "My liquidity" },
-			// 	{ key: "volume", label: "Volume (24h)" },
-			// ],
 			activePage: 1,
 			vettedTokenListData: vettedTokenList.tokens,
-
 			inputType: "",
 			selectAssetModal: false,
 			filterTokenDataA: "",
@@ -158,43 +113,10 @@ export default {
 		},
 	},
 	methods: {
-		getBadge(status) {
-			switch (status) {
-				case "Active":
-					return "success";
-				case "Inactive":
-					return "secondary";
-				case "Pending":
-					return "warning";
-				case "Banned":
-					return "danger";
-				default:
-					"primary";
-			}
-		},
-		selectAsset(s) {
-			switch (s) {
-				case 1:
-					this.inputType = s;
-					this.selectAssetModal = true;
-
-					break;
-				case 2:
-					this.inputType = s;
-					this.selectAssetModal = true;
-					break;
-			}
-		},
+		toggleDetails() {},
 		filterData(s) {
 			this.filterTokenDataA = s;
 			this.selectAssetModal = false;
-		},
-		toggleDetails(item) {
-			this.$set(this.usersData[item.id], "_toggled", !item._toggled);
-			this.collapseDuration = 300;
-			this.$nextTick(() => {
-				this.collapseDuration = 0;
-			});
 		},
 		rowClicked(item) {
 			console.log(item);

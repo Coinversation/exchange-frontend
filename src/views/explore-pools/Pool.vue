@@ -4,7 +4,11 @@
 			<CCardBody>
 				<div class="row">
 					<div class="col-6 d-flex">
-						<UiPie :tokens="item.tokens" class="mr-3" size="50" />
+						<UiPie
+							:tokens="tokenDetails.tokens"
+							class="mr-3"
+							size="50"
+						/>
 						<div>
 							<div>Coinversation Pool Token</div>
 							<h3>$</h3>
@@ -112,6 +116,7 @@
 			</CCard>
 		</CCol>
 		<AddLiquidityModal
+			:tokens="tokenDetails.tokens"
 			:addModal="addModal"
 			@closeAddModal="closeAddModal"
 		/>
@@ -119,12 +124,12 @@
 </template>
 
 <script>
-import poolDetails from "../../mock/poolDetails";
 import UiPie from "../../components/UiPie";
 import CChartBarExample from "../../components/Pool/CChartBarExample";
 import MainChartExample from "../../components/Pool/MainChartExample";
 import AddLiquidityModal from "../../components/Modal/AddLiquidityModal";
 // import Chart from "../../components/Pool/Chart";
+import { details } from "@/api";
 
 export default {
 	name: "User",
@@ -143,7 +148,7 @@ export default {
 		return {
 			selected: "Month",
 			usersOpened: null,
-			item: poolDetails,
+			tokenDetails: {},
 			addModal: false,
 		};
 	},
@@ -172,7 +177,19 @@ export default {
 		// 		.value;
 		// },
 	},
+	created() {
+		// console.log(this.$route.params.id)
+		this.getDetails();
+	},
 	methods: {
+		getDetails() {
+			details(this.$route.params.id).then(({ data }) => {
+                if (data.code == 0) {
+                    this.tokenDetails = data.data;
+                    console.log(183, this.tokenDetails.tokens);
+				}
+			});
+		},
 		goBack() {
 			this.usersOpened
 				? this.$router.go(-1)

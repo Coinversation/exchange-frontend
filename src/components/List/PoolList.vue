@@ -140,7 +140,7 @@ export default {
 		},
 		rowClicked(item) {
 			console.log(item);
-			this.$router.push({ path: `/explore-pools/${item}` });
+			this.$router.push({ path: `/explore-pools/${item.poolAddress}` });
 		},
 		pageChange(val) {
 			this.$router.push({ query: { page: val } });

@@ -12,6 +12,7 @@ export default {
 	},
 	computed: {
 		values() {
+			console.log(this.tokens);
 			return this.tokens.map((token) => parseFloat(token.denormWeight));
 		},
 		colors() {
