@@ -9,6 +9,11 @@ import {
 } from '@polkadot/extension-dapp'
 import BN from 'bn.js'
 import { settings } from '@polkadot/ui-settings'
+
+import { create, createPoolToken } from '@/api'
+
+import { bnum, scale } from '@/lib/utils'
+
 const factoryAbi = require('@/abi/factory.json')
 const tokenAbi = require('@/abi/pat_standard.json')
 const poolAbi = require('@/abi/pool.json')
@@ -64,13 +69,15 @@ async function getInjectedAccounts(injectedPromise) {
 const api = useApi()
 let currentPair
 let tokenCal = 0
-let tokenNum=0
+let tokenNum = 0
+let tokens = []
 
 export async function createPool(accountId, factory, params) {
     store.commit('PAGE_LOADING', true)
     console.log(params)
+    tokens = params.token
     tokenNum = params.token.length
-    tokenCal=0
+    tokenCal = 0
     await api.isReady
     let res = { isSuccess: 0, data: { poolAccount: '', tokenAccount: '' } }
     //const injectedPromise = await web3Enable('polkadot-js/apps');
@@ -90,7 +97,8 @@ export async function createPool(accountId, factory, params) {
         address,
         meta: { ...meta, name: `${meta.name} (${meta.source})` },
     }))
-    isKeyringLoaded() || keyring.loadAll({ isDevelopment: true }, injectedAccounts)
+    isKeyringLoaded() ||
+        keyring.loadAll({ isDevelopment: true }, injectedAccounts)
     const salt = new Date()
         .getTime()
         .toString()
@@ -162,7 +170,7 @@ export async function createPool(accountId, factory, params) {
                 console.log(res)
                 return res
             } else if (result.status.isFinalized) {
-                
+
             }
         })
 }
@@ -237,10 +245,7 @@ export async function bind(
 
                         if (tokenCal == tokenNum) {
                             nonce++
-                            finalize(
-                                contractAddress,
-                                nonce
-                            )
+                            finalize(contractAddress, nonce)
                         }
                     }
                 })
@@ -294,7 +299,7 @@ export async function finalize(contractAddress, nonce) {
                                 contractAddress + ' finalize is success'
                             )
                             store.commit('PAGE_LOADING', false)
-                            getPoolDetails(contractAddress,currentPair.address)
+                            getPoolDetails(contractAddress, currentPair.address)
                         }
                     })
             } else if (result.isError) {
@@ -304,28 +309,63 @@ export async function finalize(contractAddress, nonce) {
     )
 }
 
-export async function getPoolDetails(poolAddress,account) {
-    let result={};
-    result.poolID=poolAddress;
-    result.accountID=account;
-    result.finalize=await getPoolMessage(poolAddress,account,'isFinalized',[]);
-    result.controllerID=await getPoolMessage(poolAddress,account,'getController',[]);
-    result.swapFee=await getPoolMessage(poolAddress,account,'getSwapFee',[]);
-    result.cptAmount=await getPoolMessage(poolAddress,account,'balanceOf',[account]);
-    result.denormal=await getPoolMessage(poolAddress,account,'getTotalDenormalizedWeight',[]);
-    result.tokenNums=await getPoolMessage(poolAddress,account,'getNumTokens',[]);
+export async function getPoolDetails(poolAddress, account) {
+    let result = {}
+    result.poolID = poolAddress
+    result.accountID = account
+    result.finalize = await getPoolMessage(
+        poolAddress,
+        account,
+        'isFinalized',
+        []
+    )
+    result.controllerID = await getPoolMessage(
+        poolAddress,
+        account,
+        'getController',
+        []
+    )
+    result.swapFee = await getPoolMessage(
+        poolAddress,
+        account,
+        'getSwapFee',
+        []
+    )
+
+    result.cptAmount = await getPoolMessage(poolAddress, account, 'balanceOf', [
+        account,
+    ])
+
+    result.denormal = await getPoolMessage(
+        poolAddress,
+        account,
+        'getTotalDenormalizedWeight',
+        []
+    )
+    result.tokenNums = await getPoolMessage(
+        poolAddress,
+        account,
+        'getNumTokens',
+        []
+    )
     console.log(result)
-    return result;
+    create(result)
+    createPoolToken(tokens, result.poolID)
+    store.commit('IS_UPDATE', true)
+    return result
 }
 
-export async function getPoolMessage(poolAddress,account,message,params){
-    let contract = new ContractPromise(api, poolAbi, poolAddress);
-    let { result,output } = await contract.query[message](account,{ value: 0, gasLimit: -1 },...params);
-    if (result.isOk){
-        return output.toHuman();
-    }
-    else{
-        return result.asErr;
+export async function getPoolMessage(poolAddress, account, message, params) {
+    let contract = new ContractPromise(api, poolAbi, poolAddress)
+    let { result, output } = await contract.query[message](
+        account,
+        { value: 0, gasLimit: -1 },
+        ...params
+    )
+    if (result.isOk) {
+        return output.toHuman()
+    } else {
+        return result.asErr
     }
 }
 

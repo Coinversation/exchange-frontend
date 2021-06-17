@@ -133,7 +133,7 @@ export default {
 		},
 	},
 	components: {
-		Jazzicon,
+		// Jazzicon,
 	},
 	mounted() {
 		console.log(this.items);

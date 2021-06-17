@@ -8,21 +8,22 @@ import router from '@/router'
 
 // 创建一个 axios 实例
 const service = axios.create({
-    baseURL: process.env.VUE_APP_DATABASEURL,
+    baseURL: '/',
     withCredentials: false, // 跨域请求，允许保存cookie
     timeout: 100000, // 请求超时时间
     headers: {
-        'Content-Type': 'application/x-www-form-urlencoded;charset=UTF-8',
+        // 'Content-Type': 'application/x-www-form-urlencoded;charset=UTF-8',
+        'Content-Type': 'application/json;charset=UTF-8',
     },
 })
 
 // HTTPrequest拦截
 service.interceptors.request.use(
     (config) => {
-        const { auth } = store.state.web3
-        console.log(auth)
+        // console.log(store)
+        // const { userInfo } = store.state.web3
         const commonData = {
-            accountID: auth.userInfo.account ? auth.userInfo.account : '',
+            // accountID: userInfo.account ? userInfo.account : '',
             // session_id: auth.sessionID ? auth.sessionID : '',
             // operator_id: auth.currentUser ? auth.currentUser.Operator.Id : '',
         }
@@ -53,7 +54,8 @@ service.interceptors.request.use(
             } else {
                 config.url += '?' + joinedCommonDataStr.substr(1)
             }
-            config.data = qs.stringify(config.data)
+            // config.data = qs.stringify(config.data)
+            config.data
         }
         return config
     },

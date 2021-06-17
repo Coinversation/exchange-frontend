@@ -10,4 +10,16 @@ module.exports = {
     transpileDependencies: ['@coreui/utils'],
     // use this option for production linking
     // publicPath: process.env.NODE_ENV === 'production' ? '/vue/demo/3.1.0' : '/'
+    devServer: {
+        proxy: {
+            //配置跨域
+            '/api': {
+                target: 'http://8.210.86.149:5001/',
+                changOrigin: true,
+                pathRewrite: {
+                    '^/': '',
+                },
+            },
+        },
+    },
 }

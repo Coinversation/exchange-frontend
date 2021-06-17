@@ -26,12 +26,21 @@
 									/>
 								</div>
 								<span
-									class="d-flex justify-content-center align-items-center mr-2"
+									class="
+										d-flex
+										justify-content-center
+										align-items-center
+										mr-2
+									"
 									v-for="(data, index) in item.tokens"
 									:key="index"
 								>
 									<i
-										class="m-1 d-flex justify-content-center"
+										class="
+											m-1
+											d-flex
+											justify-content-center
+										"
 										:style="{
 											width: '10px',
 											height: '10px',
@@ -39,7 +48,7 @@
 											backgroundColor: data.color,
 										}"
 									></i>
-									{{ data.num }}
+									{{ data.num / 10 }}%
 									{{ data.symbol }}
 								</span>
 							</div>
@@ -48,7 +57,7 @@
 
 					<template slot="swapFee" slot-scope="{ item }">
 						<td>
-							<span>{{ item.swapFee }}%</span>
+							<span>{{ item.swapFee * 10 }}%</span>
 						</td>
 					</template>
 					<template slot="marketCap" slot-scope="{ item }">
@@ -131,7 +140,7 @@ export default {
 		},
 		rowClicked(item) {
 			console.log(item);
-			this.$router.push({ path: `/explore-pools/${item.poolAddress}` });
+			this.$router.push({ path: `/explore-pools/${item}` });
 		},
 		pageChange(val) {
 			this.$router.push({ query: { page: val } });

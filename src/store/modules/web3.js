@@ -8,8 +8,7 @@ import { keyring } from '@polkadot/ui-keyring'
 import { Option, Raw } from '@polkadot/types'
 import abi from '../../abi/pat_standard.json'
 import { useApi, useChainInfo } from '../../helpers'
-import { createPool, getPoolDetails } from '../../helpers/web3'
-import { create } from '@/api'
+import { createPool } from '../../helpers/web3'
 
 import {
     isWeb3Injected,
@@ -36,6 +35,7 @@ const state = {
     tokenDecimals: 10,
     tokenSymbol: lsGet('tokenSymbol') || '',
     pageLoading: false,
+    isUpdate: false,
 }
 
 const api = useApi()
@@ -191,6 +191,10 @@ const mutations = {
         Vue.set(_state, 'pageLoading', payload)
         // lsSet('pageLoading', payload)
     },
+    IS_UPDATE(_state, payload) {
+        Vue.set(_state, 'isUpDate', payload)
+        // lsSet('pageLoading', payload)
+    },
 }
 const injectedPromise = web3Enable('polkadot-js/apps')
 function isKeyringLoaded() {
@@ -233,7 +237,6 @@ const actions = {
                 ]
             })
         )
-        console.log(169, metadata)
         commit('LOAD_TOKEN_METADATA_SUCCESS', metadata)
     },
     loadTokenMetadata: async ({ commit }, tokens) => {
@@ -343,15 +346,9 @@ const actions = {
     },
     getCreatePool: async ({ commit }, a) => {
         console.log('a')
-        await createPool(a.a, a.b, a.c)
-       
-        // console.log(344, chainInfo)
-        // await getPoolDetails(
-        //     store.state.app.poolAccount,
-        //     store.state.web3.userInfo.account
-        // )
-        
-        //await create()
+        await createPool(a.a, a.b, a.c).then((data) => {
+            console.log(data)
+        })
     },
     getPoolBalances: async (_state, { poolAddress, tokens }) => {},
     getBalances: async ({ commit }, tokens) => {

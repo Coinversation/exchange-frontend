@@ -95,14 +95,16 @@
 <script>
 // import poolListData from "../../mock/poolListDataShared";
 import vettedTokenList from "../../config/vetted_tokenlist";
-import poolListData from "../../mock/poolListDataPrivate";
+// import poolListData from "../../mock/poolListDataPrivate";
 import PoolList from "../../components/List/PoolList";
 import confTokenTable from "../../components/Tables/confTokenTable";
+import { poolList } from "@/api";
 export default {
 	name: "Users",
 	data() {
 		return {
-			items: poolListData,
+			items: [],
+			// items: poolListData,
 			vettedTokenListData: vettedTokenList.tokens,
 			darkModal: false,
 			fields: [
@@ -135,7 +137,18 @@ export default {
 			},
 		},
 	},
+	created() {
+		this.getPoolList();
+	},
 	methods: {
+		getPoolList() {
+			poolList().then(({ data }) => {
+				console.log(data);
+				if (data.code == 0) {
+					this.items = data.data.list;
+				}
+			});
+		},
 		getBadge(status) {
 			switch (status) {
 				case "Active":
