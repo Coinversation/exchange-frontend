@@ -64,11 +64,12 @@ async function getInjectedAccounts(injectedPromise) {
 const api = useApi()
 let currentPair
 let tokenCal = 0
+let tokenNum=0
 
 export async function createPool(accountId, factory, params) {
     store.commit('PAGE_LOADING', true)
     console.log(params)
-    const tokenNum = params.token.length
+    tokenNum = params.token.length
     tokenCal=0
     await api.isReady
     let res = { isSuccess: 0, data: { poolAccount: '', tokenAccount: '' } }
@@ -155,12 +156,6 @@ export async function createPool(accountId, factory, params) {
                         params.token.length
                     )
                 })
-                if (tokenCal == tokenNum) {
-                    finalize(
-                        res.data.poolAccount,
-                        currentNonce.add(new BN(1 + params.token.length))
-                    )
-                }
                 return res
             } else if (result.isError) {
                 res.isSuccess = 0
@@ -239,6 +234,14 @@ export async function bind(
                         console.log(tokenAddress + ' bind is success')
                         tokenCal++
                         console.log(tokenCal)
+
+                        if (tokenCal == tokenNum) {
+                            nonce++
+                            finalize(
+                                contractAddress,
+                                nonce
+                            )
+                        }
                     }
                 })
         } else if (result.isError) {
@@ -291,7 +294,7 @@ export async function finalize(contractAddress, nonce) {
                                 contractAddress + ' finalize is success'
                             )
                             store.commit('PAGE_LOADING', false)
-                            // getPoolAddress()
+                            getPoolDetails(contractAddress,currentPair.address)
                         }
                     })
             } else if (result.isError) {
@@ -305,12 +308,13 @@ export async function getPoolDetails(poolAddress,account) {
     let result={};
     result.poolID=poolAddress;
     result.accountID=account;
-    result.finalize=await getPoolMessage(poolAddress,account,'finalize',[]);
+    result.finalize=await getPoolMessage(poolAddress,account,'isFinalized',[]);
     result.controllerID=await getPoolMessage(poolAddress,account,'getController',[]);
     result.swapFee=await getPoolMessage(poolAddress,account,'getSwapFee',[]);
-    result.cptAmount=await getPoolMessage(poolAddress,account,'balanceOf',[]);
-    result.denormal=await getPoolMessage(poolAddress,account,'getTotalDenormalizedWeight',[account]);
+    result.cptAmount=await getPoolMessage(poolAddress,account,'balanceOf',[account]);
+    result.denormal=await getPoolMessage(poolAddress,account,'getTotalDenormalizedWeight',[]);
     result.tokenNums=await getPoolMessage(poolAddress,account,'getNumTokens',[]);
+    console.log(result)
     return result;
 }
 

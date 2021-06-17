@@ -342,14 +342,16 @@ const actions = {
         }
     },
     getCreatePool: async ({ commit }, a) => {
-        // console.log(c)
+        console.log('a')
         await createPool(a.a, a.b, a.c)
+       
         // console.log(344, chainInfo)
-        await getPoolDetails(
-            store.state.app.poolAccount,
-            store.state.web3.userInfo.account
-        )
-        await create()
+        // await getPoolDetails(
+        //     store.state.app.poolAccount,
+        //     store.state.web3.userInfo.account
+        // )
+        
+        //await create()
     },
     getPoolBalances: async (_state, { poolAddress, tokens }) => {},
     getBalances: async ({ commit }, tokens) => {
