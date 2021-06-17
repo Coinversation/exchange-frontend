@@ -216,7 +216,7 @@ export async function bind(
 ) {
     console.log('bind nonce:' + nonce)
     let fromAcct = await getFromAcct()
-    let denorm = new BN(weights + '0000000000')
+    let denorm = new BN(weights + '000000000')
     let contract = new ContractPromise(api, poolAbi, contractAddress)
     await contract.tx['bind'](
         { value: 0, gasLimit: -1 },
