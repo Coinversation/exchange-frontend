@@ -298,7 +298,29 @@ export async function finalize(contractAddress, nonce) {
     )
 }
 
-export async function getPoolAddress() {}
+export async function getPoolDetails(poolAddress,account) {
+    let result={};
+    result.poolID=poolAddress;
+    result.accountID=account;
+    result.finalize=await getPoolMessage(poolAddress,account,'finalize',[]);
+    result.controllerID=await getPoolMessage(poolAddress,account,'getController',[]);
+    result.swapFee=await getPoolMessage(poolAddress,account,'getSwapFee',[]);
+    result.cptAmount=await getPoolMessage(poolAddress,account,'balanceOf',[]);
+    result.denormal=await getPoolMessage(poolAddress,account,'getTotalDenormalizedWeight',[account]);
+    result.tokenNums=await getPoolMessage(poolAddress,account,'getNumTokens',[]);
+    return result;
+}
+
+export async function getPoolMessage(poolAddress,account,message,params){
+    let contract = new ContractPromise(api, poolAbi, poolAddress);
+    let { result,output } = await contract.query[message](account,{ value: 0, gasLimit: -1 },params);
+    if (result.isOk){
+        return output.toHuman();
+    }
+    else{
+        return result.asErr;
+    }
+}
 
 export async function joinPool(contractAddress, poolAmountOut, tokenList) {
     let fromAcct = await getFromAcct()
