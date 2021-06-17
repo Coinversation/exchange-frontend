@@ -10,7 +10,7 @@
     },
     "tokens": [
         {
-            "address": "VwuS8w4xNRJgyn2KLReJ62gWnawxUxZHTTDTFGnTczYhXRB",
+            "address": "16mSvEhDyrMgMZr5MzzhrtkbHwLi6zUuMeTmwVwQMqyqQ2mg",
             "chainId": 1,
             "name": "USD Coin",
             "symbol": "USDC",
@@ -18,7 +18,7 @@
             "logoURL": "https://raw.githubusercontent.com/trustwallet/assets/master/blockchains/ethereum/assets/0xA0b86991c6218b36c1d19D4a2e9Eb0cE3606eB48/logo.png"
         },
         {
-            "address": "W5PyAfrvVXi4BcVEEuUrJmvQmcwHRyjbt2u31zePY7QR1gn",
+            "address": "15oTkEAc85Nvk7ajTgy1F8etmhfcbsbL8SbxNKeozVQJa8jC",
             "chainId": 1,
             "name": "Dai Stablecoin",
             "symbol": "DAI",
@@ -27,7 +27,7 @@
         },
 
         {
-            "address": "Xpmf8aRNQbe1G6L29TUmhPmAkTJa3cEHFv5dU4VXNetpH1D",
+            "address": "14cVdxPtrd1ZUrYkCMcKW2YfBbwCR4t27Yi5jg4iFFnYLttt",
             "chainId": 1,
             "name": "Synthetix Network Token",
             "symbol": "SNX",
