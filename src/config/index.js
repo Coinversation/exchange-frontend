@@ -7,8 +7,8 @@ import rinkeby from '@/config/rinkeby.json'
 
 const registry = {
     tokens: {
-        "VwuS8w4xNRJgyn2KLReJ62gWnawxUxZHTTDTFGnTczYhXRB": {
-            "address": "VwuS8w4xNRJgyn2KLReJ62gWnawxUxZHTTDTFGnTczYhXRB",
+        "16mSvEhDyrMgMZr5MzzhrtkbHwLi6zUuMeTmwVwQMqyqQ2mg": {
+            "address": "16mSvEhDyrMgMZr5MzzhrtkbHwLi6zUuMeTmwVwQMqyqQ2mg",
             "id": "usdc",
             "name": "USD Coin",
             "symbol": "USDC",
@@ -20,8 +20,8 @@ const registry = {
             "hasIcon": false,
             "logoURL": "https://raw.githubusercontent.com/trustwallet/assets/master/blockchains/ethereum/assets/0xA0b86991c6218b36c1d19D4a2e9Eb0cE3606eB48/logo.png"
           },
-          "W5PyAfrvVXi4BcVEEuUrJmvQmcwHRyjbt2u31zePY7QR1gn": {
-            "address": "W5PyAfrvVXi4BcVEEuUrJmvQmcwHRyjbt2u31zePY7QR1gn",
+          "15oTkEAc85Nvk7ajTgy1F8etmhfcbsbL8SbxNKeozVQJa8jC": {
+            "address": "15oTkEAc85Nvk7ajTgy1F8etmhfcbsbL8SbxNKeozVQJa8jC",
             "id": "dai",
             "name": "Dai Stablecoin",
             "symbol": "DAI",
@@ -33,8 +33,8 @@ const registry = {
             "hasIcon": false,
             "logoURL": "https://raw.githubusercontent.com/trustwallet/assets/master/blockchains/ethereum/assets/0x6B175474E89094C44Da98b954EedeAC495271d0F/logo.png"
           },
-          "Xpmf8aRNQbe1G6L29TUmhPmAkTJa3cEHFv5dU4VXNetpH1D": {
-            "address": "Xpmf8aRNQbe1G6L29TUmhPmAkTJa3cEHFv5dU4VXNetpH1D",
+          "14cVdxPtrd1ZUrYkCMcKW2YfBbwCR4t27Yi5jg4iFFnYLttt": {
+            "address": "14cVdxPtrd1ZUrYkCMcKW2YfBbwCR4t27Yi5jg4iFFnYLttt",
             "id": "snx",
             "name": "Synthetix Network Token",
             "symbol": "SNX",
@@ -50,12 +50,15 @@ const registry = {
     untrusted: [],
 }
 
-const configs = { homestead, kovan, rinkeby }
+const configs = { homestead, kovan }
 configs.homestead = merge(registry, configs.homestead)
 configs.kovan = merge(registry, configs.kovan)
-configs.rinkeby = merge(registry, configs.rinkeby)
+//configs.rinkeby = merge(registry, configs.rinkeby)
 const network = process.env.VUE_APP_NETWORK || 'homestead'
+console.log(network)
 const config = configs[network]
+console.log(kovan)
+console.log(configs.kovan)
 config.env = process.env.VUE_APP_ENV || 'staging'
 
 export default config

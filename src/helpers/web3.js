@@ -69,6 +69,7 @@ export async function createPool(accountId, factory, params) {
     store.commit('PAGE_LOADING', true)
     console.log(params)
     const tokenNum = params.token.length
+    tokenCal=0
     await api.isReady
     let res = { isSuccess: 0, data: { poolAccount: '', tokenAccount: '' } }
     //const injectedPromise = await web3Enable('polkadot-js/apps');
@@ -88,13 +89,13 @@ export async function createPool(accountId, factory, params) {
         address,
         meta: { ...meta, name: `${meta.name} (${meta.source})` },
     }))
-    keyring.loadAll({ isDevelopment: true }, injectedAccounts)
+    isKeyringLoaded() || keyring.loadAll({ isDevelopment: true }, injectedAccounts)
     const salt = new Date()
         .getTime()
         .toString()
         .substring(0, 9)
-    const tokenEndowment = 2000000n * 1000000000000n
-    const poolEndowment = 2000000n * 1000000000000n
+    const tokenEndowment = 20000n * 10000000000n
+    const poolEndowment = 20000n * 10000000000n
     currentPair = keyring.getPair(accountId)
     // if (currentPair.isLocked){
     //   currentPair.unlock();
@@ -132,12 +133,6 @@ export async function createPool(accountId, factory, params) {
                         }
                     })
                 console.log(res)
-                return res
-            } else if (result.isError) {
-                res.isSuccess = 0
-                console.log(res)
-                return res
-            } else if (result.status.isFinalized) {
                 currentNonce = currentNonce.add(new BN(1))
                 setSwapFee(
                     res.data.poolAccount,
@@ -146,7 +141,7 @@ export async function createPool(accountId, factory, params) {
                 )
                 params.token.forEach(({ address, amounts, weights }) => {
                     currentNonce = currentNonce.add(new BN(1))
-                    let amount = new BN(amounts * Math.pow(10, 12))
+                    let amount = new BN(amounts * Math.pow(10, 10))
                     let tempNonce = currentNonce
                     console.log(address)
                     console.log(amount.toNumber())
@@ -165,6 +160,13 @@ export async function createPool(accountId, factory, params) {
                         currentNonce.add(new BN(1 + params.token.length))
                     )
                 }
+                return res
+            } else if (result.isError) {
+                res.isSuccess = 0
+                console.log(res)
+                return res
+            } else if (result.status.isFinalized) {
+                
             }
         })
 }
@@ -313,7 +315,7 @@ export async function getPoolDetails(poolAddress,account) {
 
 export async function getPoolMessage(poolAddress,account,message,params){
     let contract = new ContractPromise(api, poolAbi, poolAddress);
-    let { result,output } = await contract.query[message](account,{ value: 0, gasLimit: -1 },params);
+    let { result,output } = await contract.query[message](account,{ value: 0, gasLimit: -1 },...params);
     if (result.isOk){
         return output.toHuman();
     }
