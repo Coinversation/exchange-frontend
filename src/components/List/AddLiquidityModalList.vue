@@ -26,8 +26,8 @@
 							<div
 								class="text-center d-flex justify-content-start"
 							>
-								{{ 0 }}
-								<CButton
+                            {{1}}
+                            <CButton
 									class="ml-3"
 									color="info"
 									variant="outline"
@@ -112,6 +112,61 @@ export default {
 			},
 		},
 	},
+	computed: {
+		balances() {
+			const balances = Object.entries(this.$store.state.web3.balances)
+				.filter(
+					([address]) =>
+						address !== this.$store.state.web3.tokenSymbol &&
+						this.$store.state.web3.tokenMetadata[address]
+				)
+				.map(([address, denormBalance]) => {
+					const price = this.$store.state.price.values[address];
+					const spstr = denormBalance.split("");
+
+					this.$store.state.price.si.filter((item) => {
+						if (item.value === spstr[spstr.length - 1]) {
+							denormBalance =
+								denormBalance.substring(
+									0,
+									denormBalance.length - 1
+								) * Math.pow(10, item.power);
+							return denormBalance;
+						}
+					});
+
+					const balance = denormBalance;
+					return {
+						address,
+						name: this.$store.state.web3.tokenMetadata[address]
+							.name,
+						symbol: this.$store.state.web3.tokenMetadata[address]
+							.symbol,
+						price,
+						balance,
+						value: balance * price,
+					};
+				})
+				.filter(({ value }) => value > 0.001);
+			const dotPrice = this.$store.state.price.values["dot"];
+			const dotBalance =
+				this.$store.state.web3.balances[
+					this.$store.state.web3.tokenSymbol
+				];
+			return [
+				{
+					address: this.$store.state.web3.tokenSymbol,
+					name: this.$store.state.web3.tokenSymbol,
+					symbol: this.$store.state.web3.tokenSymbol,
+					price: dotPrice,
+					balance: dotBalance,
+					value: dotPrice * dotBalance,
+				},
+				...balances,
+			];
+		},
+	},
+	mounted() {},
 	methods: {
 		toggleDetails() {},
 		filterData(s) {
