@@ -2,9 +2,9 @@ import { validatenull } from '@/lib/validate'
 import axios from 'axios'
 import qs from 'qs'
 import store from '@/store'
-import util from '@/lib/util'
+// import util from '@/lib/util'
 import router from '@/router'
-import { basicAlerts } from '@/plugin/hintAlert'
+// import { basicAlerts } from '@/plugin/hintAlert'
 
 // 创建一个 axios 实例
 const service = axios.create({
@@ -19,11 +19,12 @@ const service = axios.create({
 // HTTPrequest拦截
 service.interceptors.request.use(
     (config) => {
-        const { auth } = store.state
+        const { auth } = store.state.web3
+        console.log(auth)
         const commonData = {
-            session_key: auth.currentUser ? auth.currentUser.SessionKey : '',
-            session_id: auth.sessionID ? auth.sessionID : '',
-            operator_id: auth.currentUser ? auth.currentUser.Operator.Id : '',
+            accountID: auth.userInfo.account ? auth.userInfo.account : '',
+            // session_id: auth.sessionID ? auth.sessionID : '',
+            // operator_id: auth.currentUser ? auth.currentUser.Operator.Id : '',
         }
 
         let joinedCommonDataStr = ''
@@ -86,7 +87,7 @@ service.interceptors.response.use(
             return
         }
         if (res.status && res.status === 200 && res.data.ReturnCode !== 0) {
-            basicAlerts(res.data.ReturnMessage)
+            // basicAlerts(res.data.ReturnMessage)
         }
 
         return data
@@ -116,9 +117,9 @@ service.interceptors.response.use(
                             error.response.data.error === 'invalid_token'
                         ) {
                             errMsg = 'Invalid Token'
-                            util.cookies.remove('token')
-                            util.cookies.remove('uuid')
-                            util.removeToken()
+                            // util.cookies.remove('token')
+                            // util.cookies.remove('uuid')
+                            // util.removeToken()
                             router.push({
                                 name: 'signIn',
                             })

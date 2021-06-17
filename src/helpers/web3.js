@@ -130,6 +130,7 @@ export async function createPool(accountId, factory, params) {
                             res.data.tokenAccount = data[0].toString()
                         } else if (method === 'NewAccount') {
                             res.data.poolAccount = data[0].toString()
+                            store.commit('POOL_ACCOUNT', res.data.poolAccount)
                         }
                     })
                 console.log(res)

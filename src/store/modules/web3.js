@@ -1,13 +1,15 @@
 import Vue from 'vue'
 import config from '@/config'
 import { lsGet, lsRemove, lsSet } from '@/lib/localStorage'
+import store from '@/store'
 
 import { ContractPromise } from '@polkadot/api-contract'
 import { keyring } from '@polkadot/ui-keyring'
 import { Option, Raw } from '@polkadot/types'
 import abi from '../../abi/pat_standard.json'
 import { useApi, useChainInfo } from '../../helpers'
-import { createPool } from '../../helpers/web3'
+import { createPool, getPoolDetails } from '../../helpers/web3'
+import { create } from '@/api'
 
 import {
     isWeb3Injected,
@@ -343,6 +345,11 @@ const actions = {
         // console.log(c)
         await createPool(a.a, a.b, a.c)
         // console.log(344, chainInfo)
+        await getPoolDetails(
+            store.state.app.poolAccount,
+            store.state.web3.userInfo.account
+        )
+        await create()
     },
     getPoolBalances: async (_state, { poolAddress, tokens }) => {},
     getBalances: async ({ commit }, tokens) => {
