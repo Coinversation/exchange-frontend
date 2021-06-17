@@ -1,5 +1,5 @@
 <template>
-	<CRow
+	<!-- <CRow
 		style="background-color: #6c6e7e; width: 100%; height: 100%;"
 		v-if="!loading"
 	>
@@ -11,9 +11,9 @@
 			<CSpinner color="primary" style="width: 4rem; height: 4rem" />
 			<h4 class="m-2">Executing, please do not quit.</h4>
 		</CCol>
-	</CRow>
+	</CRow> -->
 
-	<router-view v-else> </router-view>
+	<router-view> </router-view>
 </template>
 
 <script>

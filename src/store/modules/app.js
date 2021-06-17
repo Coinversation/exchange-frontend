@@ -7,6 +7,7 @@ const state = {
     vettedTokenListData: vettedTokenList.tokens,
     unlockTokenList: [],
     tokenExFilterList: lsGet('tokenExFilterList') || [],
+    poolAccount: '',
 }
 
 const mutations = {
@@ -17,6 +18,10 @@ const mutations = {
     TOKEN_EX_FILTER_LIST(_state, payload) {
         Vue.set(_state, 'tokenExFilterList', payload)
         lsSet('tokenExFilterList', payload)
+    },
+    POOL_ACCOUNT(_state, payload) {
+        Vue.set(_state, 'poolAccount', payload)
+        // lsSet('tokenExFilterList', payload)
     },
 
     // VETTED_TOKEN_LIST_DATA(_state, payload) {

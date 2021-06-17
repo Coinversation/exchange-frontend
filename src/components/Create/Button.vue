@@ -30,7 +30,7 @@
 <script>
 import { mapActions } from "vuex";
 import { bnum, scale } from "@/lib/utils";
-import { createPool } from "@/helpers/web3";
+import { create } from "@/api";
 import config from "@/config";
 
 export default {
@@ -85,20 +85,21 @@ export default {
 		nextRequiredApproval() {
 			if (!this.requireApprovals) return false;
 			const allowances = Object.fromEntries(
-				Object.entries(
-					this.$store.state.web3.allowances
-				).map((allowance) => [
-					allowance[0],
-					allowance[1][this.$store.state.web3.dsProxyAddress],
-				])
+				Object.entries(this.$store.state.web3.allowances).map(
+					(allowance) => [
+						allowance[0],
+						allowance[1][this.$store.state.web3.dsProxyAddress],
+					]
+				)
 			);
 			let nextRequiredApproval = false;
 			console.log(this.requireApprovals);
 			Object.entries(this.requireApprovals).forEach(
 				(requiredApproval) => {
-					const token = this.$store.state.web3.tokenMetadata[
-						requiredApproval[0]
-					];
+					const token =
+						this.$store.state.web3.tokenMetadata[
+							requiredApproval[0]
+						];
 					console.log(requiredApproval[1]);
 					console.log(
 						this.$store.state.web3.tokenMetadata[
