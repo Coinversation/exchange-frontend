@@ -26,8 +26,12 @@
 							<div
 								class="text-center d-flex justify-content-start"
 							>
-                            {{1}}
-                            <CButton
+								{{
+									balances.map((item) => {
+										return item;
+									})
+								}}
+								<CButton
 									class="ml-3"
 									color="info"
 									variant="outline"

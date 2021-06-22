@@ -26,7 +26,7 @@ export default {
 			return this.$store.state.web3.pageLoading;
 		},
 		isUpDate() {
-			return this.$store.state.web3.isUpDate ? this.loadWeb3 : "";
+			return this.$store.state.web3.isUpDate ? this.loadWeb3() : "";
 		},
 	},
 	methods: {
@@ -35,6 +35,7 @@ export default {
 	mounted() {
 		console.log(this.init());
 		this.init();
+        this.loadWeb3()
 	},
 };
 </script>
